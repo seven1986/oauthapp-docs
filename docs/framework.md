@@ -31,7 +31,7 @@ tags:
 === "API"
 
     ```JavaScript linenums="1"
-    oauthapp.ready()
+    oauthapp.ready() 
     .then(() => {
      // SDK 已经准备好使用，可以调用其他方法
     })

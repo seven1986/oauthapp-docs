@@ -1,7 +1,8 @@
 site_name: OAuthApp | 前端发布工具
 copyright: 版权所有 © 2023 oauthapp.com
-repo_url: https://github.com/seven1986/oauthapp-docs.git
-repo_name: seven1986/oauthapp-docs
+repo_url: https://github.com/seven1986/oauthapp-docs
+repo_name: OAuthApp 开发文档
+edit_uri: edit/main/docs/
 nav:
   -  首页:
      - 'index.md'
@@ -161,6 +162,8 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      permalink: true
 theme:
   name: material
   logo: assets/logo.png
@@ -177,8 +180,11 @@ theme:
     - navigation.tracking
     - navigation.indexes
     - toc.follow
-    - toc.integrate
-    - content.code.annotate
+    # - toc.integrate
+    - content.code.annotate #
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
     - search.share
     - search.highlight
     
@@ -203,6 +209,8 @@ theme:
   icon:
     repo: fontawesome/brands/git-alt
 plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
   - search:
       lang: en
   - tags:
