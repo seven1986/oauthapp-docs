@@ -1,0 +1,217 @@
+site_name: OAuthApp | 前端发布工具
+copyright: 版权所有 © 2023 oauthapp.com
+repo_url: https://gitee.com/seven1986/oauthapp-docs.git
+repo_name: oauthapp-docs
+nav:
+  -  首页:
+     - 'index.md'
+     - 'howtouse.md'
+     - 'doc.md'
+  - 文档:
+     - 'framework.md'
+     - 'framework_user.md'
+     - 'framework_fs.md'
+     - 'framework_storage.md'
+     - 'framework_rank.md'
+     - 'framework_chatmessage.md'
+     - 'framework_wechat.md'
+     - 'framework_order.md'
+     - 'framework_alipay.md'
+  - API:
+     - 'api.md'
+     - 'api_user.md'
+     - 'api_fs.md'
+     - 'api_storage.md'
+     - 'api_rank.md'
+     - 'api_chatmessage.md'
+     - 'api_wechat.md'
+     - 'api_order.md'
+     - 'api_alipay.md'
+  - 教程:
+      #- SDK示例:
+      - 'coding.md'
+      - 脚本库与API:
+        - 应用:
+            - 'coding_sdk_app_ready.md'
+            - 'coding_sdk_app_allready.md'
+            - 'coding_sdk_app___apppropvalue.md'
+        - 用户:
+            - 'code_sdk_user_signInwithwebidentity.md'
+            - 'code_sdk_user_accountsignup.md'
+            - 'code_sdk_user_accountsignin.md'
+            - 'code_sdk_user_signin.md'
+            - 'code_sdk_user_signup.md'
+            - 'code_sdk_user_minipsigninqrcode.md'
+            - 'code_sdk_user_minipsigninresult.md'
+            - 'code_sdk_user_dingtalksignin.md'
+            - 'code_sdk_user_accesstokensignIn.md'
+            - 'code_sdk_user_sso.md'
+            - 'code_sdk_user_profile.md'
+            - 'code_sdk_user_profileput.md'
+            - 'coding_sdk_pointlogs.md'
+        - 存储:
+            - 'coding_sdk_fs_upload.md'
+        - 数据库:
+            - 'coding_sdk_storage_tables.md'
+            - 'coding_sdk_storage_table.md'
+            - 'coding_sdk_storage_tablepost.md'
+            - 'coding_sdk_storage_tabledetail.md'
+            - 'coding_sdk_storage_tabledelete.md'
+            - 'coding_sdk_storage_tableput.md'
+        - 排行榜:
+            - 'coding_sdk_rank_ranks.md'
+            - 'coding_sdk_rank_rank.md'
+            - 'coding_sdk_rank_rankstatistics.md'
+            - 'coding_sdk_rank_rankofuser.md'
+            - 'coding_sdk_rank_ranksubmit.md'
+        - 消息:
+            - 'coding_sdk_chatmessage_messagetables.md'
+            - 'coding_sdk_chatmessage_messagecategories.md'
+            - 'coding_sdk_chatmessage_messages.md'
+            - 'coding_sdk_chatmessage_messagepost.md'
+            - 'coding_sdk_chatmessage_messageput.md'
+            - 'coding_sdk_chatmessage_messagedelete.md'
+        - 微信:
+            - 'coding_sdk_wechat_wechatsubscribesend.md'
+            - 'coding_sdk_wechat_wechaturllinkgenerate.md'
+            - 'coding_sdk_wechat_wechatgeneratescheme.md'
+            - 'coding_sdk_wechat_wechatwxacodeget.md'
+            - 'coding_sdk_wechat_wechatwxacodegetunlimited.md'
+            - 'coding_sdk_wechat_wechatjscode2session.md'
+            - 'coding_sdk_wechat_wechatdecrypt.md'
+            - 'coding_sdk_wechat_wechatuserinfo.md'
+            - 'coding_sdk_wechat_wechatsubscribemsg.md'
+            - 'coding_sdk_wechat_wechatjsconfig.md'
+        - 订单:
+            - 'coding_sdk_order_orders.md'
+            - 'coding_sdk_order_ordercreate.md'
+            - 'coding_sdk_order_order.md'
+        - 支付宝:
+            - 'coding_sdk_alipayCreateOrderPagePay.md'
+            - 'coding_sdk_alipayCreateOrderWapPay.md'
+            - 'coding_sdk_alipayOrder.md'
+            - 'coding_sdk_alipayOrderRefund.md'
+            - 'coding_sdk_alipayReturnPageNotify.md'
+      - 功能应用:
+        - 'code_dingtalk_openai_robot.md'
+        - 'code_ssltool.md'
+        - 'code_appdomain.md'
+        - 'code_useraccesskey.md'
+        - 私有云部署:
+          - 'code_saas.md'
+          - 'code_togglesaas.md'
+          - 'code_saassettings.md'
+        - 'code_onlinepay.md'
+        # - 小游戏:
+        #     - 'coding_game_savepig.md'
+    #  - 'example_appuser.md'
+    #  - 'example_database.md'
+    #  - 'example_rank.md'
+    #  - 'example_messages.md'
+    #  - 'example_other.md'
+  - 'apitool.md'
+  # - 模板:
+  #     - 'master.md'
+  #     - 'codegen.md'
+  - 'qa.md'
+  - 更新日志: 
+      - 'logs.md'
+      - 'sdk.1.1.md'
+      - 'sdk.1.0.md'
+
+  # - 项目:
+  #     - 应用开发:
+  #         - 用户管理:
+  #           - 'signup.md'
+  #           - 'signin.md'
+  #           - 'unionid_signup.md'
+  #           - 'unionid_signin.md'
+  #           - 'minip_signup.md'
+  #           - 'updateprofile.md'
+  #           - 'sso.md'
+  #         - 数据库:
+  #           - 'storage_tool.md'
+  #           - 'h5wiki.md'
+  #         - 排行榜:
+  #           - 'rank.md'
+  
+markdown_extensions:
+  - abbr
+  - attr_list
+  - pymdownx.snippets
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  font: false
+  language: zh
+  custom_dir: overrides
+  features:
+    - navigation.tabs
+    - navigation.sections
+    #- navigation.expand
+    - navigation.prune
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - toc.follow
+    - toc.integrate
+    - content.code.annotate
+    - search.share
+    - search.highlight
+    
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  icon:
+    repo: fontawesome/brands/git-alt
+plugins:
+  - search:
+      lang: en
+  - tags:
+      tags_file: tags.md
+  - offline
+extra_javascript:
+  - javascripts/tablesort.min.js
+  - javascripts/tablesort.js
+extra:
+  social:
+    - icon: fontawesome/brands/git 
+      link: https://gitee.com/seven1986/oauthapp-docs.git

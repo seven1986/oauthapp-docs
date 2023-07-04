@@ -1,0 +1,27 @@
+# 服务器配置
+
+## 服务器域名
+
+服务器域名即代表当前私有云服务器的独立域名，同时也是该服务器下所有应用站点的根域名。
+
+> 例如：{appId}.{subdomain}.oauthapp.com
+
+???+ note "提示"
+    当使用[自定义域名](https://docs.oauthapp.com/code_saas/#_2)时，必须配置阿里云AccessKey，且该域名与AccessKey属于同一账号。
+
+
+## 阿里云 AccessKey
+
+请确认在阿里云[RAM 访问控制](https://ram.console.aliyun.com/users)页面中，创建一个用户，并授权如下权限：
+
+- AliyunDNSFullAccess：管理云解析(DNS)的权限
+- AliyunDirectMailFullAccess：管理邮件推送(DirectMail)的权限
+- AliyunDysmsFullAccess：管理短信服务(SMS)的权限
+
+<!-- ## 阿里云 短信 服务器
+
+默认无需修改，短信服务器地址与私有云区域一至。
+
+## 阿里云 DNS 服务器
+
+默认无需修改，DNS服务器地址默认与私有云区域一至。 -->

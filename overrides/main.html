@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block footer %}
+  {{ super() }}
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?18837f06fe63799bb88d0740691a40e8";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+{% endblock %}
