@@ -1,7 +1,7 @@
 site_name: OAuthApp | 前端发布工具
 copyright: 版权所有 © 2023 oauthapp.com
-repo_url: https://gitee.com/seven1986/oauthapp-docs.git
-repo_name: oauthapp-docs
+repo_url: https://github.com/seven1986/oauthapp-docs.git
+repo_name: seven1986/oauthapp-docs
 nav:
   -  首页:
      - 'index.md'
