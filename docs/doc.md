@@ -10,7 +10,7 @@
 
 3，点击创建
 
-![image](https://2.fs.oauthapp.com/doc/1.png)
+![image](https://2.fs.oauthapp.com/doc/1.png){ loading=lazy }
 
 ## 项目配置
 
@@ -26,9 +26,9 @@
 
 3，点击“服务器”
 
-![image](https://2.fs.oauthapp.com/doc/2.png)
+![image](https://2.fs.oauthapp.com/doc/2.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/3.png)
+![image](https://2.fs.oauthapp.com/doc/3.png){ loading=lazy }
 
 ### 小程序
 功能说明：统一为应用配置微信小程序ClientID 、 ClientSecret。
@@ -41,9 +41,9 @@
 
 3，点击 “微信小程序”
 
-![image](https://2.fs.oauthapp.com/doc/4.png)
+![image](https://2.fs.oauthapp.com/doc/4.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/5.png)
+![image](https://2.fs.oauthapp.com/doc/5.png){ loading=lazy }
 
 ### 项目配置
 功能说明：使用 Vs Code 快速打开本地项目
@@ -56,9 +56,9 @@
 
 3，点击 “项目配置”
 
-![image](https://2.fs.oauthapp.com/doc/6.png)
+![image](https://2.fs.oauthapp.com/doc/6.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/7.png)
+![image](https://2.fs.oauthapp.com/doc/7.png){ loading=lazy }
 
 ## 创建应用
 操作步骤：
@@ -69,9 +69,9 @@
 
 3，点击创建
 
-![image](https://2.fs.oauthapp.com/doc/8.png)
+![image](https://2.fs.oauthapp.com/doc/8.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/9.png)
+![image](https://2.fs.oauthapp.com/doc/9.png){ loading=lazy }
 
 ## 应用管理
 ### 应用发布
@@ -85,17 +85,17 @@
 
 3，输入”版本号“、“更新内容”，点击“确认”
 
-![image](https://2.fs.oauthapp.com/doc/10.png)
+![image](https://2.fs.oauthapp.com/doc/10.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/11.png)
+![image](https://2.fs.oauthapp.com/doc/11.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/12.png)
+![image](https://2.fs.oauthapp.com/doc/12.png){ loading=lazy }
 
 ### 发布通知
 
-![image](https://2.fs.oauthapp.com/doc/59.png)
+![image](https://2.fs.oauthapp.com/doc/59.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/60.png)
+![image](https://2.fs.oauthapp.com/doc/60.png){ loading=lazy }
 
 功能说明：应用发布成功后，通知到钉钉群。
 
@@ -105,27 +105,27 @@
 
 2，打开应用配置、钉钉应用、机器人令牌，按照1行1个的格式，配置好后，提交更新即可
 
-![image](https://2.fs.oauthapp.com/doc/61.png)
+![image](https://2.fs.oauthapp.com/doc/61.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/62.png)
+![image](https://2.fs.oauthapp.com/doc/62.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/63.png)
+![image](https://2.fs.oauthapp.com/doc/63.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/64.png)
+![image](https://2.fs.oauthapp.com/doc/64.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/65.png)
+![image](https://2.fs.oauthapp.com/doc/65.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/66.png)
+![image](https://2.fs.oauthapp.com/doc/66.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/67.png)
+![image](https://2.fs.oauthapp.com/doc/67.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/68.png)
+![image](https://2.fs.oauthapp.com/doc/68.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/69.png)
+![image](https://2.fs.oauthapp.com/doc/69.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/70.png)
+![image](https://2.fs.oauthapp.com/doc/70.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/71.png)
+![image](https://2.fs.oauthapp.com/doc/71.png){ loading=lazy }
 
 
 ### 在线编辑
@@ -139,7 +139,7 @@
 
 3，在弹出的模态窗口中，单击文件，进行编辑
 
-![image](https://2.fs.oauthapp.com/doc/13.png)
+![image](https://2.fs.oauthapp.com/doc/13.png){ loading=lazy }
 
 ### 版本管理
 功能说明：查看发布历史版本、版本回滚。
@@ -152,7 +152,7 @@
 
 3，单击”预览备份“，查看下历史发布文件 / 单击”版本回滚“，将该历史版本发布到服务器。
 
-![image](https://2.fs.oauthapp.com/doc/14.png)
+![image](https://2.fs.oauthapp.com/doc/14.png){ loading=lazy }
 
 ### 基本信息
 功能说明：设置应用的基本信息，如图标、描述、站点路径等。
@@ -164,7 +164,7 @@
 
 3，单击 ”提交“保存
 
-![image](https://2.fs.oauthapp.com/doc/15.png)
+![image](https://2.fs.oauthapp.com/doc/15.png){ loading=lazy }
 
 ### 应用配置
 
@@ -181,11 +181,11 @@
 
 3，点击”更新“保存设置
 
-![image](https://2.fs.oauthapp.com/doc/16.png)
+![image](https://2.fs.oauthapp.com/doc/16.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/17.png)
+![image](https://2.fs.oauthapp.com/doc/17.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/18.png)
+![image](https://2.fs.oauthapp.com/doc/18.png){ loading=lazy }
 
 #### Azure 
 功能说明：azure blob 上传文件
@@ -198,9 +198,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/19.png)
+![image](https://2.fs.oauthapp.com/doc/19.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/20.png)
+![image](https://2.fs.oauthapp.com/doc/20.png){ loading=lazy }
 
 #### 钉钉应用
 功能说明：
@@ -217,9 +217,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/21.png)
+![image](https://2.fs.oauthapp.com/doc/21.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/22.png)
+![image](https://2.fs.oauthapp.com/doc/22.png){ loading=lazy }
 
 #### Client
 
@@ -233,9 +233,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/23.png)
+![image](https://2.fs.oauthapp.com/doc/23.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/24.png)
+![image](https://2.fs.oauthapp.com/doc/24.png){ loading=lazy }
 
 #### 微信小程序
 功能说明：
@@ -258,9 +258,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/25.png)
+![image](https://2.fs.oauthapp.com/doc/25.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/26.png)
+![image](https://2.fs.oauthapp.com/doc/26.png){ loading=lazy }
 
 #### 自定义
 功能说明：自定义场景开发。需要开启配置节点接口权限
@@ -273,9 +273,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/27.png)
+![image](https://2.fs.oauthapp.com/doc/27.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/28.png)
+![image](https://2.fs.oauthapp.com/doc/28.png){ loading=lazy }
 
 #### 微信 H5 API配置
 功能说明：初始化网页需要使用的JS SDK
@@ -288,9 +288,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/29.png)
+![image](https://2.fs.oauthapp.com/doc/29.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/30.png)
+![image](https://2.fs.oauthapp.com/doc/30.png){ loading=lazy }
 
 #### 应用分享配置
 功能说明：自定义场景开发。需要开启配置节点接口权限
@@ -303,9 +303,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/31.png)
+![image](https://2.fs.oauthapp.com/doc/31.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/32.png)
+![image](https://2.fs.oauthapp.com/doc/32.png){ loading=lazy }
 
 #### QQ开放平台
 功能说明：QQ oauth登录
@@ -318,9 +318,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/33.png)
+![image](https://2.fs.oauthapp.com/doc/33.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/34.png)
+![image](https://2.fs.oauthapp.com/doc/34.png){ loading=lazy }
 
 #### 微博开放平台
 功能说明：微博oauth登录
@@ -333,9 +333,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/35.png)
+![image](https://2.fs.oauthapp.com/doc/35.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/36.png)
+![image](https://2.fs.oauthapp.com/doc/36.png){ loading=lazy }
 
 #### 微信开放平台
 功能说明：微信 网页PC端 扫码登录
@@ -348,9 +348,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/37.png)
+![image](https://2.fs.oauthapp.com/doc/37.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/38.png)
+![image](https://2.fs.oauthapp.com/doc/38.png){ loading=lazy }
 
 #### 微信公众平台
 功能说明：微信 APP H5 登录
@@ -363,9 +363,9 @@
 
 3，点击“更新”
 
-![image](https://2.fs.oauthapp.com/doc/39.png)
+![image](https://2.fs.oauthapp.com/doc/39.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/40.png)
+![image](https://2.fs.oauthapp.com/doc/40.png){ loading=lazy }
 
 ### 统计分析
 功能说明：
@@ -382,9 +382,9 @@
 
 2，单击“统计分析”
 
-![image](https://2.fs.oauthapp.com/doc/41.png)
+![image](https://2.fs.oauthapp.com/doc/41.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/42.png)
+![image](https://2.fs.oauthapp.com/doc/42.png){ loading=lazy }
 
 ### 权限管理
 功能说明：根据角色配置系统权限。
@@ -401,9 +401,9 @@
 
 5，选择对应角色，单击“确认”
 
-![image](https://2.fs.oauthapp.com/doc/43.png)
+![image](https://2.fs.oauthapp.com/doc/43.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/44.png)
+![image](https://2.fs.oauthapp.com/doc/44.png){ loading=lazy }
 
 ### 数据备份
 功能说明：针对当前应用整个数据库的，备份/还原/下载/上传操作。
@@ -422,7 +422,7 @@
 
 6，单击“上传”，可从本地上传数据库文件
 
-![image](https://2.fs.oauthapp.com/doc/45.png)
+![image](https://2.fs.oauthapp.com/doc/45.png){ loading=lazy }
 
 ### 文件存储
 功能说明：应用文件存储站点，可绑定独立域名。
@@ -437,7 +437,7 @@
 
 4，单击文件列表中的单个文件，可查看文件详情
 
-![image](https://2.fs.oauthapp.com/doc/46.png)
+![image](https://2.fs.oauthapp.com/doc/46.png){ loading=lazy }
 
 ### 用户
 功能说明：应用的用户库模块
@@ -458,7 +458,7 @@
 
 7，单击“删除”，可删除指定用户
 
-![image](https://2.fs.oauthapp.com/doc/47.png)
+![image](https://2.fs.oauthapp.com/doc/47.png){ loading=lazy }
 
 ### 数据库
 功能说明：应用的数据库存储模块。
@@ -475,11 +475,11 @@
 
 5，单击“操作”下来菜单，可新增、导入、导出、清空、删除数据表
 
-![image](https://2.fs.oauthapp.com/doc/48.png)
+![image](https://2.fs.oauthapp.com/doc/48.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/49.png)
+![image](https://2.fs.oauthapp.com/doc/49.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/50.png)
+![image](https://2.fs.oauthapp.com/doc/50.png){ loading=lazy }
 
 ### 排行榜
 功能说明：应用的排行榜模块。
@@ -494,11 +494,11 @@
 
 4，单击“操作”下拉菜单，可进行新增、导出、清空、删除数据
 
-![image](https://2.fs.oauthapp.com/doc/51.png)
+![image](https://2.fs.oauthapp.com/doc/51.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/52.png)
+![image](https://2.fs.oauthapp.com/doc/52.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/53.png)
+![image](https://2.fs.oauthapp.com/doc/53.png){ loading=lazy }
 
 ### 消息
 功能说明：应用消息聊天室功能模块。
@@ -513,9 +513,9 @@
 
 4，单击单条数据详情，可查看、编辑消息信息。
 
-![image](https://2.fs.oauthapp.com/doc/54.png)
+![image](https://2.fs.oauthapp.com/doc/54.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/55.png)
+![image](https://2.fs.oauthapp.com/doc/55.png){ loading=lazy }
 
 ## 服务器
 功能说明：公共、私有的web服务器，用于应用的发布托管
@@ -528,9 +528,9 @@
 
 3，单击“添加服务器”，可对接私有的web服务器（需要支持FTP协议）
 
-![image](https://2.fs.oauthapp.com/doc/56.png)
+![image](https://2.fs.oauthapp.com/doc/56.png){ loading=lazy }
 
-![image](https://2.fs.oauthapp.com/doc/57.png)
+![image](https://2.fs.oauthapp.com/doc/57.png){ loading=lazy }
 
 ## 证书管理
 功能说明：管理私有的SSL证书。
@@ -543,4 +543,4 @@
 
 3，单击“确认上传”
 
-![image](https://2.fs.oauthapp.com/doc/58.png)
+![image](https://2.fs.oauthapp.com/doc/58.png){ loading=lazy }

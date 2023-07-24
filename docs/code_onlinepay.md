@@ -1,9 +1,13 @@
 ---
 tags:
-  - 教程 - 功能应用
+  - 功能应用
 ---
 
 # 在线支付
+
+## 说明
+
+本文档提供了如何实现支付、订单相关的开发说明。
 
 ???+ note "提示"
     请确认您已开通了支付宝[电脑网站支付](https://open.alipay.com/api/detail?code=I1080300001000041203)和[手机网站支付](https://open.alipay.com/api/detail?code=I1080300001000041949)产品，并在应用配置——支付宝，配置了相关密钥。
@@ -178,9 +182,7 @@ graph LR
 
 > 系统订单的**支付状态**始终通过：支付宝异步通知、[oauthapp.alipayOrder](https://docs.oauthapp.com/framework_alipay/#_4)查询支付宝订单方法自动同步。
 
-## 其他
-
-### 订单状态说明
+## 订单状态说明
 
 | 状态码 | 说明 |
 | --- | --- |
@@ -189,7 +191,7 @@ graph LR
 | TRADE_SUCCESS | 已支付 |
 | WAIT_BUYER_PAY | 待支付 |
 
-### 系统订单商品类型
+## 系统订单商品类型
 
 ???+ note "提示"
     **productType**为**point**时，支付成功后，将触发充值积分操作。

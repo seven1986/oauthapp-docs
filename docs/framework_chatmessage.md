@@ -1,18 +1,20 @@
 ---
 tags:
-  - 客户端
+  - 文档
 ---
 
 # 消息
 
 ### 消息表集合
 
+oauthapp.messageTables
+
 获取当前应用中所有的消息表名称
 
 ???+ note "提示"
     消息表是用来存储不同类型消息的，例如：系统通知、私信消息、好友申请等等。这个方法可以用于列举所有的消息表，以便其他方法可以对指定的表进行增删改查等操作。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.messageTables().then(function(res){
@@ -20,7 +22,7 @@ tags:
     });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML
     <!DOCTYPE html>
@@ -44,12 +46,69 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/messageTables.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messagetables/){ .md-button }
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/messageTables.html){ .md-button }    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messagetables/){ .md-button }
+
+
+### 创建消息表
+
+oauthapp.messageCreate
+
+=== "方法"
+
+    ```JavaScript linenums="1"
+    oauthapp.messageCreate(table).then(function(res){
+        console.log(res);
+    });
+    ```
+
+=== "示例"
+
+    ```HTML linenums="1"
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>创建消息表</title>
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    </head>
+    <body>
+        <div>
+            <h3>创建消息表</h3>
+            <p>table：<input type="text" id="table" /></p>
+            <p>
+                <button type="button" id="actionButton">提交</button>
+            </p>
+        </div>
+        <div id="result"></div>
+        <script>
+            oauthapp.ready().then(function () {
+                $('#actionButton').click(function () {
+                    var table = $('#table').val();
+                    oauthapp.messageCreate(table).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    });
+                });
+            });
+        </script>
+    </body>
+    </html>
+    ```
+
+=== "参数说明"
     
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称 |  |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/messageCreate.html){ .md-button }  
+<!-- [教程](){ .md-button } -->
 
 
 ### 消息分类
+
+oauthapp.messageCategories
 
 获取指定消息表中的所有消息分类
 
@@ -57,7 +116,7 @@ tags:
     消息分类是对消息进行分组管理的方式之一，可以将相关主题的消息放在同一分类下，方便用户进行查看和管理。
     该方法返回一个 Promise 对象，当获取成功时，Promise 对象的状态为 resolved，返回一个数组，包含所有分类名称。如果获取失败，Promise 对象的状态为 rejected，返回一个错误对象。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.messageCategories(table).then(function(res){
@@ -65,7 +124,7 @@ tags:
     });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML
     <!DOCTYPE html>
@@ -96,15 +155,19 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/messageCategories.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messagecategories/){ .md-button }
-    
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| table | 表名称  |  |
+
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称  |  |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/messageCategories.html){ .md-button }    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messagecategories/){ .md-button }
 
 
 ### 消息列表
+
+oauthapp.messages
 
 获取指定消息表中的消息列表。
 
@@ -112,7 +175,7 @@ tags:
     你可以选择按照消息组、标签、关键词搜索、以及分页的方式来获取消息列表。
     返回一个 Promise 对象，解析结果为一个消息数组，其中每个元素都包含消息的详细信息，例如消息 ID、分类、标签、内容、备注、创建时间等。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.messages(table,category,tag, search, take,skip).then(function(res){
@@ -120,7 +183,7 @@ tags:
     });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -161,27 +224,31 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/messages.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messages/){ .md-button }
-    
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| table | 表名称  |  |
-| category | 消息组  |  |
-| tag | 消息标签  |  |
-| search | 查询关键词  |  |
-| take | 拉取条数 | 10 |
-| skip | 跳过条数 | 0 |
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称  |  |
+    | category | 消息组  |  |
+    | tag | 消息标签  |  |
+    | search | 查询关键词  |  |
+    | take | 拉取条数 | 10 |
+    | skip | 跳过条数 | 0 |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/messages.html){ .md-button } [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messages/){ .md-button }
+
 
 ### 发送消息
+
+oauthapp.messagePost
 
  向指定消息表中添加一条新的消息。需要提供消息的分类、标签、内容等相关信息。
 
 ???+ note "提示"
     该方法返回一个 Promise 对象，如果消息发布成功，Promise 对象会 resolve，返回新发布的消息的 ID；否则会 reject，返回错误信息。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.messagePost(table,msgData).then(function(res){
@@ -189,7 +256,7 @@ tags:
     });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -251,32 +318,36 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/messagePost.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messagepost/){ .md-button }
-    
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| table | 消息所在的表名称。  |  |
-| msgData.category | 消息分类。  |  |
-| msgData.tags | 消息标签，用英文逗号分隔。  |  |
-| msgData.content | 消息内容。  |  |
-| msgData.remark | 消息备注。 |  |
-| msgData.unionId | 第三方平台的用户ID。 | 可以使用 oauthapp.settings.fingerIdentity 或者自定义 |
-| msgData.nickName | 用户昵称 |  |
-| msgData.avatar | 用户头像 |  |
-| msgData.platform | 第三方平台标识字符串  | 可以是 web、weibo、weixin、qq 或者自定义。 |
-| msgData.messageType | 消息类型  | 可以是 TEXT、IMAGE、FILE 或者自定义 |
-| msgData.showIndex | 排序  |  |
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 消息所在的表名称。  |  |
+    | msgData.category | 消息分类。  |  |
+    | msgData.tags | 消息标签，用英文逗号分隔。  |  |
+    | msgData.content | 消息内容。  |  |
+    | msgData.remark | 消息备注。 |  |
+    | msgData.unionId | 第三方平台的用户ID。 | 可以使用 oauthapp.settings.fingerIdentity 或者自定义 |
+    | msgData.nickName | 用户昵称 |  |
+    | msgData.avatar | 用户头像 |  |
+    | msgData.platform | 第三方平台标识字符串  | 可以是 web、weibo、weixin、qq 或者自定义。 |
+    | msgData.messageType | 消息类型  | 可以是 TEXT、IMAGE、FILE 或者自定义 |
+    | msgData.showIndex | 排序  |  |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/messagePost.html){ .md-button }  [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messagepost/){ .md-button }
+
 
 ### 修改消息
+
+oauthapp.messagePut
 
 修改指定消息表中的一条消息。需要提供需要修改的消息的ID，以及修改后的分类、标签、内容等相关信息。
 
 ???+ note "提示"
     修改成功时返回一个 JSON 对象，其中包含一个字段 success 表示是否修改成功，如果修改失败，还会包含一个 error 字段表示错误信息。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.messagePut(table,id,msgData).then(function(res){
@@ -284,7 +355,7 @@ tags:
     });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -348,33 +419,37 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/messagePut.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messageput/){ .md-button }
-    
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| table | 字符串，必填项，表示消息所在的表名。  |  |
-| id |  字符串，必填项，表示待修改消息的 ID。  |  |
-| msgData.category | 字符串，选填项，表示消息分类。  |  |
-| msgData.tags | 字符串数组，选填项，表示消息标签。  |  |
-| msgData.content |  字符串，必填项，表示消息内容。  |  |
-| msgData.remark | 字符串，选填项，表示消息备注。 |  |
-| msgData.unionID | 字符串，必填项，表示第三方平台的用户 ID。 | 可以使用 oauthapp.settings.fingerIdentity 表示当前用户的 ID。 |
-| msgData.nickName | 字符串，必填项，表示用户昵称。 |  |
-| msgData.avatar | 用户头像 |  |
-| msgData.platform | 第三方平台标识字符串 | 可以是 web、weibo、weixin、qq 或者自定义。 |
-| msgData.messageType | 消息类型  | 可以是 TEXT、IMAGE、FILE 或者自定义 |
-| msgData.showIndex | 排序  |  |
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 字符串，必填项，表示消息所在的表名。  |  |
+    | id |  字符串，必填项，表示待修改消息的 ID。  |  |
+    | msgData.category | 字符串，选填项，表示消息分类。  |  |
+    | msgData.tags | 字符串数组，选填项，表示消息标签。  |  |
+    | msgData.content |  字符串，必填项，表示消息内容。  |  |
+    | msgData.remark | 字符串，选填项，表示消息备注。 |  |
+    | msgData.unionID | 字符串，必填项，表示第三方平台的用户 ID。 | 可以使用 oauthapp.settings.fingerIdentity 表示当前用户的 ID。 |
+    | msgData.nickName | 字符串，必填项，表示用户昵称。 |  |
+    | msgData.avatar | 用户头像 |  |
+    | msgData.platform | 第三方平台标识字符串 | 可以是 web、weibo、weixin、qq 或者自定义。 |
+    | msgData.messageType | 消息类型  | 可以是 TEXT、IMAGE、FILE 或者自定义 |
+    | msgData.showIndex | 排序  |  |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/messagePut.html){ .md-button }   [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messageput/){ .md-button }
+
 
 ### 删除消息
+
+oauthapp.messageDelete
 
 删除指定消息表中的一条消息。需要提供需要删除的消息的ID。
 
 ???+ note "提示"
     该方法将返回一个 Promise，其中包含更新成功或失败的信息
     
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.messageDelete(table,id).then(function(res){
@@ -382,7 +457,7 @@ tags:
     });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -415,11 +490,12 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/messageDelete.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messagedelete/){ .md-button }
-    
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| table | 表名称  |  |
-| id | 消息ID  |  |
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称  |  |
+    | id | 消息ID  |  |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/messageDelete.html){ .md-button }    [教程](https://docs.oauthapp.com/coding_sdk_chatmessage_messagedelete/){ .md-button }

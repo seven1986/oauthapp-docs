@@ -1,12 +1,13 @@
 ---
 tags:
-  - 客户端
+  - 文档
 ---
 
 # 应用
 
-???+ note "提示"
-    需要先使用oauthapp发布工具创建应用，引入脚本库，替换 **{{appid}}** 。
+### 提示
+
+{++在开始前，请确认用OAuthApp发布工具创建应用并获取了 **appid** ++}
 
 **在线引用**
 
@@ -25,10 +26,12 @@ tags:
 
 ### 初始化
 
+oauthapp.ready
+
 获取应用的基本信息、配置项、文件列表。
 ???+ note "提示"
     在 OAuthApp SDK 加载完成之前，调用 SDK 的其他方法将会报错。因此在使用 SDK 的其他方法之前，应该先调用 oauthapp.ready() 方法来确保 SDK 已经准备好使用。
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.ready() 
@@ -42,7 +45,7 @@ tags:
     // 在上面的示例代码中，当 oauthapp.ready() 方法返回 Promise 对象成功后，我们就可以安全地调用 oauthapp sdk方法了。
     // 如果 oauthapp.ready() 方法返回 Promise 对象失败，则说明 SDK 加载失败，我们需要检查错误并进行处理。
     ```
-=== "示例代码" 
+=== "示例" 
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -69,11 +72,62 @@ tags:
     </html>
     ```
 
-    [演示](https://web.oauthapp.com/4/examples/apidemo/ready.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_app_ready/){ .md-button }
+=== "返回数据"
+
+    ```JavaScript linenums="1"
+    {
+    "code": 200,
+    "data": {
+      "info": {
+        "id": 2,
+        "userID": 1,
+        "projectID": 1,
+        "website": "https://docs.oauthapp.com",
+        "serverPath": "docs",
+        "name": "开发文档",
+        "logo": "https://blob.oauthapp.com/4/tenant/2/API.png",
+        "description": "oauthapp 开发文档",
+        "tags": null,
+        "appKey": "613f1d05-6fc0-42ac-9b3a-c3259d5dc8f4",
+        "share": false,
+        "createDate": "2022-01-21 14:34:24",
+        "lastUpdate": "2022-01-21 14:34:24",
+        "isDelete": false,
+        "sort": 0
+      },
+      "props": [
+        {
+          "code": "DingTalkCorpId",
+          "value": "*ding5c589fe4688de*****",
+          "desc": null
+        },
+        {
+          "code": "WechatMiniPSignIn",
+          "value": "true",
+          "desc": null
+        },
+        {
+          "code": "DingTalkSignIn",
+          "value": "true",
+          "desc": null
+        },
+        {
+          "code": "WebIDSignIn",
+          "value": "true",
+          "desc": null
+        }
+      ],
+      "blobs": []
+    },
+    "err": ""
+    }
+    ```
+[演示](https://web.oauthapp.com/4/examples/apidemo/ready.html){ .md-button }    [教程](https://docs.oauthapp.com/coding_sdk_app_ready.html){ .md-button }
 
 
 ### 初始化 + 自动注册账号
+
+oauthapp.allReady
 
 获取应用的基本信息、配置项、文件列表 + web指纹登录，可直接调用所有api。
 
@@ -81,7 +135,7 @@ tags:
     oauthapp.allReady()方法用于在oauthapp SDK中注册/登录用户并确保所有必要的依赖项都已加载并准备好使用。
     此方法还将使用web指纹（fingerprintjs2）自动注册，如果账号不存在就自动注册；如果存在就自动登录，然后将用户信息赋值到window.oauthapp.appUser对象中。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.allReady().then(function(){
@@ -96,7 +150,7 @@ tags:
     // 如果用户已经注册/登录，则将用户信息赋值到window.oauthapp.appUser对象中。
     // 如果在注册/登录过程中遇到任何错误，则将抛出一个错误并拒绝promise。
     ```
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -124,8 +178,35 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/allready.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_app_allready/){ .md-button }
+
+=== "返回数据"
+
+    ```Javascript linenums="1"
+    {
+      "code": 200,
+      "data": {
+        "appID": 2,
+        "platform": "web",
+        "unionID": "2192a3d9aab0517b9590b6fc67381c23",
+        "phone": null,
+        "createDate": "2023-07-18 16:27:26",
+        "userName": "2192a3d9aab0517b9590b6fc67381c23",
+        "phoneIsValid": false,
+        "data": null,
+        "email": null,
+        "emailIsValid": false,
+        "lastUpdate": "2023-07-18 16:27:26",
+        "nickName": null,
+        "id": 132,
+        "avatar": null,
+        "point": 0,
+        "role": "user"
+      },
+      "err": ""
+    }
+    ```
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/allready.html){ .md-button } [教程](https://docs.oauthapp.com/coding_sdk_app_allready.html){ .md-button }
 
 ???+ note "提示"
     oauthapp.ready() 和 oauthapp.allReady() 都会初始化应用信息，但是 oauthapp.allReady() 会自动注册或登录用户信息，并将用户信息赋值到 window.oauthapp.appUser 对象中，以便在后续的操作中使用。这两个方法并没有先后顺序之分，可以根据具体的业务需求选择使用哪一个方法。
@@ -137,6 +218,8 @@ tags:
 
 ### 获取应用配置
 
+oauthapp.__appPropValue
+
 使用发布工具配置，在 应用详情>>应用配置菜单下，配置后还需开启接口权限才能访问。
 
 ???+ note "提示"
@@ -144,7 +227,7 @@ tags:
     通过调用此方法，您可以轻松地获取 OAuthApp 应用中的各种属性，例如应用名称、应用图标、应用描述等等。属性代码可以在 OAuthApp 应用管理页面中找到。
     这个方法通常与其他 OAuthApp SDK 方法一起使用，以便根据应用配置来自定义 OAuth 登录体验，例如更改 OAuth 登录按钮的文本或样式等。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     // 获取应用名称
@@ -152,8 +235,7 @@ tags:
     console.log('应用名称：', appName);
     ```
 
-=== "示例代码"
-
+=== "示例"
     ```HTML linenums="1"
     <!DOCTYPE html>
     <html>
@@ -161,51 +243,59 @@ tags:
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>__appPropValue</title>
-        <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
         <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
     </head>
     <body>
         <label>属性code</label>
         <input type="text" id="propCode" />
-        <p>结果</p>
+        <button type="button" id="actionBtn">提交</button>
         <div id="result"></div>
         <script>
             oauthapp.allReady().then(function () {
-                var propCode = $('#propCode').val();
-                var propValue = oauthapp.__appPropValue(propCode);
+              $('#actionBtn').click(function () {
+                 var propCode = $('#propCode').val();
+                  var propValue = oauthapp.__appPropValue(propCode);
                 if (propValue != '') {
                     $('#result').text(propValue);
                 }
                 else{
-                    $('#result').text('属性不存在，获取没有设置接口权限。');
+                    $('#result').text('属性不存在，或没有设置接口权限。');
                 }
+              })
             });
         </script>
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/__appPropValue.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_app___apppropvalue/){ .md-button }
+
+=== "参数说明" 
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | propertyCode | 配置项的code  |  |
 
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| propertyCode | 配置项的code  |  |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/__appPropValue.html){ .md-button } [教程](https://docs.oauthapp.com/coding_sdk_app___apppropvalue.html){ .md-button }
+
+
 
 ### 重置meat标签
+
+oauthapp.__resetHeaderTags
 
 会自动重置页面的title、icon、描述信息，具体可在后台配置。
 
 ???+ note "提示"
     用于重置 HTML 页面中的所有 OAuthApp 相关标记（meta 标签、title 标签、facicon 标签等），以便重新初始化 OAuthApp 应用程序信息，而无需手动更改 HTML 页面。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.__resetHeaderTags();
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -226,7 +316,8 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/__resetHeaderTags.html){ .md-button }
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/__resetHeaderTags.html){ .md-button }
 
 
 ## 属性
@@ -234,11 +325,11 @@ tags:
 | 名称  | 说明 | 参数 |
 | ----------- | ----------- | ----------- |
 | oauthapp.app  | 应用数据 | 需在“oauthapp.ready”或“oauthapp.allReady”方法后使用 |
-| oauthapp.app.info | 应用基本信息 | 使用发布工具配置：应用>>基本信息 菜单下 |
-| oauthapp.app.blobs | 应用文件存储列表 | 使用发布工具配置：应用>>存储 菜单下 |
-| oauthapp.app.props | 应用前端配置集合 | 使用发布工具配置：应用>>应用配置——client配置节 菜单下 |
+| oauthapp.app.info | 应用信息 | 使用发布工具配置：应用>>基本信息 菜单下 |
+| oauthapp.app.blobs | 应用文件 | 使用发布工具配置：应用>>存储 菜单下 |
+| oauthapp.app.props | 应用配置 | 使用发布工具配置：应用>>应用配置——client配置节 菜单下 |
 | oauthapp.appUser | 用户数据 | 需在“oauthapp.allReady”方法后使用 |
-| oauthapp.settings.access_token | 当前登录用户的令牌 |  |
+| oauthapp.settings.access_token | 用户令牌 |  |
 | oauthapp.settings.appid | 应用id |  |
-| oauthapp.settings.fingerIdentity | 当前设备web指纹 |  |
+| oauthapp.settings.fingerIdentity | Web指纹 |  |
 | oauthapp.settings.server | 服务器地址 |  |

@@ -12,4 +12,4 @@
 
 应用数据独立存储，为您的项目提供完全的隔离和安全保障。
 
-[立即使用](https://www.oauthapp.com/tenant/start){ .md-button }
+[立即使用](https://www.oauthapp.com/tenant/index.html){ .md-button }

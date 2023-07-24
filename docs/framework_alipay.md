@@ -1,6 +1,6 @@
 ---
 tags:
-  - 客户端
+  - 文档
 ---
 
 # 支付宝
@@ -11,9 +11,11 @@ tags:
 
 ### 电脑网站支付
 
+oauthapp.alipayCreateOrderPagePay
+
 接口调用成功后，将res.data字段内容插入到当前html中，将自动跳转到支付宝支付页面。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     /**
@@ -34,7 +36,7 @@ tags:
       */
     });
     ```
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -77,22 +79,26 @@ tags:
     </html>
     ```
 
-    [演示](https://web.oauthapp.com/4/examples/apidemo/alipayCreateOrderPagePay.html){ .md-button }
-    [教程](http://docs.oauthapp.com/coding_sdk_alipayCreateOrderPagePay/){ .md-button }
+=== "参数说明"
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| orderNo | 系统订单号，必填 |
-| amount | 商品金额，必填  | 最小值为0.01元 |
-| subject | 商品名称，必填 |
-| returnUrl |  支付同步通知地址，非必填 | 为空将从**应用配置**——**支付宝**——**支付成功返回页**中读取 |
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | orderNo | 系统订单号，必填 |
+    | amount | 商品金额，必填  | 最小值为0.01元 |
+    | subject | 商品名称，必填 |
+    | returnUrl |  支付同步通知地址，非必填 | 为空将从**应用配置**——**支付宝**——**支付成功返回页**中读取 |
+
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/alipayCreateOrderPagePay.html){ .md-button } [教程](http://docs.oauthapp.com/coding_sdk_alipayCreateOrderPagePay.html){ .md-button }
 
 
 ### 手机网站支付
 
+oauthapp.alipayCreateOrderWapPay
+
 接口调用成功后，将res.data字段内容插入到当前html中，将自动跳转到支付宝支付页面。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     /**
@@ -113,7 +119,7 @@ tags:
       */
     });
     ```
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -157,19 +163,24 @@ tags:
     </html>
     ```
 
-    [演示](https://web.oauthapp.com/4/examples/apidemo/alipayCreateOrderWapPay.html){ .md-button }
-    [教程](http://docs.oauthapp.com/coding_sdk_alipayCreateOrderWapPay/){ .md-button }
+=== "参数说明"
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| orderNo | 系统订单号，必填 |
-| amount | 商品金额，必填  | 最小值为0.01元 |
-| subject | 商品名称，必填 |
-| returnUrl |  支付同步通知地址，非必填 | 为空将从**应用配置**——**支付宝**——**支付成功返回页**中读取 |
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | orderNo | 系统订单号，必填 |
+    | amount | 商品金额，必填  | 最小值为0.01元 |
+    | subject | 商品名称，必填 |
+    | returnUrl |  支付同步通知地址，非必填 | 为空将从**应用配置**——**支付宝**——**支付成功返回页**中读取 |
+
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/alipayCreateOrderWapPay.html){ .md-button }  [教程](http://docs.oauthapp.com/coding_sdk_alipayCreateOrderWapPay.html){ .md-button }
+
 
 ### 订单查询
 
-=== "API"
+oauthapp.alipayOrder
+
+=== "方法"
 
     ```JavaScript linenums="1"
     /**
@@ -245,7 +256,7 @@ tags:
     */
     })
     ```
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -277,13 +288,19 @@ tags:
     </body>
     </html>
     ```
+=== "参数说明"
 
-    [演示](https://web.oauthapp.com/4/examples/apidemo/alipayOrder.html){ .md-button }
-    [教程](http://docs.oauthapp.com/coding_sdk_alipayOrder/){ .md-button }
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | orderNo | 系统订单号，必填 |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/alipayOrder.html){ .md-button }  [教程](http://docs.oauthapp.com/coding_sdk_alipayOrder.html){ .md-button }
 
 ### 发起退款
 
-=== "API"
+oauthapp.alipayOrderRefund
+
+=== "方法"
 
     ```JavaScript linenums="1"
     /**
@@ -331,7 +348,7 @@ tags:
     */
     })
     ```
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -366,22 +383,27 @@ tags:
     </html>
     ```
 
-    [演示](https://web.oauthapp.com/4/examples/apidemo/alipayOrderRefund.html){ .md-button }
-    [教程](http://docs.oauthapp.com/coding_sdk_alipayOrderRefund/){ .md-button }
+=== "参数说明"
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| amount | 退款金额，必填 |
-| orderNo | 系统订单号，必填 |
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | amount | 退款金额，必填 |
+    | orderNo | 系统订单号，必填 |
+
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/alipayOrderRefund.html){ .md-button }    [教程](http://docs.oauthapp.com/coding_sdk_alipayOrderRefund.html){ .md-button }
+
 
 ### 支付同步通知
+
+oauthapp.alipayReturnPageNotify
 
 ???+ note "提示"
     用于实现整个支付流程的同步流程，非必须调用。因为支付异步通知可自动同步订单数据。
 
 所需参数均来自支付宝同步回传，页面只要获取、调用即可。 用于同步支付宝订单号和支付时间。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     // 支付成功后，支付宝会跳转到下单时传入的 returnUrl，并带上相关参数，参考如下
@@ -411,7 +433,7 @@ tags:
     });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -473,13 +495,13 @@ tags:
     </html>
     ```
 
-    [演示](https://web.oauthapp.com/4/examples/apidemo/alipayReturnPageNotify.html){ .md-button }
-    [教程](http://docs.oauthapp.com/coding_sdk_alipayReturnPageNotify/){ .md-button }
+=== "参数说明"
 
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| 略 | 所需参数均来自支付宝，页面只需获取回传参数、调用**alipayReturnPageNotify**即可 |
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | 略 | 所需参数均来自支付宝，页面只需获取回传参数、调用**alipayReturnPageNotify**即可 |
 
+[演示](https://web.oauthapp.com/4/examples/apidemo/alipayReturnPageNotify.html){ .md-button }   [教程](http://docs.oauthapp.com/coding_sdk_alipayReturnPageNotify.html){ .md-button }
 
 ### 支付异步通知
 

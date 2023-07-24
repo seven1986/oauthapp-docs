@@ -8,6 +8,20 @@ nav:
      - 'index.md'
      - 'howtouse.md'
      - 'doc.md'
+     - 应用配置:
+        - 'doc_appsetting_signup_resetpwd.md'
+        - 'doc_appsetting_safe.md'
+        - 'doc_appsetting_aliyun.md'
+        - 'doc_appsetting_azure.md'
+        - 'doc_appsetting_alipay.md'
+        - 'doc_appsetting_oauthapp_sso.md'
+        - 'doc_appsetting_dingtalk.md'
+        - 'doc_appsetting_custom.md'
+        - 'doc_appsetting_wechat.md'
+        - 'doc_appsetting_wechatminip.md'
+        - 'doc_appsetting_openwechat.md'
+        - 'doc_appsetting_qq.md'
+        - 'doc_appsetting_weibo.md'
   - 文档:
      - 'framework.md'
      - 'framework_user.md'
@@ -31,7 +45,7 @@ nav:
   - 教程:
       #- SDK示例:
       - 'coding.md'
-      - 脚本库与API:
+      - 开发教程:
         - 应用:
             - 'coding_sdk_app_ready.md'
             - 'coding_sdk_app_allready.md'
@@ -40,8 +54,8 @@ nav:
             - 'code_sdk_user_signInwithwebidentity.md'
             - 'code_sdk_user_accountsignup.md'
             - 'code_sdk_user_accountsignin.md'
-            - 'code_sdk_user_signin.md'
-            - 'code_sdk_user_signup.md'
+            - 'code_sdk_user_unionidsignin.md'
+            - 'code_sdk_user_inionidsignup.md'
             - 'code_sdk_user_minipsigninqrcode.md'
             - 'code_sdk_user_minipsigninresult.md'
             - 'code_sdk_user_dingtalksignin.md'
@@ -94,15 +108,16 @@ nav:
             - 'coding_sdk_alipayOrderRefund.md'
             - 'coding_sdk_alipayReturnPageNotify.md'
       - 功能应用:
-        - 'code_dingtalk_openai_robot.md'
-        - 'code_ssltool.md'
-        - 'code_appdomain.md'
-        - 'code_useraccesskey.md'
+        - 'code_usersystem.md'
+        - 'code_onlinepay.md'
         - 私有云部署:
           - 'code_saas.md'
           - 'code_togglesaas.md'
           - 'code_saassettings.md'
-        - 'code_onlinepay.md'
+        - 'code_useraccesskey.md'
+        - 'code_dingtalk_openai_robot.md'
+        - 'code_appdomain.md'
+        - 'code_ssltool.md'
         # - 小游戏:
         #     - 'coding_game_savepig.md'
     #  - 'example_appuser.md'
@@ -137,6 +152,7 @@ nav:
   #           - 'rank.md'
   
 markdown_extensions:
+  - footnotes
   - abbr
   - attr_list
   - pymdownx.snippets
@@ -154,6 +170,9 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -214,8 +233,9 @@ plugins:
   - search:
       lang: en
   - tags:
-      tags_file: tags.md
+      tags_file: tags.md  
   - offline
+  - glightbox
 extra_javascript:
   - javascripts/tablesort.min.js
   - javascripts/tablesort.js

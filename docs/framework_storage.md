@@ -1,21 +1,25 @@
 ---
 tags:
-  - 客户端
+  - 文档
 ---
 
 # 数据库
 
 ### 数据表集合
 
+oauthapp.tables
+
 ???+ note "提示"
     获取当前用户可访问的数据表集合。该方法不需要传入参数，会返回一个包含当前用户可访问的数据表集合的数组，每个数组元素代表1个表名。
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
-    oauthapp.tables();
+    oauthapp.tables().then(function(res){
+        console.log(res);
+    });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -39,15 +43,76 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/tables.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_storage_tables/){ .md-button }
-    
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/tables.html){ .md-button }   [教程](https://docs.oauthapp.com/coding_sdk_storage_tables.html){ .md-button }
+
+
+### 创建数据表
+
+oauthapp.tableCreate
+
+=== "方法"
+
+    ```JavaScript linenums="1"
+    oauthapp.tableCreate(table, uniqueData).then(function(res){
+        console.log(res);
+    });
+    ```
+
+=== "示例"
+
+    ```HTML linenums="1"
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>创建数据表</title>
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></ script>
+    </head>
+    <body>
+        <div>
+            <h3>创建数据表</h3>
+            <p>table：<input type="text" id="table" /></p>
+            <p>uniqueData:<input type="checkbox" id="uniqueData" /></p>
+            <p>
+                <button type="button" id="actionButton">提交</button>
+            </p>
+        </div>
+        <div id="result"></div>
+        <script>
+            oauthapp.ready().then(function () {
+                $('#actionButton').click(function () {
+                    var table = $('#table').val();
+                    var uniqueData = document.getElementById('uniqueData').checked;
+                    oauthapp.tableCreate(table, uniqueData).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    });
+                });
+            });
+        </script>
+    </body>
+    </html>
+    ```
+
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称 |  |
+    | uniqueData | 防重复数据 | 默认为false |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/tableCreate.html){ .md-button }  
+<!-- [教程](){ .md-button } -->
+
 ### 单表查询
+
+oauthapp.table
 
 ???+ note "提示"
     用于查询指定表中的数据，返回一个 Promise 对象，当 Promise 对象 resolve 时，返回一个数组，数组中的每个元素都是一个数据记录。每个数据记录是一个对象，它的属性是表中的字段名，属性值是对应的字段值。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.table(table,tag,filter,sort,take,skip).then(function(res){
@@ -55,7 +120,7 @@ tags:
     });
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -98,27 +163,31 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/table.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_storage_table/){ .md-button }
-    
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| table | 必需，指定要查询的表的名称。 |  |
-| tag | 可选，指定要查询的标签。 | 可空 |
-| filter | 可选，指定要筛选的条件。它应该是一个对象，对象的属性名是要筛选的字段名，属性值是对应的值。 | {"name":"123"} |
-| sort | 可选，指定数据的排序方式。它应该是一个对象，对象的属性名是要排序的字段名，属性值是 true 或 false，true 表示升序排列，false 表示降序排列。 | {"id":true} |
-| take | 可选，指定要拉取的数据条数。 | 10 |
-| skip | 可选，指定要跳过的数据条数。 | 0 |
+
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 必需，指定要查询的表的名称。 |  |
+    | tag | 可选，指定要查询的标签。 | 可空 |
+    | filter | 可选，指定要筛选的条件。它应该是一个对象，对象的属性名是要筛选的字段名，属性值是对应的值。 | {"name":"123"} |
+    | sort | 可选，指定数据的排序方式。它应该是一个对象，对象的属性名是要排序的字段名，属性值是 true 或 false，true 表示升序排列，false 表示降序排列。 | {"id":true} |
+    | take | 可选，指定要拉取的数据条数。 | 10 |
+    | skip | 可选，指定要跳过的数据条数。 | 0 |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/table.html){ .md-button }    [教程](https://docs.oauthapp.com/coding_sdk_storage_table.html){ .md-button }
 
 
 ### 提交数据
+
+oauthapp.tablePost
 
 数据为自定义JSON对象。
 
 ???+ note "提示"
     用于向指定的数据表 table 中提交一条数据记录。该方法返回一个 Promise 对象，可使用 .then() 方法来获取提交数据的结果。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
      // 示例：
@@ -126,9 +195,14 @@ tags:
      // 有 name 和 age 两个字段。我们可以使用以下代码将一条数据记录提交到该表中：
     
     let table = "user";
-    let data = {
-        "name": "Tom",
-        "age": 20
+    let data = { 
+        showIndex:0, // 排序
+        tags:"", // 自定义标签
+        //content字段可传入自定义json
+        content: {
+            "name": "Tom",
+            "age": 20
+        }
     };
 
     let jsonString = JSON.stringify(data);
@@ -142,7 +216,7 @@ tags:
     // 当提交成功后，我们在 .then() 方法中打印了返回结果 res。
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -192,23 +266,29 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/tablePost.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_storage_tablepost/){ .md-button }
+
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称 |  |
+    | jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}}  //showIndex 排序，tags 标签 content 自定义json |
+
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/tablePost.html){ .md-button }    [教程](https://docs.oauthapp.com/coding_sdk_storage_tablepost.html){ .md-button }
     
-| 参数  | 说明 |  |
-| ----------- | ----------- | ----------- |
-| table | 表名称 |  |
-| jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}}  //showIndex 排序，tags 标签 content 自定义json |
 
 
 ### 数据详情
+
+oauthapp.tableDetail
 
 用于获取指定数据表中的某一条数据记录的详细信息。
 
 ???+ note "提示"
     该方法返回一个 Promise 对象，它的 then() 方法接受一个参数，即获取到的数据记录的详细信息，以 JSON 格式表示。数据记录的详细信息包含该记录的所有属性和属性值。如果查询失败，则会返回一个错误信息。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     //示例：
@@ -230,7 +310,7 @@ tags:
     //该方法会返回一个 Promise 对象。如果查询成功，则会在控制台打印出如下内容：
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -263,24 +343,27 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/tableDetail.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_storage_tabledetail/){ .md-button }
-    
-| 名称  | 说明 | 参数 |
-| ----------- | ----------- | ----------- |
-| table | 表名称 |  |
-| id | 数据ID |  |
 
+=== "参数说明"
+
+    | 名称  | 说明 | 参数 |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称 |  |
+    | id | 数据ID |  |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/tableDetail.html){ .md-button }  [教程](https://docs.oauthapp.com/coding_sdk_storage_tabledetail.html){ .md-button }
 
 
 ### 删除数据
+
+oauthapp.tableDelete
 
 用于删除指定表格中的数据。
 
 ???+ note "提示"
     返回一个 Promise 对象，在 Promise 中返回删除结果。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
      oauthapp.tableDelete('table1', 123)
@@ -290,7 +373,7 @@ tags:
 
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -323,22 +406,28 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/tableDelete.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_storage_tabledelete/){ .md-button }
-    
-| 名称  | 说明 | 参数 |
-| ----------- | ----------- | ----------- |
-| table | 表名称 |  |
-| id | 数据ID |  |
+
+=== "参数说明"
+
+    | 名称  | 说明 | 参数 |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称 |  |
+    | id | 数据ID |  |
+
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/tableDelete.html){ .md-button }  [教程](https://docs.oauthapp.com/coding_sdk_storage_tabledelete.html){ .md-button }
+
 
 ### 更新数据
+
+oauthapp.tablePut
 
 用于更新一条数据表中指定 ID 的记录。
 
 ???+ note "提示"
     该方法将返回一个 Promise，其中包含更新成功或失败的信息。
 
-=== "API"
+=== "方法"
 
     ```JavaScript linenums="1"
     oauthapp.tablePut('myTable', '123', '{"name": "NewName", "age": 25}')
@@ -352,7 +441,7 @@ tags:
     // 如果格式不正确，可能会导致更新失败。同时，如果要更新的记录不存在，也会导致更新失败。
     ```
 
-=== "示例代码"
+=== "示例"
 
     ```HTML linenums="1"
     <!DOCTYPE html>
@@ -406,12 +495,13 @@ tags:
     </body>
     </html>
     ```
-    [演示](https://web.oauthapp.com/4/examples/apidemo/tablePut.html){ .md-button }
-    [教程](https://docs.oauthapp.com/coding_sdk_storage_tableput/){ .md-button }
-    
-| 名称  | 说明 | 参数 |
-| ----------- | ----------- | ----------- |
-| table | 表名称 |  |
-| id | 数据ID |  |
-| jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}}  //showIndex 排序，tags 标签 content 自定义json |
 
+=== "参数说明"
+
+    | 名称  | 说明 | 参数 |
+    | ----------- | ----------- | ----------- |
+    | table | 表名称 |  |
+    | id | 数据ID |  |
+    | jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}}  //showIndex 排序，tags 标签 content 自定义json |
+
+[演示](https://web.oauthapp.com/4/examples/apidemo/tablePut.html){ .md-button } [教程](https://docs.oauthapp.com/coding_sdk_storage_tableput.html){ .md-button }
