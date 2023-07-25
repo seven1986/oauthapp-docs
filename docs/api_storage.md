@@ -21,8 +21,8 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/Tables' \
---header 'Authorization: Bearer {{bearerToken}}'
+        curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/Tables' \
+        --header 'Authorization: Bearer {{bearerToken}}'
         ```
     
     === "C#"
