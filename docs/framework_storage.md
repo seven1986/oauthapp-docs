@@ -272,7 +272,10 @@ oauthapp.tablePost
     | 参数  | 说明 |  |
     | ----------- | ----------- | ----------- |
     | table | 表名称 |  |
-    | jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}}  //showIndex 排序，tags 标签 content 自定义json |
+    | jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}} |
+    | jsonString.showIndex |排序 |  |
+    | jsonString.tags | 标签 |  |
+    | jsonString.content | 自定义json |  |
 
 
 [演示](https://web.oauthapp.com/4/examples/apidemo/tablePost.html){ .md-button }    [教程](https://docs.oauthapp.com/coding_sdk_storage_tablepost.html){ .md-button }
@@ -502,6 +505,9 @@ oauthapp.tablePut
     | ----------- | ----------- | ----------- |
     | table | 表名称 |  |
     | id | 数据ID |  |
-    | jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}}  //showIndex 排序，tags 标签 content 自定义json |
+    | jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}} |
+    | jsonString.showIndex |排序 |  |
+    | jsonString.tags | 标签 |  |
+    | jsonString.content | 自定义json |  |
 
 [演示](https://web.oauthapp.com/4/examples/apidemo/tablePut.html){ .md-button } [教程](https://docs.oauthapp.com/coding_sdk_storage_tableput.html){ .md-button }

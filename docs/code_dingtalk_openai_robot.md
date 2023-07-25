@@ -46,20 +46,14 @@ tags:
 
 > 发布后，钉钉应用就可以在企业内部使用了。
 
-## 步骤二：创建OpenAI应用密钥
+## 步骤二：配置Azure OpenAI
 
-!!! Tip "提示"
-    在 Azure 官网上注册账号并登录。Azure OpenAI 是一个强大的 AI 平台，可以为您提供各种人工智能工具，如语音识别、机器翻译、对话系统等。
+具体参考：[https://docs.oauthapp.com/doc_appsetting_azure.html](https://docs.oauthapp.com/doc_appsetting_azure.html)
 
-- 创建一个 App OpenAI 服务，并复制密钥（AppKey），用于访问 Azure OpenAI 的 API 服务。
-
-## 步骤三：配置发布工具
-
-### 配置 Azure OpenAI 的 App Key。
-
+<!-- 
 ![image](https://docs.oauthapp.com/code_dingtalk_openai_robot/5.png){ loading=lazy }
 
-![image](https://docs.oauthapp.com/code_dingtalk_openai_robot/6.png){ loading=lazy }
+![image](https://docs.oauthapp.com/code_dingtalk_openai_robot/6.png){ loading=lazy } -->
 
 <!-- > 在将 OpenAI 与钉钉应用集成时，需要将 App Key 嵌入到钉钉应用的代码中。这样钉钉应用才能使用 OpenAI 的 API 服务进行对话。 -->
 
@@ -74,7 +68,7 @@ tags:
 > 在将钉钉应用与 OpenAI 集成时，需要将钉钉应用的 ID 和密钥填入 OpenAI 应用的配置文件中。这样 OpenAI 才能通过 Webhook 地址向钉钉应用发送消息。
  -->
 
-## 步骤四：测试使用
+## 步骤三：测试使用
 
 ### 添加钉钉机器人
 

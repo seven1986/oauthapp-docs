@@ -537,12 +537,16 @@ graph LR
 
 ### 用户名
 
+使用账号密码登录
+
 | 开发参考  | 链接 |
 | ----------- | ----------- |
 | 文档 | [查看](https://docs.oauthapp.com/framework_user.html#_6) |
 | API | [查看](https://docs.oauthapp.com/api_user.html#_5) |
 
 ### 手机号
+
+使用手机号、手机验证码登录
 
 | 开发参考  | 链接 |
 | ----------- | ----------- |
@@ -552,6 +556,8 @@ graph LR
 
 ### 邮箱账号
 
+使用邮箱账号、邮箱验证码登录
+
 | 开发参考  | 链接 |
 | ----------- | ----------- |
 | 文档 | [查看](https://docs.oauthapp.com/framework_user.html#_15) |
@@ -559,6 +565,8 @@ graph LR
 
 
 ### 第三方UnionID
+
+使用第三方UnionID登录
 
 | 开发参考  | 链接 |
 | ----------- | ----------- |
@@ -612,7 +620,7 @@ graph LR
 
 ## 用户数据管理
 
-使用OAuthApp发布工具，依次打开 应用详情、 用户，页面提供了如下功能
+使用OAuthApp发布工具，可进行用户数据导入、导出等如下操作。
 
  - 查询、编辑用户信息
  - 设置用户角色
@@ -622,11 +630,7 @@ graph LR
  - 清空用户数据
 
 [^1]:
-    阿里云AccessKey：是通过API方式使用阿里云服务的一个身份令牌，只有配置该节点后，才能使用对应的短信、邮件等服务。
-    请确认在[阿里云RAM](https://ram.console.aliyun.com/users)访问控制页面中，创建一个用户，并授权如下权限：
-
-    - AliyunDirectMailFullAccess：管理邮件推送(DirectMail)的权限
-    - AliyunDysmsFullAccess：管理短信服务(SMS)的权限
+    阿里云AccessKey：是通过API方式使用阿里云服务的一个身份令牌，正确配置后才能使用相关服务。[查看文档](https://docs.oauthapp.com/doc_appsetting_aliyun.html)
 
 [^2]:
     应用配置：使用OAuthApp发布工具，依次打开 应用详情、应用配置 面板。
@@ -637,9 +641,4 @@ graph LR
     短信模板规范：短信服务的模板需要审核通过后才可以使用。[查看文档](https://help.aliyun.com/document_detail/463161.html)
 
 [^5]:
-    钉钉应用：企业内部应用，钉钉应用下创建的**H5微应用**，创建后还需要申请如下权限
-    
-    - 成员信息读权限（qyapi_get_member）
-    - 个人手机号信息（Contact.User.mobile）
-    - 邮箱等个人信息（fieldEmail）
-    - 钉钉应用需配置IP白名单、PC/移动端的网页地址
+    钉钉应用：企业内部应用，具体配置可[查看文档](https://docs.oauthapp.com/doc_appsetting_dingtalk.html)
