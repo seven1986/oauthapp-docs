@@ -29,7 +29,7 @@ tags:
 
 === "HTML"
     ```HTML
-    <a href="https://www.oauthapp.com/oauth/2?scheme=app&redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&scopes=openid profile role&  nonce=1667553723079">
+    <a href="https://www.oauthapp.com/oauth/2?scheme=app&redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&scopes=openid profile role&nonce=1667553723079">
         登录
     </a>
     ```
@@ -42,6 +42,7 @@ tags:
  - redirect_uri：回调地址(必填)	
  - redirect_uri_name：自定义授权标题	
  - nonce：自定义字符串，32位(必填)	
+ - expireInDays：令牌有效期(非必填，单位：天，取值：1~99)	
 
 
 ## 步骤四：测试结果
@@ -68,7 +69,7 @@ tags:
     </head>
     <body>
         <a
-            href="https://www.oauthapp.com/oauth/2?scheme=app&redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&scopes=openid profile role& nonce=1667553723079">
+            href="https://www.oauthapp.com/oauth/2?scheme=app&redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&scopes=openid profile role&nonce=1667553723079">
             登录
         </a>
         <h1>结果</h1>

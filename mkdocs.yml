@@ -238,7 +238,7 @@ plugins:
   - glightbox
 extra_javascript:
   - javascripts/tablesort.min.js
-  - javascripts/tablesort.js
+  - javascripts/mermaid.min.js
 extra:
   social:
     - icon: fontawesome/brands/git 

@@ -1320,13 +1320,13 @@ oauthapp.accesstokenSignIn
 
     | 参数  | 说明 |  |
     | ----------- | ----------- | ----------- |
-    | {{scheme}} | 登录协议(必填) | 固定为 "app" |
-    | {{appId}} | 应用ID(必填) |  |
-    | {{scopes}} | 授权列表(必填) | 多个权限用英文空格分隔 |
-    | {{redirect_uri}} | 回调地址(必填) |  |
-    | {{redirect_uri_name}} | 自定义授权标题 |  |
-    | {{nonce}} | 自定义字符串，32位(必填) |  |
-    | {{expireInDays}} | 令牌有效期(非必填，单位：天，取值：1~99) |  |
+    | scheme | 登录协议(必填) | 固定为 "app" |
+    | appId | 应用ID(必填) |  |
+    | scopes | 授权列表(必填) | 多个权限用英文空格分隔 |
+    | redirect_uri | 回调地址(必填) |  |
+    | redirect_uri_name | 自定义授权标题 |  |
+    | nonce | 自定义字符串，32位(必填) |  |
+    | expireInDays | 令牌有效期(非必填，单位：天，取值：1~99) |  |
 
 [演示](https://web.oauthapp.com/4/examples/apidemo/sso.html){ .md-button }  [教程](https://docs.oauthapp.com/code_sdk_user_sso.html){ .md-button }
 

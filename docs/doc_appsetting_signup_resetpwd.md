@@ -40,6 +40,8 @@
 
 配置注册账号功能中发送欢迎邮件的模板，以便新用户收到注册成功的欢迎邮件。
 
+自定义文字内容
+
 ### 注册账号 - 发送欢迎邮件
 
 启用此项后，当用户成功注册账号时，系统会自动发送欢迎邮件。
@@ -64,9 +66,13 @@
 
 自定义内容，必须添加变量{code}，系统会自动替换为验证码
 
+将阿里云审核通过的 模板CODE[^4] 填写到这里
+
 ### 短信签名
 
 配置用于发送短信的签名信息，将会显示在发送的短信内容中。
+
+将阿里云审核通过的签名名称[^5]填写到这里
 
 ## 截图
 
@@ -78,6 +84,10 @@
 
 [^1]:阿里云短信：[https://www.aliyun.com/product/sms](https://www.aliyun.com/product/sms)
 
-[^2]:阿里云邮件推送：[https://www.aliyun.com/product/directmail](https://www.aliyun.com/product/directmail)
+[^2]:阿里云邮件推送：[https://www.aliyun.com/product/directmail](https://www.aliyun.com/product/directmail)、[配置发信域名](https://help.aliyun.com/document_detail/29426.html)、[设置发信地址](https://help.aliyun.com/document_detail/29427.html)
 
 [^3]:阿里云AccessKey配置：[https://docs.oauthapp.com/doc_appsetting_aliyun.html](https://docs.oauthapp.com/doc_appsetting_aliyun.html)
+
+[^4]:短信模板规范：短信服务的模板需要审核通过后才可以使用。[https://help.aliyun.com/document_detail/463161.html](https://help.aliyun.com/document_detail/463161.html)
+
+[^5]:短信签名规范：短信服务的签名都需要经过审核，审核通过后才可以使用该签名。[https://help.aliyun.com/document_detail/108076.html](https://help.aliyun.com/document_detail/108076.html)

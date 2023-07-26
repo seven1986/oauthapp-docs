@@ -11,59 +11,105 @@ tags:
 
 ## OAuthApp统一登录
 
-OAuthApp提供了统一登录功能，开发人员只需要通过简单的配置就可以把登录、注册、找回密码等功能集成到自己的应用系
-统中。 可使用[登录链接生成工具](https://web.oauthapp.com/4/examples/signin_authorize.html)预览效果，统一登录的参数说明可查看[这个文档](https://docs.oauthapp.com/framework_user.html#_13)。
+OAuthApp提供了统一登录功能，开发人员只需要通过简单的配置就可以把登录、注册等功能集成到自己的应用系统中。
 
-``` mermaid
-graph LR
-  A[应用登录页] --> B{OAuthApp统一登录};
-  B --> C[用户名+密码];
-  B --> D[手机号+验证码];
-  B --> E[第三方平台];
-  E --> EE[微信小程序扫码]
-  E --> EEE[钉钉]
-  E --> EEEE[Web ID]
-  C --> F;
-  D --> F;
-  EE --> F;
-  EEE --> F;
-  EEEE --> F{登录};
-  F -->|成功| G[跳转应用redirect_uri];
-  F -->|失败| H[提示错误信息,重试 / 返回应用];
-  B ----> I[注册账号];
-  B ----> J[找回密码];
-```
+=== "OAuthApp统一登录"
+    ``` mermaid
+    graph LR
+      A[应用登录页] --> B{OAuthApp统一登录};
+      B --> C[用户名+密码];
+      B --> D[手机号+验证码];
+      B --> E[第三方平台];
+      E --> EE[微信小程序扫码]
+      E --> EEE[钉钉]
+      E --> EEEE[Web ID]
+      C --> F;
+      D --> F;
+      EE --> F;
+      EEE --> F;
+      EEEE --> F{登录};
+      F -->|成功| G[跳转应用redirect_uri];
+      F -->|失败| H[提示错误信息,重试 / 返回应用];
+      B ----> I[注册账号];
+      B ----> J[找回密码];
+    ```
+
+=== "截图"
+
+    ![](https://docs.oauthapp.com/code_usersystem/1.png){ width="300",loading=lazy }
+    ![](https://docs.oauthapp.com/code_usersystem/2.png){ width="300",loading=lazy }
+    ![](https://docs.oauthapp.com/code_usersystem/4.png){ width="300",loading=lazy }
+    ![](https://docs.oauthapp.com/code_usersystem/3.png){ width="300",loading=lazy }
+
+=== "示例"
+
+    ```HTML linenums="1"
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>统一登陆</title>
+    </head>
+    <body>
+        <a href="https://www.oauthapp.com/oauth/2?scheme=app&redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&scopes=openid profile role&nonce=1667553723079">
+            登录
+        </a>
+        <h1>结果</h1>
+        <div id="result"></div>
+    </body>
+    </html>
+    ```
+    [演示](https://web.oauthapp.com/4/examples/apidemo/sso.html){ .md-button }
+    [教程](https://docs.oauthapp.com/code_sdk_user_sso.html){ .md-button }
+
+=== "参数说明"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | scheme | 登录协议(必填) | 固定为 "app" |
+    | appId | 应用ID(必填) |  |
+    | scopes | 授权列表(必填) | 多个权限用英文空格分隔 |
+    | redirect_uri | 回调地址(必填) |  |
+    | redirect_uri_name | 自定义授权标题 |  |
+    | nonce | 自定义字符串，32位(必填) |  |
+    | expireInDays | 令牌有效期(非必填，单位：天，取值：1~99) |  |
+
+[登录链接生成工具](https://web.oauthapp.com/4/examples/signin_authorize.html){ .md-button }
 
 ### 手机号登录 
 
 1，配置 阿里云AccessKey[^1]
 
-2，开通 [阿里云短信服务](https://www.aliyun.com/product/sms)，并申请短信服务的签名[^3]和创建短信模板[^4]
+2，开通 [阿里云短信服务](https://www.aliyun.com/product/sms)，创建 短信签名[^3]和 短信模板[^4]
 
-3，打开 应用配置[^2] - {++注册、找回密码++}
+3，打开 应用配置[^2] - {++注册、找回密码++}，配置如下节点
 
-- 将阿里云审核通过的 签名名称[^3] 填写到 **短信签名**
+- [x] 短信签名 （填写阿里云短信 签名名称）
 
-- 将阿里云审核通过的 模板CODE[^4] 填写到 **注册账号 - 短信模板、找回密码 - 短信模板**
+- [x] 注册账号 - 短信模板（填写阿里云短信 模板CODE）
 
-- 勾选**注册账号 - 需验证手机号**、**接口权限**
+- [x] 找回密码 - 短信模板（填写阿里云短信 模板CODE）
+
+- [x] 勾选 “注册账号 - 需验证手机号”、“接口权限”
+
+> 如短信息没有具体说明，注册账号和找回密码的短信模板可以用同一个模板CODE
 
 ### 微信小程序扫码登录
 
-1，打开 应用配置[^2] - {++OAuthApp统一登录++}
+1，打开 应用配置[^2] - {++OAuthApp统一登录++}，配置如下节点
 
-- 勾选**启用微信小程序登录**、**接口权限**
+- [x] 勾选”启用微信小程序登录”、”接口权限”
 
-2，**默认使用OAuthApp的小程序做授权登录，可忽略下面的3、4步骤**
+**默认使用OAuthApp的小程序做授权登录；如需使用自有小程序，可参考下面步骤**
 
-3，如需使用自己的小程序做授权登录，打开 应用配置[^2] - {++微信小程序++}
+1，打开 应用配置[^2] - {++微信小程序++}，配置如下节点
 
-- 将微信小程序官方的AppID填写到 **微信小程序ClientID**
+- [x] 微信小程序ClientID（填写微信小程序的AppID）
 
-- 将微信小程序官方的AppSecret填写到 **微信小程序ClientSecret**
+- [x] 微信小程序ClientSecret（填写微信小程序的AppSecret）
 
-4，小程序端参考代码
-
+2，小程序端参考代码
 
 === "交互流程"
 
@@ -438,37 +484,37 @@ graph LR
 
 ### 钉钉登录
 
-1，打开 应用配置[^2] - {++钉钉++}
+1，打开 应用配置[^2] - {++钉钉++}，配置如下节点
 
-- 将 [钉钉开发者首页](https://open-dev.dingtalk.com/) 的CropId填写到 **企业ID**，勾选**接口权限**
-- 将你创建的 钉钉应用[^5] AppKey填写到 **应用ClientID**
-- 将你创建的 钉钉应用[^5] AppSecret填写到 **应用ClientSecret**
+- [x] 企业ID（[钉钉开发者首页](https://open-dev.dingtalk.com/)的CropId），并勾选**接口权限**
+- [x] 应用ClientID（钉钉应用[^5] AppKey）
+- [x] 应用ClientSecret（钉钉应用[^5] AppSecret）
 
-2，打开 应用配置[^2] - {++OAuthApp统一登录++}
+2，打开 应用配置[^2] - {++OAuthApp统一登录++}，配置如下节点
 
-- 勾选 **启用钉钉登录**、**接口权限**
+- [x] 勾选 ”启用钉钉登录”、”接口权限”
 
 ### WebID登录
 
-1，打开 应用配置[^2] - {++OAuthApp统一登录++}
+1，打开 应用配置[^2] - {++OAuthApp统一登录++}，配置如下节点
 
-- 勾选 **启用Web ID登录**、**接口权限**
+- [x] 勾选 ”启用Web ID登录”、”接口权限”
 
 ### 禁止注册
 
 在某些情况下，可能需要禁止用户进行注册。
 
-1，打开 应用配置[^2] - {++OAuthApp统一登录++}
+1，打开 应用配置[^2] - {++OAuthApp统一登录++}，配置如下节点
 
-- 勾选 **禁止注册账号**、**接口权限**
+- [x] 勾选 ”禁止注册账号”、”接口权限”
 
 ### 只允许第三方账号登录
 
 在某些场景下，可能只允许使用第三方平台的账号进行登录，而不提供账号密码登录，邮箱或手机号登录功能。
 
-1，打开 应用配置[^2] - {++OAuthApp统一登录++}
+1，打开 应用配置[^2] - {++OAuthApp统一登录++}，配置如下节点
 
-- 勾选 **禁用系统账号登录**、**接口权限**
+- [x] 勾选 ”禁用系统账号登录”、”接口权限”
 
 ## 发送欢迎邮件
 
@@ -476,12 +522,12 @@ graph LR
 
 1，开通 [阿里云邮件推送服务](https://www.aliyun.com/product/directmail)，并[配置发信域名](https://help.aliyun.com/document_detail/29426.html)，[设置发信地址](https://help.aliyun.com/document_detail/29427.html)。
 
-2，打开 应用配置[^2] -  - {++注册、找回密码++}
+2，打开 应用配置[^2] -  - {++注册、找回密码++}，配置如下节点
 
-- 配置 阿里云AccessKey[^1]
-- 将阿里云创建的 发信地址 填写到：**邮箱的发信账号**
-- 勾选 **注册账号 - 发送欢迎邮件**
-- 填写 **注册账号 - 欢迎邮件模板**
+- [x] 配置 阿里云AccessKey[^1]
+- [x] 邮箱的发信账号(阿里云创建的发信地址)
+- [x] 勾选 "注册账号 - 发送欢迎邮件"
+- [x] 填写 "注册账号 - 欢迎邮件模板"
 
 
 ## 自定义开发
@@ -606,11 +652,15 @@ graph LR
 
 外部应用将页面重定向到OAuthApp统一登录，当用户登录成功并确认授权后，系统会将用户的access_token返回到外部应用。
 
-1，打开 应用配置[^2] - {++安全++}
+1，打开 应用配置[^2] - {++安全++}，配置如下节点
 
-2，填入允许接收access_token的网址到 **开放认证网址白名单**（默认或留空，代表不限制）
+- [x] 开放认证网址白名单（允许接收access_token的网址）
+
+**默认或留空，代表不限制** [配置说明](https://docs.oauthapp.com//doc_appsetting_safe.html)
 
 ### 使用开放认证接口
+
+开放认证为外部应用提供了 申请授权码、获取access_token、查询授权记录、删除授权记录相关服务。
 
 | 开发参考  | 链接 |
 | ----------- | ----------- |
