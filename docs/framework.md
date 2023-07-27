@@ -9,20 +9,28 @@ tags:
 
 {++在开始前，请确认用OAuthApp发布工具创建应用并获取了 **appid** ++}
 
+**下载到本地**
+
+[点击下载](https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.zip){ .md-button }
+
 **在线引用**
 
-=== "HTML"
-    ```
+=== "OAuthApp服务器"
+    ```html linenums="1"
     <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
     <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="{{appid}}"></script>
     ```
 
-**使用NPM**
-=== "CMD"
-    ```
-    npm install oauthapp@latest
+=== "jsDelivr 免费 CDN"
+    ```html linenums="1"
+    <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
+    <script src="https://cdn.jsdelivr.net/npm/oauthapp@1.9.891/oauthapp.min.js" data-appid="{{appid}}"></script>
     ```
 
+**npm** [软件包管理器](https://www.npmjs.com/package/oauthapp)
+    ``` linenums="1"
+    npm install oauthapp@latest
+    ```
 
 ### 初始化
 
