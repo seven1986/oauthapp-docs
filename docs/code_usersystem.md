@@ -705,7 +705,7 @@ OAuthApp提供了统一登录功能，开发人员只需要通过简单的配置
 
 请注意，用户迁移可能需要谨慎处理，确保数据的一致性和准确性。
 
-> 用户账号、邮箱、手机号、UnionID+Platform 必须唯一。
+!!! quote "根据设计原则：用户账号、邮箱、手机号、UnionID+Platform 必须唯一。"
 
 [^1]:
     阿里云AccessKey：是通过API方式使用阿里云服务的一个身份令牌，正确配置后才能使用相关服务。[查看文档](https://docs.oauthapp.com/doc_appsetting_aliyun.html)

@@ -9,8 +9,7 @@ tags:
 
 本文档提供了如何实现支付、订单相关的开发说明。
 
-???+ note "提示"
-    请确认您已开通了支付宝[电脑网站支付](https://open.alipay.com/api/detail?code=I1080300001000041203)和[手机网站支付](https://open.alipay.com/api/detail?code=I1080300001000041949)产品，并在应用配置——支付宝，配置了相关密钥。
+!!! quote "请确认您已开通支付宝 电脑网站支付[^1]、手机网站支付[^2]，并配置了 支付宝节点[^3]"
 
 ## 新建订单并支付
 
@@ -202,3 +201,9 @@ graph LR
     - 99.9元 = 125,000积分
 
 如果不需要充值积分，productType可以任意设置，仅作为查询订单的筛选条件。
+
+[^1]:电脑网站支付:[https://open.alipay.com/api/detail?code=I1080300001000041203](https://open.alipay.com/api/detail?code=I1080300001000041203)
+
+[^2]:手机网站支付:[https://open.alipay.com/api/detail?code=I1080300001000041949](https://open.alipay.com/api/detail?code=I1080300001000041949)
+
+[^3]:支付宝配置：对接支付宝支产品，具体配置参考：[https://docs.oauthapp.com/doc_appsetting_alipay.html](https://docs.oauthapp.com/doc_appsetting_alipay.html)

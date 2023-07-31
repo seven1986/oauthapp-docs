@@ -6,22 +6,38 @@ edit_uri: edit/main/docs/
 nav:
   -  首页:
      - 'index.md'
-     - 'howtouse.md'
-     - 'doc.md'
-     - 应用配置:
-        - 'doc_appsetting_signup_resetpwd.md'
-        - 'doc_appsetting_safe.md'
-        - 'doc_appsetting_aliyun.md'
-        - 'doc_appsetting_azure.md'
-        - 'doc_appsetting_alipay.md'
-        - 'doc_appsetting_oauthapp_sso.md'
-        - 'doc_appsetting_dingtalk.md'
-        - 'doc_appsetting_custom.md'
-        - 'doc_appsetting_wechat.md'
-        - 'doc_appsetting_wechatminip.md'
-        - 'doc_appsetting_openwechat.md'
-        - 'doc_appsetting_qq.md'
-        - 'doc_appsetting_weibo.md'
+     - 使用指南:
+        - 'howtouse.md'
+        - 应用管理:
+           - 'doc_app.md'
+           - 'doc_app_publish.md'
+           - 'doc_app_editor.md'
+           - 'doc_app_versions.md'
+           - 'doc_app_files.md'
+           - 'doc_app_users.md'
+           - 'doc_app_database.md'
+           - 'doc_app_rank.md'
+           - 'doc_app_message.md'
+           - 'doc_app_analysis.md'
+           - 'doc_app_log.md'
+           - 'doc_app_domains.md'
+           - 'doc_app_order.md'
+        - 应用配置:
+           - 'doc_appsetting_signup_resetpwd.md'
+           - 'doc_appsetting_safe.md'
+           - 'doc_appsetting_aliyun.md'
+           - 'doc_appsetting_azure.md'
+           - 'doc_appsetting_alipay.md'
+           - 'doc_appsetting_oauthapp_sso.md'
+           - 'doc_appsetting_dingtalk.md'
+           - 'doc_appsetting_custom.md'
+           - 'doc_appsetting_wechat.md'
+           - 'doc_appsetting_wechatminip.md'
+           - 'doc_appsetting_openwechat.md'
+           - 'doc_appsetting_qq.md'
+           - 'doc_appsetting_weibo.md'
+        - 'doc_app_ssltool.md'
+        - 'doc_app_saas.md'
   - 文档:
      - 'framework.md'
      - 'framework_user.md'
@@ -132,8 +148,11 @@ nav:
   - 'qa.md'
   - 更新日志: 
       - 'logs.md'
-      - 'sdk.1.1.md'
-      - 'sdk.1.0.md'
+      - 旧版归档:
+        - 'doc.md'
+        - 文档:
+          - 'sdk.1.1.md'
+          - 'sdk.1.0.md'
 
   # - 项目:
   #     - 应用开发:
@@ -228,10 +247,10 @@ theme:
   icon:
     repo: fontawesome/brands/git-alt
 plugins:
-  - git-revision-date-localized:
-      enable_creation_date: true
-  - search:
-      lang: en
+  # - git-revision-date-localized:
+  #     enable_creation_date: true
+  # - search:
+  #     lang: en
   - tags:
       tags_file: tags.md  
   - offline
