@@ -247,10 +247,10 @@ theme:
   icon:
     repo: fontawesome/brands/git-alt
 plugins:
-  # - git-revision-date-localized:
-  #     enable_creation_date: true
-  # - search:
-  #     lang: en
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - search:
+      lang: en
   - tags:
       tags_file: tags.md  
   - offline

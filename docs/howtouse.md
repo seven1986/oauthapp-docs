@@ -41,7 +41,22 @@
 
 1，在本地计算机创建一个名为 "app1"的文件夹
 
-2，在"app1" 文件夹，创建一个空的 "helloworld.html" 文件。
+2，在"app1" 文件夹，创建 "index.html" 文件，内容如下：
+
+=== "app1/index.html"
+    ```html linenums="1" 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+    </body>
+    </html>
+    ```
 
 3，打开应用详情页，点击"发布"
 
