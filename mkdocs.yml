@@ -195,11 +195,11 @@ markdown_extensions:
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  # - pymdownx.superfences:
+  #     custom_fences:
+  #       - name: mermaid
+  #         class: mermaid
+  #         format: !!python/name:pymdownx.superfences.fence_code_format
   - toc:
       permalink: true
 theme:
@@ -225,7 +225,7 @@ theme:
     - content.action.view
     - search.share
     - search.highlight
-    
+    - navigation.footer
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -257,8 +257,9 @@ plugins:
   - glightbox
 extra_javascript:
   - javascripts/tablesort.min.js
-  - javascripts/mermaid.min.js
+  # - javascripts/mermaid.min.js
 extra:
+  generator: false
   social:
     - icon: fontawesome/brands/git 
       link: https://gitee.com/seven1986/oauthapp-docs.git

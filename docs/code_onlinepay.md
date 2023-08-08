@@ -13,107 +13,71 @@ tags:
 
 ## 新建订单并支付
 
-完整的的下单流程
+首先调用[oauthapp.orderCreate](https://docs.oauthapp.com/framework_alipay.html#_3)方法创建系统订单并获取订单号。
 
-``` mermaid
-graph LR
-  A[创建系统订单] --> B{成功};
-  B -->|Yes| C[创建支付宝订单];
-  C --> D{成功};
-  D -->|Yes| F[跳转支付宝在线支付];
-  D ---->|NO| G[提示错误信息];
-  B ---->|No| E[提示错误信息];
-```
+接着传入**系统订单号（orderNo）**等信息调用[oauthapp.alipayCreateOrderPagePay](https://docs.oauthapp.com/framework_alipay.html#_2)方法创建支付宝订单。
 
+最后，将支付宝返回的表单代码添加到页面并提交表单，以进行支付流程。
 
-步骤 1：创建系统订单，获取订单号。
+=== "下单流程"
 
-需提供订单相关信息
+    ![](https://docs.oauthapp.com/code_onlinepay/1.png){ loading=lazy }
 
-| 参数 | 说明 |
-| --- | --- |
-| amount | 订单金额 |
-| productType | 商品类型 |
-| productID | 商品ID |
-| productName | 商品名称 |
+=== "参考代码"
 
-步骤 2：调用支付宝下单方法
-
-在获取系统订单号后，就可以调用支付宝下单方法来生成支付宝订单。需提供订单相关信息
-
-| 参数 | 说明 |
-| --- | --- |
-| orderNo | 系统订单号 |
-| amount | 订单金额 |
-| productName | 商品名称 |
-| returnUrl | 返回URL |
-
-
-=== "参考代码示例 Javascript"
-    ```Javascript
-    	// 系统订单请求参数
-    	var orderData = {
-    	    amount: 0.01,
-    	    productType: "point",
-    	    productID: "1",
-    	    productName: "测试商品"
-    	};
-
-    	// 创建系统订单
-    	oauthapp.orderCreate(orderData).then(res => {
-    	    if (res.code != 200) {
-    	        alert(res.err);
-    	        return;
-    	    }
-
-            // 支付宝订单请求参数
-            var alipayOrderData = {
-    	        orderNo: res.data.orderNo,
-    	        amount: orderData.amount,
-    	        subject: orderData.productName,
-    	        returnUrl: location.href
-    	    };
-
-    	    // 创建支付宝订单
-    	    oauthapp.alipayCreateOrderPagePay(alipayOrderData).then(function(res2) {
-    	        if (res2.code != 200) {
-    	            alert(res2.err);
-    	            return;
-    	        }
-    	        // 将支付宝返回的表单代码添加到页面并提交
-    	        document.body.innerHTML = res2.data;
-    	        setTimeout(() => {
-    	            document.forms[0].submit();
-    	        }, 500);
-    	    });
-    	});
+    ```Javascript linenums="1"
+    // 系统订单请求参数
+    var orderData = {
+        amount: 0.01,
+        productType: "point",
+        productID: "1",
+        productName: "测试商品"
+    };
+    // 创建系统订单
+    oauthapp.orderCreate(orderData).then(res => {
+        if (res.code != 200) {
+            alert(res.err);
+            return;
+        }
+        // 支付宝订单请求参数
+        var alipayOrderData = {
+            orderNo: res.data.orderNo,
+            amount: orderData.amount,
+            subject: orderData.productName,
+            returnUrl: location.href
+        };
+        // 创建支付宝订单
+        oauthapp.alipayCreateOrderPagePay(alipayOrderData).then(function(res2) {
+            if (res2.code != 200) {
+                alert(res2.err);
+                return;
+            }
+            // 将支付宝返回的表单代码添加到页面并提交
+            document.body.innerHTML = res2.data;
+            setTimeout(() => {
+                document.forms[0].submit();
+            }, 500);
+        });
+    });
     ```
 
-以上代码示例中，首先调用[oauthapp.orderCreate](https://docs.oauthapp.com/framework_order/#_3)方法创建系统订单并获取订单号。接着传入**系统订单号（orderNo）、订单金额(amount)、商品名称(productName)、返回URL(returnUrl)**调用[oauthapp.alipayCreateOrderPagePay](https://docs.oauthapp.com/framework_alipay/#_2)方法创建支付宝订单。最后，将支付宝返回的表单代码添加到页面并提交表单，以进行支付流程。
 
 ## 已存在订单支付
 
 在订单列表中，如果要为**待支付**状态的订单再次发起支付，可参考下面的流程：
 
-``` mermaid
-graph LR
-  A[查询支付宝订单状态] --> B{查询成功};
-  B -->|已支付 状态| C[提示已经支付];
-  B ---->|非 已支付 状态| E[发起支付];
-```
+为了防止重复支付，首先需要调用[oauthapp.alipayOrder](https://docs.oauthapp.com/framework_alipay.html#_4)方法查询支付宝关联的订单交易状态。
+
+判断交易状态并发起支付，如果交易状态为**已支付**，则提示订单已付款；否则，调用封装好的**payOrder**函数创建支付宝订单并发起支付；然后将支付宝返回的表单代码添加到页面中，并提交表单。
+
+=== "支付流程"
+
+    ![](https://docs.oauthapp.com/code_onlinepay/2.png){ loading=lazy }
 
 
-步骤 1：查询支付宝关联订单的交易状态
+=== "参考代码"
 
-为了防止重复支付，首先需要查询支付宝关联的订单交易状态（防止重复支付）。通过调用[oauthapp.alipayOrder](https://docs.oauthapp.com/framework_alipay/#_4)订单查询方法，将系统订单号作为参数传入，获取支付宝订单的交易状态。
-
-步骤 2：判断交易状态并发起支付
-
-根据支付宝订单交易状态进行判断，如果交易状态不是**已支付**，则可以再次调用支付宝创建下单方法来发起支付。
-
-=== "参考代码示例 Javascript"
-    ```Javascript
-
+    ```Javascript linenums="1"
     // 支付宝下单
     function payOrder(data) {
         oauthapp.alipayCreateOrderPagePay(data).then(function (res2) {
@@ -160,14 +124,10 @@ graph LR
     })
     ```
 
-以上代码示例中，首先调用[oauthapp.alipayOrder](https://docs.oauthapp.com/framework_alipay/#_4)方法查询支付宝订单的交易状态。如果交易状态为**已支付**，则提示订单已付款；否则，调用封装好的**payOrder**函数创建支付宝订单并发起支付，然后将支付宝返回的表单代码添加到页面中，并提交表单。
-
-
 ## 支付成功着陆页
 
-???+ note "提示"
-    用户支付成功后支付宝会推送支付状态到后台并同步，因此在没有UI上的需求的情况下，您可以选择无需设置支付成功着陆页。
-    但如果您有自定义的UI展示需求，可以按照以下步骤进行设置。
+用户支付成功后支付宝会推送支付状态到后台并同步，因此在没有UI上的需求的情况下，您可以选择无需设置支付成功着陆页。但如果您有自定义的UI展示需求，可以按照以下步骤进行设置。
+
 
 步骤 1：设置着陆页地址
 
@@ -177,9 +137,9 @@ graph LR
 
 支付成功着陆页需要获取URL中的query参数，其中包含了支付宝的订单号及下单时间等相关参数。根据您的UI界面需求，可以提取这些参数并进行展示。
 
-**如果担心支付宝的异步通知有延时**，页面可以立即调用[oauthapp.alipayReturnPageNotify](https://docs.oauthapp.com/framework_alipay/#_6)方法，同步订单号(TradeNo)、下单时间(OrderPayTime)两个字段。
+**如果担心支付宝的异步通知有延时**，页面可以立即调用[oauthapp.alipayReturnPageNotify](https://docs.oauthapp.com/framework_alipay.html#_6)方法，同步订单号(TradeNo)、下单时间(OrderPayTime)两个字段。
 
-> 系统订单的**支付状态**始终通过：支付宝异步通知、[oauthapp.alipayOrder](https://docs.oauthapp.com/framework_alipay/#_4)查询支付宝订单方法自动同步。
+!!! quote "系统订单的**支付状态**始终通过：支付宝异步通知、[oauthapp.alipayOrder](https://docs.oauthapp.com/framework_alipay.html#_4)查询支付宝订单方法自动同步。"
 
 ## 订单状态说明
 

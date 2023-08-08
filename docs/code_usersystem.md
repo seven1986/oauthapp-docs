@@ -14,25 +14,7 @@ tags:
 OAuthApp提供了统一登录功能，开发人员只需要通过简单的配置就可以把登录、注册等功能集成到自己的应用系统中。
 
 === "OAuthApp统一登录"
-    ``` mermaid
-    graph LR
-      A[应用登录页] --> B{OAuthApp统一登录};
-      B --> C[用户名+密码];
-      B --> D[手机号+验证码];
-      B --> E[第三方平台];
-      E --> EE[微信小程序扫码]
-      E --> EEE[钉钉]
-      E --> EEEE[Web ID]
-      C --> F;
-      D --> F;
-      EE --> F;
-      EEE --> F;
-      EEEE --> F{登录};
-      F -->|成功| G[跳转应用redirect_uri];
-      F -->|失败| H[提示错误信息,重试 / 返回应用];
-      B ----> I[注册账号];
-      B ----> J[找回密码];
-    ```
+    ![](https://docs.oauthapp.com/code_usersystem/0.png){ loading=lazy }
 
 === "截图"
 
@@ -113,14 +95,7 @@ OAuthApp提供了统一登录功能，开发人员只需要通过简单的配置
 
 === "交互流程"
 
-    ``` mermaid
-    graph LR
-        A[用户扫码进入小程序] --> B{获取appId和signKey};
-        B -->|成功| C[请求用户授权];
-        C --> D[确认授权];
-        D --> E[注册应用账号];
-        B -->|失败| H[提示错误信息];
-    ```
+    ![](https://docs.oauthapp.com/code_usersystem/5.png){ loading=lazy }
 
 === "pages/index/index.js"
 

@@ -76,4 +76,4 @@ SSL证书可以保证您的网站的数据传输过程是安全的。
 
 ## 使用证书
 
-参考[这篇文章](https://docs.oauthapp.com/code_appdomain/)，为你的应用添加自定义域名并绑定新申请的证书。
+参考[这篇文章](https://docs.oauthapp.com/code_appdomain.html)，为你的应用添加自定义域名并绑定新申请的证书。
