@@ -56,7 +56,7 @@
 === "示例代码"
 
     ```HTML linenums="1"
-     <!-- data-server 属性替换为你的 服务器地址 -->
+     <!-- data-server 属性替换为你的 服务器地址，例如：https://example.xxx.com -->
      <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
     <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" 
         data-appid="{{appId}}" data-server="{{server}}"></script>
