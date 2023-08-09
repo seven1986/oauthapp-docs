@@ -304,7 +304,7 @@ OAuthApp提供了统一登录功能，开发人员只需要通过简单的配置
 
 === "pages/index/index.wxml"
 
-    ```xml linenums="1"
+    ```html linenums="1"
     <view class="container" wx:if="{{canSignin}}">
       <view>
         <image class="app-logo" src="{{appInfo.logo}}" mode="cover"></image>

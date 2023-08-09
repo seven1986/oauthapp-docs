@@ -19,7 +19,7 @@ tags:
 
 ## 步骤二：页面结构
 === "HTML"
-    ```HTML
+    ```HTML linenums="1"
     <div>
         <label>scopes</label>
         <input type="text" id="scopes" />
