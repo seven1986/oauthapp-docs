@@ -82,12 +82,67 @@
 === "图例 5-2"
     ![](https://docs.oauthapp.com/doc_app_users/5-2.png){ loading=lazy }
 
+## 令牌管理
+
+访问令牌是一种授权机制，通过为应用程序分配令牌，可以让应用程序获得访问资源的权限。例如数据库、排行榜和消息模块。
+您还可以指定令牌的有效期和权限，还可以通过禁用或启用访问令牌来管理令牌的状态。
+
+
+### 创建令牌
+
+操作步骤
+
+1，点击下拉菜单中的“令牌管理”
+
+2，点击创建令牌
+
+3，输入令牌名称、有效期、标签、备注，然后点击“确认“
+
+=== "图例 6-1"
+    ![](https://docs.oauthapp.com/doc_app_users/6-1.png){ loading=lazy }
+=== "图例 6-2"
+    ![](https://docs.oauthapp.com/doc_app_users/6-2.png){ loading=lazy }
+=== "图例 6-3"
+    ![](https://docs.oauthapp.com/doc_app_users/6-3.png){ loading=lazy }
+=== "图例 6-4"
+    ![](https://docs.oauthapp.com/doc_app_users/6-4.png){ loading=lazy }
+
+### 令牌管理
+
+您可以在“令牌管理”页面中查看和管理所有访问令牌。您可以编辑令牌的名称、有效期、权限和状态。
+
+操作步骤
+
+1，点击”复制密钥”，可以直接将带有当前用户信息的“access_token”复制到剪切板
+
+2，点击“权限设置”，可编辑当前令牌的权限
+
+=== "图例 7-1"
+    ![](https://docs.oauthapp.com/doc_app_users/7-1.png){ loading=lazy }
+=== "图例 7-2"
+    ![](https://docs.oauthapp.com/doc_app_users/7-2.png){ loading=lazy }
+=== "图例 7-3"
+    ![](https://docs.oauthapp.com/doc_app_users/7-3.png){ loading=lazy }
+
+### 使用令牌
+
+访问令牌与用户登录接口返回的access_token功能一样，免去了用户登录的步骤，通过访问令牌可直接调用API。
+
+## 订单记录
+
+可查看用户订单信息、在线支付、退款等操作，
+
+=== "图例 8-1"
+    ![](https://docs.oauthapp.com/doc_app_users/8-1.png){ loading=lazy }
+=== "图例 8-2"
+    ![](https://docs.oauthapp.com/doc_app_users/8-2.png){ loading=lazy }
+
 ## 开发文档和API
 
 为了方便开发者使用用户管理功能，我们提供了详细的开发文档和API参考。开发文档中包含了用户管理功能的具体用法和示例代码，供开发者参考和学习。
 
-- 文档：[http://docs.oauthapp.com/framework_user.html](http://docs.oauthapp.com/framework_user.html)
+- 文档：[https://docs.oauthapp.com/framework_user.html](https://docs.oauthapp.com/framework_user.html)
 
-- 接口：[http://docs.oauthapp.com/api_user.html](http://docs.oauthapp.com/api_user.html)
+- 接口：[https://docs.oauthapp.com/api_user.html](https://docs.oauthapp.com/api_user.html)
 
 [^1]:用户系统：[https://docs.oauthapp.com/code_usersystem.html](https://docs.oauthapp.com/code_usersystem.html)

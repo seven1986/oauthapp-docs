@@ -91,6 +91,6 @@
 
 [^1]:钉钉开发者后台：[https://open-dev.dingtalk.com/](https://open-dev.dingtalk.com/)
 
-[^2]:Azure OpenAI：[http://docs.oauthapp.com/doc_appsetting_azure.html](http://docs.oauthapp.com/doc_appsetting_azure.html)
+[^2]:Azure OpenAI：[https://docs.oauthapp.com/doc_appsetting_azure.html](https://docs.oauthapp.com/doc_appsetting_azure.html)
 
 [^3]:钉钉智能机器人：[https://docs.oauthapp.com/code_dingtalk_openai_robot.html](https://docs.oauthapp.com/code_dingtalk_openai_robot.html)

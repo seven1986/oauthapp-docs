@@ -10,89 +10,54 @@
 
 ## Postman
 
-使用Postman或其他接口调试工具，您需要先导入openapi文件：[https://www.oauthapp.com/swagger/1.0/swagger.json](https://www.oauthapp.com/swagger/1.0/swagger.json)
+Postman 接口文档 [点击访问](https://documenter.getpostman.com/view/19619739/2s9Xy3qqZH){.md-button}
+
+!!! quote "建议使用Postman导入openapi文件 [https://www.oauthapp.com/swagger/1.0/swagger.json](https://www.oauthapp.com/swagger/1.0/swagger.json)"
 
 
 ## 接口日志
 
-接口在调用后会产生日志，可在OAuthApp发布工具的：**应用管理**——**接口日志**查看具体信息，日志包含如下信息：
+接口在调用后会产生日志，可通过接口日志[^1]查看具体信息，具体包含如下信息
 
-- 访问时间
-> 示例
-```
-2023-06-20 14:31:05
-```
-- 响应时间
-> 示例
-```
-2023-06-20 14:31:05
-```
-- 客户端设备
-> 示例
-``` linenums="1"
-Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
-```
-- 请求内容
-> 示例
-```Javascript linenums="1"
-{
- "propCode": null,
- "blobPath": null
-}
-```
-- 响应内容
-> 示例
-```Javascript linenums="1"
-{
- "code": 200,
- "data": {
-  "info": {
-   "ID": 4,
-   "UserID": 1,
-   "ProjectID": 5,
-   "Website": "https://web.oauthapp.com/4/examples",
-   "ServerPath": "examples",
-   "Name": "示例汇总",
-   "Logo": "https://blob.oauthapp.com/4/tenant/4/应用.png",
-   "Description": null,
-   "Tags": null,
-   "AppKey": "e87e8958-6667-4c44-aa71-c801a2b9e6e8",
-   "Share": true,
-   "CreateDate": "2022-01-21T22:28:57",
-   "LastUpdate": "2022-01-21T22:28:57",
-   "IsDelete": false,
-   "Sort": 0
-  },
-  "props": [
-   {
-    "code": "WechatMiniPSignIn",
-    "value": "true",
-    "Desc": null
-   },
-   {
-    "code": "DingTalkSignIn",
-    "value": "true",
-    "Desc": null
-   },
-   {
-    "code": "DingTalkCorpId",
-    "value": "ding5c589fe4688de29dee0f45d8e4f7c288",
-    "Desc": null
-   }
-  ],
-  "blobs": []
- },
- "err": ""
-}
-```
-- 用户ID
-> 示例
-```
-1
-```
+=== "返回数据"
+
+    ```Json linenums="1"
+    {
+    "id": 7659,
+    "userID": "",
+    "userGroup": "app",
+    "reqPath": "/api/apps/2/Info",
+    "reqStart": "2023-08-07 15:10:03",
+    "reqEnd": "2023-08-07 15:10:03",
+    "reqData": "{...略}",
+    "resData": "{...略}",
+    "userAgent": "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/114.0.5735.179 Safari/537.36",
+    "operationId": "AppInfo"
+    }
+    ```
+
+
+=== "字段说明"
+
+    | 字段 | 描述 |  |
+    | --- | --- | --- |
+    | id | 日志唯一标识 |
+    | userID | 用户ID |
+    | userGroup | 用户来源 |
+    | reqPath | 请求API的地址 |
+    | reqStart | 请求时间 |
+    | reqEnd | 响应时间 |
+    | reqData | 请求携带数据 |
+    | resData | 接口响应数据 |
+    | userAgent | 客户端详情 |
+    | operationId | API标识 |
+
 
 ## 统计分析
 
-可在OAuthApp发布工具的：**应用管理**——**统计分析**——**接口**页面中，查看每天接口访问量。
+可通过统计分析[^2]查看每天接口访问量。
 
 ![接口访问量](https://docs.oauthapp.com/apitool/1.png)
+
+[^1]:接口日志：[https://docs.oauthapp.com/doc_app_log.html#_3](https://docs.oauthapp.com/doc_app_log.html#_3)
+[^2]:接口统计：[https://docs.oauthapp.com/doc_app_analysis.html#_9](https://docs.oauthapp.com/doc_app_analysis.html#_9)

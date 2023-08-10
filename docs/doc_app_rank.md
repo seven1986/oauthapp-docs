@@ -8,7 +8,7 @@
 
 1，单击“排行榜”
 
-1，单击下拉菜单中的“创建榜单”
+2，单击下拉菜单中的“创建榜单”
 
 === "图例 1-1"
     ![](https://docs.oauthapp.com/doc_app_rank/1-1.png){ loading=lazy }
