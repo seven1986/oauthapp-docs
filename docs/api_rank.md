@@ -23,7 +23,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppRank/:appId/Tables' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -32,7 +32,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppRank/:appId/Tables", Method.Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -47,7 +47,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppRank/:appId/Tables")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -62,7 +62,7 @@ tags:
         maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppRank/:appId/Tables',
           headers: { 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -83,7 +83,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/AppRank/:appId/Tables", payload, headers)
         res = conn.getresponse()
@@ -95,7 +95,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -151,14 +151,14 @@ tags:
 
         ```curl linenums="1"
         curl --location --request POST 'https://www.oauthapp.com/api/AppRank/:appId/CreateTable?tableName=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     === "C#"
 
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppRank/:appId/CreateTable?tableName=");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -175,7 +175,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppRank/:appId/CreateTable?tableName=")
           .method("POST", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -190,7 +190,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppRank/:appId/CreateTable?tableName=',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -211,7 +211,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("POST", "/api/AppRank/:appId/CreateTable?tableName=", payload, headers)
         res = conn.getresponse()
@@ -223,7 +223,7 @@ tags:
 
         ```Javascript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'POST',
@@ -273,7 +273,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppRank/:appId/:table/Report' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -282,7 +282,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppRank/:appId/:table/Report", Method.Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -297,7 +297,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppRank/:appId/:table/Report")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -312,7 +312,7 @@ tags:
         maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppRank/:appId/:table/Report',
           headers: { 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -333,7 +333,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/AppRank/:appId/:table/Report", payload, headers)
         res = conn.getresponse()
@@ -345,7 +345,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -412,7 +412,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppRank/:appId/:table?pltform=&unionId=&nickName=&tag=&       take=&skip=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -424,7 +424,7 @@ tags:
         };
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppRank/:appId/:table?pltform=&unionId=&nickName=&tag=&   take=30&skip=0", Method.Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -439,7 +439,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppRank/:appId/:table?pltform=&unionId=&nickName=&tag=&    take=30&skip=0")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -454,7 +454,7 @@ tags:
         maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppRank/:appId/:table?pltform=&unionId=&nickName=&tag=&    take=30&skip=0',
           headers: { 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -475,7 +475,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/AppRank/:appId/:table?pltform=&unionId=&nickName=&tag=&take=30&skip=0",     payload, headers)
         res = conn.getresponse()
@@ -487,7 +487,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -575,7 +575,7 @@ tags:
         ```curl linenums="1"
         curl --location --request PUT 'https://www.oauthapp.com/api/AppRank/:appId/:table' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{
           "userID": "",
           "tags": "",
@@ -597,7 +597,7 @@ tags:
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppRank/:appId/:table", Method.Put);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         var body = @"{" + "\n" +
         @"    ""userID"": 2," + "\n" +
         @"    ""tags"": """"," + "\n" +
@@ -629,7 +629,7 @@ tags:
           .url("https://www.oauthapp.com/api/AppRank/:appId/:table")
           .method("PUT", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -660,7 +660,7 @@ tags:
           url: 'https://www.oauthapp.com/api/AppRank/:appId/:table',
           headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           },
           data : data
         };
@@ -698,7 +698,7 @@ tags:
         })
         headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("PUT", "/api/AppRank/:appId/:table", payload, headers)
         res = conn.getresponse()
@@ -711,7 +711,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "userID": 2,
@@ -777,7 +777,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppRank/:appId/:table/UserRanking?platform=&unionID=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -786,7 +786,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppRank/:appId/:table/UserRanking?platform=&unionID=", Method.    Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -801,7 +801,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppRank/:appId/:table/UserRanking?platform=&unionID=")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -816,7 +816,7 @@ tags:
         maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppRank/:appId/:table/UserRanking?platform=&unionID=',
           headers: { 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -837,7 +837,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/AppRank/:appId/:table/UserRanking?platform=&unionID=", payload, headers)
         res = conn.getresponse()
@@ -849,7 +849,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',

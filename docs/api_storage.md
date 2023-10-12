@@ -22,7 +22,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/Tables' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -30,7 +30,7 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Get, "https://www.oauthapp.com/api/AppStorage/:appId/       Tables");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -46,7 +46,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppStorage/:appId/Tables")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -61,7 +61,7 @@ tags:
         maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppStorage/:appId/Tables',
           headers: { 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -82,7 +82,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/AppStorage/:appId/Tables", payload, headers)
         res = conn.getresponse()
@@ -94,7 +94,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -150,7 +150,7 @@ tags:
 
         ```curl linenums="1"
         curl --location --request POST 'https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&        uniqueData=false' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
 
     === "C#"
@@ -158,7 +158,7 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&uniqueData=false");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -174,7 +174,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&uniqueData=false")
           .method("POST", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -189,7 +189,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&uniqueData=false',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -210,7 +210,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("POST", "/api/AppStorage/:appId/CreateTable?tableName=&uniqueData=false", payload,         headers)
         res = conn.getresponse()
@@ -222,7 +222,7 @@ tags:
 
         ```Javascript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'POST',
@@ -276,7 +276,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/:table?tag=&filter=&sort=&take=&        skip=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -285,7 +285,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppStorage/:appId/:table?tag=&filter=&sort=&take=15&skip=0",    Method.Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -300,7 +300,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppStorage/:appId/:table?tag=&filter=&sort=&take=15&skip=0")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -315,7 +315,7 @@ tags:
         maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table?tag=&filter=&sort=&take=15&skip=0',
           headers: { 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -336,7 +336,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/AppStorage/:appId/:table?tag=&filter=&sort=&take=15&skip=0", payload,     headers)
         res = conn.getresponse()
@@ -348,7 +348,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -445,7 +445,7 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/:table' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{
             "showIndex": 0,
             "tags": "",
@@ -460,7 +460,7 @@ tags:
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppStorage/:appId/:table", Method.Post);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         var body = @"{" + "\n" +
         @"    ""showIndex"": 0," + "\n" +
         @"    ""tags"": """"," + "\n" +
@@ -482,7 +482,7 @@ tags:
           .url("https://www.oauthapp.com/api/AppStorage/:appId/:table")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -503,7 +503,7 @@ tags:
           url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table',
           headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': 'Bearer Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           },
           data : data
         };
@@ -531,7 +531,7 @@ tags:
         })
         headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("POST", "/api/AppStorage/:appId/:table", payload, headers)
         res = conn.getresponse()
@@ -544,7 +544,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "showIndex": 0,
@@ -600,7 +600,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -609,7 +609,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppStorage/:appId/:table/:id", Method.Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -624,7 +624,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -639,7 +639,7 @@ tags:
         maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id',
           headers: { 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -660,7 +660,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/AppStorage/:appId/:table/:id", payload, headers)
         res = conn.getresponse()
@@ -672,7 +672,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -727,7 +727,7 @@ tags:
 
         ```curl linenums="1"
         curl --location --request DELETE 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -736,7 +736,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppStorage/:appId/:table/:id", Method.Delete);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -751,7 +751,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id")
           .method("DELETE", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -766,7 +766,7 @@ tags:
         maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id',
           headers: { 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -787,7 +787,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("DELETE", "/api/AppStorage/:appId/:table/:id", payload, headers)
         res = conn.getresponse()
@@ -799,7 +799,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'DELETE',
@@ -855,7 +855,7 @@ tags:
         ```curl linenums="1"
         curl --location --request PUT 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{
             "showIndex": 0,
             "tags": "",
@@ -870,7 +870,7 @@ tags:
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppStorage/:appId/:table/:id", Method.Put);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         var body = @"{" + "\n" +
         @"    ""showIndex"": 0," + "\n" +
         @"    ""tags"": """"," + "\n" +
@@ -892,7 +892,7 @@ tags:
           .url("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id")
           .method("PUT", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -913,7 +913,7 @@ tags:
           url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id',
           headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': 'Bearer token'
+            'Authorization': 'Bearer {{access_token}}'
           },
           data : data
         };
@@ -941,7 +941,7 @@ tags:
         })
         headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer token'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("PUT", "/api/AppStorage/:appId/:table/:id", payload, headers)
         res = conn.getresponse()
@@ -954,7 +954,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "showIndex": 0,

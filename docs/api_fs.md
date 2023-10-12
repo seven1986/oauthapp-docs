@@ -24,7 +24,7 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=&service=' \
         --header 'Content-Type: multipart/form-data' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --form 'file=""'
         ```
     
@@ -33,7 +33,7 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/TenantBlobs/app/        :appId?path=&service=");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var content = new MultipartFormDataContent();
         content.Add(new StringContent(""), "file");
         request.Content = content;
@@ -56,7 +56,7 @@ tags:
           .url("https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=&service=")
           .method("POST", body)
           .addHeader("Content-Type", "multipart/form-data")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -75,7 +75,7 @@ tags:
           url: 'https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=&service=',
           headers: { 
             'Content-Type': 'multipart/form-data', 
-            'Authorization': 'Bearer {{bearerToken}}', 
+            'Authorization': 'Bearer {{access_token}}', 
             ...data.getHeaders()
           },
           data : data
@@ -113,7 +113,7 @@ tags:
         payload = body
         headers = {
           'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer {{bearerToken}}',
+          'Authorization': 'Bearer {{access_token}}',
           'Content-type': 'multipart/form-data; boundary={}'.format(boundary)
         }
         conn.request("POST", "/api/TenantBlobs/app/:appId?path=&service=", payload, headers)
@@ -127,7 +127,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "multipart/form-data");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var formdata = new FormData();
         formdata.append("file", "");
@@ -199,7 +199,7 @@ tags:
 
         ```curl linenums="1"
         curl --location --request DELETE 'https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C# "
@@ -207,7 +207,7 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Delete, "https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -223,7 +223,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=")
           .method("DELETE", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -238,7 +238,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -259,7 +259,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("DELETE", "/api/TenantBlobs/app/:appId?path=", payload, headers)
         res = conn.getresponse()
@@ -271,7 +271,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'DELETE',

@@ -28,18 +28,16 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"platform": "","unionID": ""}'
         ```
     
     === "C#"
 
         ```CSharp linenums="1"
-        var client = new RestClient("https://www.oauthapp.com/api/AppUsers/:appId[^2]/UnionIDSignIn");
+        var client = new RestClient("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn");
         client.Timeout = -1;
         var request = new RestRequest(Method.POST);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer access_token");
         var body = @"{" + "\n" +
         @"  ""platform"": ""web""," + "\n" +
         @"  ""unionID"": ""123456""" + "\n" +
@@ -57,10 +55,9 @@ tags:
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\n  \"platform\": \"web\",\n  \"unionID\":     \"123456\"\n}");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/AppUsers/:appId[^2]/UnionIDSignIn")
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer access_token")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -76,10 +73,9 @@ tags:
 
         var config = {
           method: 'post',
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/UnionIDSignIn',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer access_token'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -105,10 +101,9 @@ tags:
           "unionID": "123456"
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer access_token'
+          'Content-Type': 'application/json'
         }
-        conn.request("POST", "/api/AppUsers/:appId[^2]/UnionIDSignIn", payload, headers)
+        conn.request("POST", "/api/AppUsers/:appId/UnionIDSignIn", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -119,7 +114,6 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer access_token");
 
         var raw = JSON.stringify({"platform":"web","unionID":"123456"});
 
@@ -130,7 +124,7 @@ tags:
         redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId[^2]/UnionIDSignIn", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -172,7 +166,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"platform": "","pwd": "","unionID": "","nickName": "","avatar": "","data": "","email": "","emailCode": "","phone": "","phoneCode": ""}'
         ```
     
@@ -181,7 +174,6 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
         var content = new StringContent("{\"platform\": \"\",\"pwd\": \"\",\"unionID\": \"\",\"nickName\":\"\",\"avatar\": \"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -200,7 +192,6 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -227,8 +218,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -262,8 +252,7 @@ tags:
           "phoneCode": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
         conn.request("POST", "/api/AppUsers/:appId/UnionIDSignUp", payload, headers)
         res = conn.getresponse()
@@ -276,7 +265,6 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "platform": "",
@@ -332,7 +320,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/SignIn' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"pwd": "","userName": ""}'
         ```
     
@@ -341,7 +328,6 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/SignIn");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
         var content = new StringContent("{\"pwd\": \"\",\"userName\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -360,7 +346,6 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/:appId/SignIn")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -379,8 +364,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/SignIn',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -406,8 +390,7 @@ tags:
           "userName": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
         conn.request("POST", "/api/AppUsers/:appId/SignIn", payload, headers)
         res = conn.getresponse()
@@ -420,7 +403,6 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "pwd": "",
@@ -474,7 +456,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/SignUp' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"pwd": "","userName": "","nickName": "","avatar": "","data": "","email": "","emailCode": "","phone": "","phoneCode": ""}'
         ```
     
@@ -483,7 +464,6 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/SignUp");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
         var content = new StringContent("{\"pwd\": \"\",\"userName\": \"\",\"nickName\": \"\",\"avatar\":\"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\"}", null,"application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -502,7 +482,6 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/:appId/SignUp")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -528,8 +507,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/SignUp',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -562,8 +540,7 @@ tags:
           "phoneCode": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
         conn.request("POST", "/api/AppUsers/:appId/SignUp", payload, headers)
         res = conn.getresponse()
@@ -576,7 +553,6 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "pwd": "",
@@ -639,7 +615,6 @@ tags:
         ``` curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignUp' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"phone": "","phoneCode": "","pwd": "","email": "","emailCode": "","nickName": "","avatar": "","data": ""}'
         ```
 
@@ -647,8 +622,7 @@ tags:
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignUp");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignUp");
         var content = new StringContent("{\"phone\": \"\",\"phoneCode\": \"\",\"pwd\": \"\",\"email\": \"\",\"emailCode\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -663,10 +637,9 @@ tags:
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\"phone\": \"\",\"phoneCode\": \"\",\"pwd\": \"\",\"email\": \"\",\"emailCode\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\"}");
         Request request = new Request.Builder()
-        .url("https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignUp")
+        .url("https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignUp")
         .method("POST", body)
         .addHeader("Content-Type", "application/json")
-        .addHeader("Authorization", "Bearer {{bearerToken}}")
         .build();
         Response response = client.newCall(request).execute();
         ```
@@ -689,10 +662,9 @@ tags:
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignUp',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignUp',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -724,10 +696,9 @@ tags:
           "data": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
-        conn.request("POST", "/api/AppUsers/:appId[^2]/PhoneSignUp", payload, headers)
+        conn.request("POST", "/api/AppUsers/:appId/PhoneSignUp", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -738,7 +709,6 @@ tags:
         ```Javascript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "phone": "",
@@ -758,7 +728,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignUp", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignUp", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -792,7 +762,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignIn' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{
           "phone": "",
           "verifyCode": ""
@@ -802,8 +771,7 @@ tags:
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignIn");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignIn");
         var content = new StringContent("{\"phone\": \"\",\"verifyCode\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -818,10 +786,9 @@ tags:
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\"phone\": \"\",\"verifyCode\": \"\"}");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignIn")
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignIn")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -838,10 +805,9 @@ tags:
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignIn',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignIn',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -867,10 +833,9 @@ tags:
           "verifyCode": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
-        conn.request("POST", "/api/AppUsers/:appId[^2]/PhoneSignIn", payload, headers)
+        conn.request("POST", "/api/AppUsers/:appId/PhoneSignIn", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -881,7 +846,6 @@ tags:
         ```Javascript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "phone": "",
@@ -895,7 +859,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignIn", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignIn", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -929,15 +893,13 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendSMSCode' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"phone": "","type": ""}'
         ```
     === "C#"
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendSMSCode");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/SendSMSCode");
         var content = new StringContent("{\"phone\": \"\",\"type\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -954,10 +916,9 @@ tags:
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\"phone\": \"\",\"type\": \"\"}");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendSMSCode")
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/SendSMSCode")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -974,10 +935,9 @@ tags:
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendSMSCode',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/SendSMSCode',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -1003,10 +963,9 @@ tags:
           "type": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
-        conn.request("POST", "/api/AppUsers/:appId[^2]/SendSMSCode", payload, headers)
+        conn.request("POST", "/api/AppUsers/:appId/SendSMSCode", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -1017,7 +976,6 @@ tags:
         ```Javascript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "phone": "",
@@ -1031,7 +989,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendSMSCode", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/SendSMSCode", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -1086,15 +1044,13 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/EmailSignUp' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"email": "","pwd": "","emailCode": "","phone": "","phoneCode": "","nickName": "","avatar":"","data": ""}'
         ```
     === "C#"
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId[^2]/EmailSignUp");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/EmailSignUp");
         var content = new StringContent("{\"email\": \"\",\"pwd\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -1110,10 +1066,9 @@ tags:
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\"email\": \"\",\"pwd\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\"}");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/AppUsers/:appId[^2]/EmailSignUp")
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/EmailSignUp")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -1136,10 +1091,9 @@ tags:
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/EmailSignUp',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/EmailSignUp',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -1171,10 +1125,9 @@ tags:
           "data": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
-        conn.request("POST", "/api/AppUsers/:appId[^2]/EmailSignUp", payload, headers)
+        conn.request("POST", "/api/AppUsers/:appId/EmailSignUp", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -1185,7 +1138,6 @@ tags:
         ```Javascript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "email": "",
@@ -1205,7 +1157,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId[^2]/EmailSignUp", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/EmailSignUp", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -1240,7 +1192,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"email": "","verifyCode": ""}'
         ```
 
@@ -1249,7 +1200,6 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
         var content = new StringContent("{\"email\": \"\",\"verifyCode\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -1268,7 +1218,6 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -1287,8 +1236,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -1314,8 +1262,7 @@ tags:
           "verifyCode": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
         conn.request("POST", "/api/AppUsers/：appId/EmailSignIn", payload, headers)
         res = conn.getresponse()
@@ -1328,7 +1275,6 @@ tags:
         ```Javascript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "email": "",
@@ -1376,17 +1322,15 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-        curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendEmailCode' \
+        curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"email": "","type": ""}'
         ```
     === "C#"
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendEmailCode");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode");
         var content = new StringContent("{\"email\": \"\",\"type\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -1403,10 +1347,9 @@ tags:
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\"email\": \"\",\"type\": \"\"}");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendEmailCode")
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -1423,10 +1366,9 @@ tags:
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendEmailCode',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -1452,10 +1394,9 @@ tags:
           "type": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
-        conn.request("POST", "/api/AppUsers/:appId[^2]/SendEmailCode", payload, headers)
+        conn.request("POST", "/api/AppUsers/:appId/SendEmailCode", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -1466,7 +1407,6 @@ tags:
         ```Javascript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "email": "",
@@ -1480,7 +1420,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendEmailCode", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -1527,17 +1467,15 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-        curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/ResetPwd' \
+        curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"code": "","pwd": "","phone": "","email": ""}'
         ```
     === "C#"
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId[^2]/ResetPwd");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd");
         var content = new StringContent("{\"code\": \"\",\"pwd\": \"\",\"phone\": \"\",\"email\": \"\"}",         null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -1553,10 +1491,9 @@ tags:
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\"code\": \"\",\"pwd\": \"\",\"phone\": \"\",\"email\": \"\"}");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/AppUsers/:appId[^2]/ResetPwd")
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -1575,10 +1512,9 @@ tags:
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/ResetPwd',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -1607,10 +1543,9 @@ tags:
           "email": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
-        conn.request("POST", "/api/AppUsers/:appId[^2]/ResetPwd", payload, headers)
+        conn.request("POST", "/api/AppUsers/:appId/ResetPwd", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -1621,7 +1556,6 @@ tags:
         ```Javascript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "code": "",
@@ -1637,7 +1571,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId[^2]/ResetPwd", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -1688,7 +1622,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"scopes": "","remark": "","scheme": "app"}'
         ```
     
@@ -1697,7 +1630,6 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
         var content = new StringContent("{\"scopes\": \"\",\"remark\": \"\",\"scheme\": \"app\"}", null,"application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -1717,7 +1649,6 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -1737,8 +1668,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -1765,8 +1695,7 @@ tags:
           "scheme": "app"
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
         conn.request("POST", "/api/AppUsers/:appId/QRCodePreSignIn", payload, headers)
         res = conn.getresponse()
@@ -1779,7 +1708,6 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "scopes": "",
@@ -1838,7 +1766,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"signInKey": ""}'
         ```
     
@@ -1847,7 +1774,6 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
         var content = new StringContent("{\"signInKey\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -1866,7 +1792,6 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -1884,8 +1809,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -1910,8 +1834,7 @@ tags:
           "signInKey": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
         conn.request("POST", "/api/AppUsers/:appId/QRCodeSignIn", payload, headers)
         res = conn.getresponse()
@@ -1924,7 +1847,6 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "signInKey": ""
@@ -1971,7 +1893,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"signInKey": ""}'
         ```
     
@@ -1980,7 +1901,6 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
         var content = new StringContent("{\"signInKey\": \"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -2000,7 +1920,6 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -2018,8 +1937,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -2044,8 +1962,7 @@ tags:
           "signInKey": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
         conn.request("POST", "/api/AppUsers/:appId/QRCodeScan", payload, headers)
         res = conn.getresponse()
@@ -2058,7 +1975,6 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "signInKey": ""
@@ -2133,7 +2049,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"unionID": "","signInKey": "","nickName": "","avatar": "","data": "","email": "",        "emailCode": "","phone": "","phoneCode": ""}'
         ```
     
@@ -2142,7 +2057,6 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
         var content = new StringContent("{\"unionID\": \"\",\"signInKey\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\":\"\"}", null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -2161,7 +2075,6 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -2187,8 +2100,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -2221,8 +2133,7 @@ tags:
           "phoneCode": ""
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
         conn.request("POST", "/api/AppUsers/:appId/QRCodeSignUp", payload, headers)
         res = conn.getresponse()
@@ -2235,7 +2146,6 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "unionID": "",
@@ -2296,17 +2206,15 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-        curl --location 'https://www.oauthapp.com/api/OAuth/:appId[^2]/GrantCode?scheme=app' \
+        curl --location 'https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{"grant_type": "","scopes": "","redirect_uri": "","userName": "","password": "","unionId":"","platform": "","expireInDays": 1}'
         ```
     === "C#"
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/OAuth/:appId[^2]/GrantCode?scheme=app");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app");
         var content = new StringContent("{\"grant_type\": \"\",\"scopes\": \"\",\"redirect_uri\": \"\",\"userName\": \"\",\"password\": \"\",\"unionId\": \"\",\"platform\": \"\",\"expireInDays\": 1}",null, "application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -2322,10 +2230,9 @@ tags:
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\"grant_type\": \"\",\"scopes\": \"\",\"redirect_uri\": \"\",\"userName\": \"\",\"password\": \"\",\"unionId\": \"\",\"platform\": \"\",\"expireInDays\": 1}");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/OAuth/:appId[^2]/GrantCode?scheme=app")
+          .url("https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -2348,10 +2255,9 @@ tags:
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/OAuth/:appId[^2]/GrantCode?scheme=app',
+          url: 'https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app',
           headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Content-Type': 'application/json'
           },
           data : data
         };
@@ -2383,10 +2289,9 @@ tags:
           "expireInDays": 1
         })
         headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Content-Type': 'application/json'
         }
-        conn.request("POST", "/api/OAuth/:appId[^2]/GrantCode?scheme=app", payload, headers)
+        conn.request("POST", "/api/OAuth/:appId/GrantCode?scheme=app", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -2397,7 +2302,6 @@ tags:
         ```Javascript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var raw = JSON.stringify({
           "grant_type": "",
@@ -2417,7 +2321,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/OAuth/:appId[^2]/GrantCode?scheme=app", requestOptions)
+        fetch("https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -2464,16 +2368,14 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-        curl --location --request POST 'https://www.oauthapp.com/api/OAuth/:appId[^2]/Authorize?scheme=&code=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        curl --location --request POST 'https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&code='
         ```
 
     === "C#"
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/OAuth/:appId[^2]/Authorize?scheme=&code=");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&code=");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -2487,9 +2389,8 @@ tags:
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create(mediaType, "");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/OAuth/:appId[^2]/Authorize?scheme=&code=")
+          .url("https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&code=")
           .method("POST", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -2502,10 +2403,7 @@ tags:
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/OAuth/:appId[^2]/Authorize?scheme=&code=',
-          headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
-          }
+          url: 'https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&code='
         };
 
         axios.request(config)
@@ -2524,10 +2422,8 @@ tags:
 
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
-        headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
-        }
-        conn.request("POST", "/api/OAuth/:appId[^2]/Authorize?scheme=&code=", payload, headers)
+        headers = {}
+        conn.request("POST", "/api/OAuth/:appId/Authorize?scheme=&code=", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -2537,7 +2433,6 @@ tags:
 
         ```Javascript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
 
         var requestOptions = {
           method: 'POST',
@@ -2545,7 +2440,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/OAuth/:appId[^2]/Authorize?scheme=&code=", requestOptions)
+        fetch("https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&code=", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -2566,23 +2461,23 @@ tags:
     | 参数  | 说明 |  |
     | ----------- | ----------- | ----------- |
     | 请求方式 | GET |  |
-    | 登陆凭证 | 不需要 |  |
+    | 登陆凭证 | Bearer Token |  |
 
 === "示例"
 
     === "cURL"
 
         ```curl linenums="1"
-        curl --location 'https://www.oauthapp.com/api/OAuth/2/Consents' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        curl --location 'https://www.oauthapp.com/api/OAuth/:appId/Consents' \
+        --header 'Authorization: Bearer {{access_token}}'
         ```
 
     === "C#"
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Get, "https://www.oauthapp.com/api/OAuth/2/Consents");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://www.oauthapp.com/api/OAuth/:appId/Consents");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -2596,9 +2491,9 @@ tags:
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create(mediaType, "");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/OAuth/2/Consents")
+          .url("https://www.oauthapp.com/api/OAuth/:appId/Consents")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -2611,9 +2506,9 @@ tags:
         let config = {
           method: 'get',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/OAuth/2/Consents',
+          url: 'https://www.oauthapp.com/api/OAuth/:appId/Consents',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -2634,9 +2529,9 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
-        conn.request("GET", "/api/OAuth/2/Consents", payload, headers)
+        conn.request("GET", "/api/OAuth/:appId/Consents", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -2646,7 +2541,7 @@ tags:
 
         ```Javascript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -2654,7 +2549,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/OAuth/2/Consents", requestOptions)
+        fetch("https://www.oauthapp.com/api/OAuth/:appId/Consents", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -2697,7 +2592,7 @@ tags:
     | 参数  | 说明 |  |
     | ----------- | ----------- | ----------- |
     | 请求方式 | DELETE |  |
-    | 登陆凭证 | 不需要 |  |
+    | 登陆凭证 | bearerToken |  |
     | id | 授权记录的ID |  |
 
 === "示例"
@@ -2705,7 +2600,7 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-        curl --location --request DELETE 'https://www.oauthapp.com/api/OAuth/:appId[^2]/Consents/:id' \
+        curl --location --request DELETE 'https://www.oauthapp.com/api/OAuth/:appId/Consents/:id' \
         --header 'Authorization: Bearer {{bearerToken}}'
         ```
 
@@ -2713,8 +2608,8 @@ tags:
 
         ```CSharp linenums="1"
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Delete, "https://www.oauthapp.com/api/OAuth/:appId[^2]/Consents/:id");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        var request = new HttpRequestMessage(HttpMethod.Delete, "https://www.oauthapp.com/api/OAuth/:appId/Consents/:id");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -2728,9 +2623,9 @@ tags:
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create(mediaType, "");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/OAuth/:appId[^2]/Consents/:id")
+          .url("https://www.oauthapp.com/api/OAuth/:appId/Consents/:id")
           .method("DELETE", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -2743,9 +2638,9 @@ tags:
         let config = {
           method: 'delete',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/OAuth/:appId[^2]/Consents/:id',
+          url: 'https://www.oauthapp.com/api/OAuth/:appId/Consents/:id',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -2766,9 +2661,9 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
-        conn.request("DELETE", "/api/OAuth/:appId[^2]/Consents/:id", payload, headers)
+        conn.request("DELETE", "/api/OAuth/:appId/Consents/:id", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -2778,7 +2673,7 @@ tags:
 
         ```Javascript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'DELETE',
@@ -2786,7 +2681,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/OAuth/:appId[^2]/Consents/:id", requestOptions)
+        fetch("https://www.oauthapp.com/api/OAuth/:appId/Consents/:id", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -2827,7 +2722,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/Profile' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -2835,7 +2730,7 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Get, "https://www.oauthapp.com/api/AppUsers/:appId/Profile");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -2851,7 +2746,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppUsers/:appId/Profile")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -2866,7 +2761,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/Profile',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -2887,7 +2782,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/AppUsers/:appId/Profile", payload, headers)
         res = conn.getresponse()
@@ -2899,7 +2794,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -2968,7 +2863,7 @@ tags:
         ```curl linenums="1"
         curl --location --request PUT 'https://www.oauthapp.com/api/AppUsers/:appId/Profile' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{"avatar": "","data": "","nickName": ""}'
         ```
     
@@ -2977,7 +2872,7 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Put, "https://www.oauthapp.com/api/AppUsers/:appId/Profile");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var content = new StringContent("{\"avatar\": \"\",\"data\": \"\",\"nickName\": \"\"}", null,"application/json");
         request.Content = content;
         var response = await client.SendAsync(request);
@@ -2997,7 +2892,7 @@ tags:
           .url("https://www.oauthapp.com/api/AppUsers/:appId/Profile")
           .method("PUT", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -3018,7 +2913,7 @@ tags:
           url: 'https://www.oauthapp.com/api/AppUsers/:appId/Profile',
           headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           },
           data : data
         };
@@ -3046,7 +2941,7 @@ tags:
         })
         headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("PUT", "/api/AppUsers/:appId/Profile", payload, headers)
         res = conn.getresponse()
@@ -3059,7 +2954,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "avatar": "",
@@ -3119,7 +3014,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&skip=&take=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -3127,8 +3022,8 @@ tags:
         ```CSharp linenums="1"
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
-        var request = new RestRequest("/api/AppUsers/:appId[^2]/PointLog?type=&skip=&take=", Method.Get);
-        request.AddHeader("Authorization", "Bearer {{bearerToken}}");
+        var request = new RestRequest("/api/AppUsers/:appId/PointLog?type=&skip=&take=", Method.Get);
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -3141,9 +3036,9 @@ tags:
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create(mediaType, "");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/AppUsers/:appId[^2]/PointLog?type=&skip=&take=")
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&skip=&take=")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -3156,9 +3051,9 @@ tags:
         let config = {
           method: 'get',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/PointLog?type=&skip=&take=',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&skip=&take=',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -3179,9 +3074,9 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
-        conn.request("GET", "/api/AppUsers/:appId[^2]/PointLog?type=&skip=&take=", payload, headers)
+        conn.request("GET", "/api/AppUsers/:appId/PointLog?type=&skip=&take=", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -3191,7 +3086,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -3199,7 +3094,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId[^2]/PointLog?type=&skip=&take=", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&skip=&take=", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -3240,6 +3135,157 @@ tags:
     ```
 
 [在线调试](https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserPointLog){ .md-button }
+
+
+
+## 充值积分
+
+{{serverUrl}}[^1]/api/AppUsers/:appId[^2]/RechargePoints
+
+=== "请求参数"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | 请求方式 | GET |  |
+    | 登陆凭证 | Bearer Token |  |
+    | price |  充值金额，必填 | 1 |
+    | remark | 备注信息，可选 |  |
+
+=== "示例"
+
+    === "cURL"
+
+        ```curl linenums="1"
+        curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Bearer {{access_token}}' \
+        --data '{
+            "price": 0,
+            "remark": "string"
+        }'
+        ```
+    
+    === "C#"
+
+        ```CSharp linenums="1"
+        var client = new HttpClient();
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
+        var content = new StringContent("{\r\n    \"price\": 0,\r\n    \"remark\": \"string\"\r\n}", null, "application/json");
+        request.Content = content;
+        var response = await client.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
+        ```
+
+    === "Java"
+
+        ```Java linenums="1"
+        OkHttpClient client = new OkHttpClient().newBuilder()
+          .build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, "{\r\n    \"price\": 0,\r\n    \"remark\": \"string\"\r\n}");
+        Request request = new Request.Builder()
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints")
+          .method("POST", body)
+          .addHeader("Content-Type", "application/json")
+          .addHeader("Authorization", "Bearer {{access_token}}")
+          .build();
+        Response response = client.newCall(request).execute();
+        ```
+
+    === "NodeJs"
+
+        ```TypeScript linenums="1"
+        const axios = require('axios');
+        let data = JSON.stringify({
+          "price": 0,
+          "remark": "string"
+        });
+
+        let config = {
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints',
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': 'Bearer {{access_token}}'
+          },
+          data : data
+        };
+
+        axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        ```
+
+    === "Python"
+
+        ```Python linenums="1"
+        import http.client
+        import json
+
+        conn = http.client.HTTPSConnection("www.oauthapp.com")
+        payload = json.dumps({
+          "price": 0,
+          "remark": "string"
+        })
+        headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer {{access_token}}'
+        }
+        conn.request("POST", "/api/AppUsers/:appId/RechargePoints", payload, headers)
+        res = conn.getresponse()
+        data = res.read()
+        print(data.decode("utf-8"))
+        ```
+
+    === "JavaScript"
+
+        ```JavaScript linenums="1"
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
+
+        var raw = JSON.stringify({
+          "price": 0,
+          "remark": "string"
+        });
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        ```
+
+=== "返回数据"
+
+    | 说明 |  |  |
+    | --- | --- | --- |
+    | code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+    | data | 表示返回的数据 |  |
+    | err | 错误信息 |  |
+
+    ```json linenums="1"
+    {
+       "code": 200,
+       "data": true,
+       "err": ""
+    }
+    ```
+
+[在线调试](https://games.jixiucloud.cn/swagger/index.html#/AppUsers/AppUserRechargePoints){ .md-button }
 
 
 [^1]:serverUrl：https://www.oauthapp.com

@@ -23,7 +23,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppChatMessages/:appId/Tables' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -32,7 +32,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppChatMessages/:appId/Tables", Method.Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -47,7 +47,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppChatMessages/:appId/Tables")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -95,7 +95,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -150,7 +150,7 @@ tags:
 
         ```curl linenums="1"
         curl --location --request POST 'https://www.oauthapp.com/api/AppChatMessages/:appId/CreateTable?tableName=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
 
     === "C#"
@@ -158,7 +158,7 @@ tags:
         ```CSharp linenums="1"
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppChatMessages/:appId/CreateTable?tableName=");
-        request.Headers.Add("Authorization", "Bearer {{bearerToken}}");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
         Console.WriteLine(await response.Content.ReadAsStringAsync());
@@ -174,7 +174,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppChatMessages/:appId/CreateTable?tableName=")
           .method("POST", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -189,7 +189,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/AppChatMessages/:appId/CreateTable?tableName=',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -210,7 +210,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("POST", "/api/AppChatMessages/:appId/CreateTable?tableName=", payload, headers)
         res = conn.getresponse()
@@ -222,7 +222,7 @@ tags:
 
         ```Javascript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'POST',
@@ -272,7 +272,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppChatMessages/:appId/:table/Categories' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -281,7 +281,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppChatMessages/:appId/:table/Categories", Method.Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -296,7 +296,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppChatMessages/:appId/:table/Categories")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -344,7 +344,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -402,7 +402,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppChatMessages/:appId/:table?category=&tag=&search=&       take=&skip=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -411,7 +411,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppChatMessages/:appId/:table?category=&tag=&search=&take=10&   skip=0", Method.Get);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -426,7 +426,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppChatMessages/:appId/:table?category=&tag=&search=&take=10&    skip=0")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -474,7 +474,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -560,7 +560,7 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/AppChatMessages/:appId/:table' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{
           "category": "125_20221124.17.39",
           "unionID": "a0bfc6e0d3b03383b0ea9f23673d2c58",
@@ -585,7 +585,7 @@ tags:
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppChatMessages/:appId/:table", Method.Post);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         var body = @"{" + "\n" +
         @"    ""category"": ""125_20221124.17.39""," + "\n" +
         @"    ""unionID"": ""a0bfc6e0d3b03383b0ea9f23673d2c58""," + "\n" +
@@ -614,7 +614,7 @@ tags:
           .url("https://www.oauthapp.com/api/AppChatMessages/:appId/:table")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -690,7 +690,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "category": "125_20221124.17.39",
@@ -753,7 +753,7 @@ tags:
 
         ```curl linenums="1"
         curl --location --request DELETE 'https://www.oauthapp.com/api/AppChatMessages/:appId/:table/:id' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -762,7 +762,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppChatMessages/:appId/:table/:id", Method.Delete);
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -777,7 +777,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/AppChatMessages/:appId/:table/:id")
           .method("DELETE", body)
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -825,7 +825,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'DELETE',
@@ -877,7 +877,7 @@ tags:
         ```curl linenums="1"
         curl --location --request PUT 'https://www.oauthapp.com/api/AppChatMessages/:appId/:table/:id' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{
           "category": "125_20221124.17.39",
           "unionID": "a0bfc6e0d3b03383b0ea9f23673d2c58",
@@ -899,7 +899,7 @@ tags:
         var client = new RestClient(options);
         var request = new RestRequest("/api/AppChatMessages/:appId/:table/:id", Method.Put);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer token");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         var body = @"{" + "\n" +
         @"    ""category"": ""17_20221123.18.7""," + "\n" +
         @"    ""unionID"": ""a0bfc6e0d3b03383b0ea9f23673d2c58""," + "\n" +
@@ -928,7 +928,7 @@ tags:
           .url("https://www.oauthapp.com/api/AppChatMessages/:appId/:table/:id")
           .method("PUT", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer token")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -1004,7 +1004,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer token");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "category": "17_20221123.18.7",

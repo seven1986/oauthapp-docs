@@ -27,7 +27,7 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Alipay/:appId/CreateOrderPagePay' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{
           "amount": "0.01",
           "orderNo": "1",
@@ -43,7 +43,7 @@ tags:
         var client = new RestClient(options);
         var request = new RestRequest("/api/Alipay/:appId/CreateOrderPagePay", Method.Post);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer {{bearerToken}}");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         var body = @"{""amount"": ""0.01"",""orderNo"": ""1"",""subject"": ""测试商品"",""returnUrl"":    ""http://127.0.0.1""}";
         request.AddStringBody(body, DataFormat.Json);
         RestResponse response = await client.ExecuteAsync(request);
@@ -61,7 +61,7 @@ tags:
           .url("https://www.oauthapp.com/api/Alipay/:appId/CreateOrderPagePay")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -83,7 +83,7 @@ tags:
           url: 'https://www.oauthapp.com/api/Alipay/:appId/CreateOrderPagePay',
           headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           },
           data : data
         };
@@ -112,7 +112,7 @@ tags:
         })
         headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("POST", "/api/Alipay/:appId/CreateOrderPagePay", payload, headers)
         res = conn.getresponse()
@@ -125,7 +125,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "amount": "0.01",
@@ -187,7 +187,7 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Alipay/:appId/CreateOrderWapPay' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{
           "amount": "0.01",
           "orderNo": "1",
@@ -203,7 +203,7 @@ tags:
         var client = new RestClient(options);
         var request = new RestRequest("/api/Alipay/:appId/CreateOrderWapPay", Method.Post);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer {{bearerToken}}");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         var body = @"{""amount"": ""0.01"",""orderNo"": ""1"",""subject"": ""测试商品"",""returnUrl"":    ""http://127.0.0.1""}";
         request.AddStringBody(body, DataFormat.Json);
         RestResponse response = await client.ExecuteAsync(request);
@@ -221,7 +221,7 @@ tags:
           .url("https://www.oauthapp.com/api/Alipay/:appId/CreateOrderWapPay")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -243,7 +243,7 @@ tags:
           url: 'https://www.oauthapp.com/api/Alipay/:appId/CreateOrderWapPay',
           headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           },
           data : data
         };
@@ -272,7 +272,7 @@ tags:
         })
         headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("POST", "/api/Alipay/:appId/CreateOrderWapPay", payload, headers)
         res = conn.getresponse()
@@ -285,7 +285,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "amount": "0.01",
@@ -343,7 +343,7 @@ tags:
 
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Alipay/:appId/OrderDetail?orderNo=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -352,7 +352,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/Alipay/:appId/OrderDetail?orderNo=", Method.Get);
-        request.AddHeader("Authorization", "Bearer {{bearerToken}}");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -367,7 +367,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/Alipay/:appId/OrderDetail?orderNo=")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -382,7 +382,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/Alipay/:appId/OrderDetail?orderNo=',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -403,7 +403,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("GET", "/api/Alipay/:appId/OrderDetail?orderNo=", payload, headers)
         res = conn.getresponse()
@@ -415,7 +415,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'GET',
@@ -524,7 +524,7 @@ tags:
 
         ```curl linenums="1"
         curl --location --request POST 'https://www.oauthapp.com/api/Alipay/:appId/OrderRefund?amount=&       orderNo=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        --header 'Authorization: Bearer {{access_token}}'
         ```
     
     === "C#"
@@ -533,7 +533,7 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/Alipay/:appId/OrderRefund?amount=&orderNo=", Method.Post);
-        request.AddHeader("Authorization", "Bearer {{bearerToken}}");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -548,7 +548,7 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/Alipay/:appId/OrderRefund?amount=&orderNo=")
           .method("POST", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -563,7 +563,7 @@ tags:
           maxBodyLength: Infinity,
           url: 'https://www.oauthapp.com/api/Alipay/:appId/OrderRefund?amount=&orderNo=',
           headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           }
         };
 
@@ -584,7 +584,7 @@ tags:
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
         headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("POST", "/api/Alipay/:appId/OrderRefund?amount=&orderNo=", payload, headers)
         res = conn.getresponse()
@@ -596,7 +596,7 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var requestOptions = {
           method: 'POST',
@@ -688,7 +688,7 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Alipay/:appId/ReturnPageNotify' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
+        --header 'Authorization: Bearer {{access_token}}' \
         --data '{
           "app_id": "",
           "auth_app_id": "",
@@ -712,7 +712,7 @@ tags:
         var client = new RestClient(options);
         var request = new RestRequest("/api/Alipay/:appId/ReturnPageNotify", Method.Post);
         request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Authorization", "Bearer {{bearerToken}}");
+        request.AddHeader("Authorization", "Bearer {{access_token}}");
         var body = @"{""app_id"":"""",""auth_app_id"":""""," + "\n" +
         @"""charset"":"""",""method"":"""",""out_trade_no"":""""," + "\n" +
         @"""seller_id"":"""",""sign"":""""," + "\n" +
@@ -734,7 +734,7 @@ tags:
           .url("https://www.oauthapp.com/api/Alipay/:appId/ReturnPageNotify")
           .method("POST", body)
           .addHeader("Content-Type", "application/json")
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
+          .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -764,7 +764,7 @@ tags:
           url: 'https://www.oauthapp.com/api/Alipay/:appId/ReturnPageNotify',
           headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': 'Bearer {{bearerToken}}'
+            'Authorization': 'Bearer {{access_token}}'
           },
           data : data
         };
@@ -801,7 +801,7 @@ tags:
         })
         headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer {{bearerToken}}'
+          'Authorization': 'Bearer {{access_token}}'
         }
         conn.request("POST", "/api/Alipay/:appId/ReturnPageNotify", payload, headers)
         res = conn.getresponse()
@@ -814,7 +814,7 @@ tags:
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
 
         var raw = JSON.stringify({
           "app_id": "",
