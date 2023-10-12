@@ -36,6 +36,7 @@ nav:
            - 'doc_appsetting_openwechat.md'
            - 'doc_appsetting_qq.md'
            - 'doc_appsetting_weibo.md'
+           - 'doc_appsetting_account.md'
         - 'doc_app_ssltool.md'
         - 'doc_app_saas.md'
   - 文档:
