@@ -151,6 +151,7 @@ tags:
     | unionId | 第三方平台的用户ID  | oauthapp.settings.fingerIdentity / 自定义 |
     | platform | 第三方平台标识字符串  | web、weibo、wexin、qq、dingtalk / 自定义 |
     | pwd | 密码，可空  | 默认为：123456 |
+    | username | 登录账号，可空，默认与unionId一致  |  |
     | nickname | 昵称，可空  |  |
     | avatar | 头像，可空  |  |
     | data | 自定义数据，可空  |  |

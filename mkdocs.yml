@@ -147,6 +147,7 @@ nav:
   #     - 'master.md'
   #     - 'codegen.md'
   - 'qa.md'
+  - 'blog/index.md'
   - 更新日志: 
       - 'logs.md'
       - 旧版归档:
@@ -190,9 +191,9 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+  # - pymdownx.emoji:
+  #     emoji_index: !!python/name:materialx.emoji.twemoji
+  #     emoji_generator: !!python/name:materialx.emoji.to_svg
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -249,13 +250,13 @@ theme:
     repo: fontawesome/brands/git-alt
 plugins:
   - git-revision-date-localized:
-      enable_creation_date: true
   - search:
       lang: en
   - tags:
       tags_file: tags.md  
   - offline
   - glightbox
+  - blog
 extra_javascript:
   - javascripts/tablesort.min.js
   # - javascripts/mermaid.min.js

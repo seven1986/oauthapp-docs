@@ -20,19 +20,19 @@ tags:
 === "OAuthApp服务器"
     ```html linenums="1"
     <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
-    <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="{{appid}}"></script>
+    <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.9.min.js" data-appid="{{appid}}"></script>
     ```
 
 === "jsDelivr CDN"
     ```html linenums="1"
     <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
-    <script src="https://cdn.jsdelivr.net/npm/oauthapp@1.9.891/oauthapp.min.js" data-appid="{{appid}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/oauthapp@1.9.9/oauthapp.min.js" data-appid="{{appid}}"></script>
     ```
 
 === "unpkg CDN"
     ```html linenums="1"
     <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
-    <script src="https://unpkg.com/oauthapp@1.9.891/oauthapp.min.js" data-appid="{{appid}}"></script>
+    <script src="https://unpkg.com/oauthapp@1.9.9/oauthapp.min.js" data-appid="{{appid}}"></script>
     ```
 
 #### 软件包管理器

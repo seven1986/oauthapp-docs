@@ -10,7 +10,7 @@ tags:
 === "完整代码 - HTML"
     ```HTML
     <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
-    <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.9.min.js" data-appid="2"></script>
     ```
 
 在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。
@@ -22,7 +22,7 @@ tags:
     <div>
         <input type="text" id="table" placeholder="表名" />
         <input type="text" id="tag" placeholder='标签' />
-        <input type="text" id="filter" placeholder='筛选条件，{"name":"123"}' />
+        <input type="text" id="filter" placeholder='筛选条件，{"name":"123","op":"="}' />
         <input type="text" id="sort" placeholder='排序条件  {"id":true}' />
         <input type="number" value="10" id="take" placeholder='拉取条数' />
         <input type="number" value="0" id="skip" placeholder='跳过条数' />

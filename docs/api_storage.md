@@ -266,6 +266,7 @@ tags:
     | 登陆凭证 | Bearer Token |  |
     | tag | 可选，指定要查询的标签。 | 可空 |
     | filter | 可选，指定要筛选的条件。json对象，属性名是要筛选的字段名，属性值是对应的值。 | {"name":"123"} |
+    | filter2 | **^^（filter升级版，推荐）^^** 可选，指定要筛选的条件。json对象。格式：**[{自定义属性名:自定义属性值,op:"="}...]**，**op代表过滤运算符支持**：{++>、>=、<、<=、=、!=、like、and、or++} | - 例如要查找 **id>0 and id < 6** 的数据：{==[{id:0,op:">"},{op:"and"},{id:6,op:"<"}]==}  - 例如查找 **newsType = 1 or newsType = 2 and userId = 2** 的数据：{==[{newsType:1,op:"="},{op:"or"},{newsType:2,op:"="},{op:"and"},{userId:2,op:"="}]==} - 如果是**查找子节点** {==[{"chat.person":"zhang3",op:"="}]==} - 如果是**查找数组**：{==[{"items[2].person":"zhang3",op:"="}]==} |
     | sort | 可选，指定数据的排序方式。json对象，属性名是要排序的字段名，属性值true 表示升序排列，false 表示降序排列。 | {"id":true} |
     | take | 可选，指定要拉取的数据条数。 | 10 |
     | skip | 可选，指定要跳过的数据条数。 | 0 |
@@ -992,6 +993,130 @@ tags:
     ```
 
 [在线调试](https://www.oauthapp.com/swagger/index.html#/AppStorage/AppStoragePut){ .md-button }
+
+### 清空
+
+{{serverUrl}}[^1]/api/AppStorage/:appId/:table[^3]/Clear
+
+=== "请求参数"
+
+    | 描述 |  |  |
+    | --- | --- | --- |
+    | 请求方式 | DELETE |  |
+    | 登陆凭证 | Bearer Token |  |
+    | filter | 可选，指定要筛选的条件。json对象，属性名是要筛选的字段名，属性值是对应的值。 | {"name":"123"} |
+
+=== "示例"
+
+    === "cURL"
+
+        ```curl linenums="1"
+        curl --location --request DELETE 'https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=' \
+        --header 'Authorization: Bearer {{access_token}}'
+        ```
+    
+    === "C#"
+
+        ```CSharp linenums="1"
+        var client = new HttpClient();
+        var request = new HttpRequestMessage(HttpMethod.DELETE, "https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
+        var response = await client.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
+        ```
+
+    === "Java"
+
+        ```Java linenums="1"
+        OkHttpClient client = new OkHttpClient().newBuilder()
+          .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create(mediaType, "");
+        Request request = new Request.Builder()
+          .url("https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=")
+          .method("DELETE", body)
+          .addHeader("Authorization", "Bearer {{access_token}}")
+          .build();
+        Response response = client.newCall(request).execute();
+        ```
+
+    === "NodeJs"
+
+        ```TypeScript linenums="1"
+        const axios = require('axios');
+
+        let config = {
+          method: 'DELETE',
+          maxBodyLength: Infinity,
+          url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=',
+          headers: { 
+            'Authorization': 'Bearer {{access_token}}'
+          }
+        };
+
+        axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        ```
+
+    === "Python"
+
+        ```Python linenums="1"
+        import http.client
+
+        conn = http.client.HTTPSConnection("www.oauthapp.com")
+        payload = ''
+        headers = {
+          'Authorization': 'Bearer {{access_token}}'
+        }
+        conn.request("DELETE", "/api/AppStorage/:appId/:table/Clear?filter=", payload, headers)
+        res = conn.getresponse()
+        data = res.read()
+        print(data.decode("utf-8"))
+        ```
+
+    === "JavaScript"
+
+        ```JavaScript linenums="1"
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
+
+        var requestOptions = {
+          method: 'DELETE',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+
+        fetch("https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        ```
+
+=== "返回数据"
+
+    | 描述 |  |  |
+    | --- | --- | --- |
+    | code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+    | data | 表示返回的数据 | true 或 false |
+    | err | 错误信息 |  |
+
+    ```json
+    {
+        "code": 200,
+        "data": true,
+        "err": ""
+    }
+    ```
+
+
+[在线调试](https://games.jixiucloud.cn/swagger/index.html#/AppStorage/AppStorageClear){ .md-button }
+
 
 [^1]:serverUrl：https://www.oauthapp.com
 

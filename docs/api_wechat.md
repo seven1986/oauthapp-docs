@@ -249,7 +249,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Wechat/:appId/UrlLinkGenerate' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{
           "path": "/pages/index/index",
           "query": "",
@@ -417,7 +416,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Wechat/:appId/GenerateScheme' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{
           "jump_wxa": {
             "path": "/pages/hot/hot",
@@ -589,7 +587,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Wechat/:appId/WXACodeGet' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{
           "env_version": "trial",
           "path": "/pages/index/index?id=1&instanceid=2",
@@ -743,7 +740,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Wechat/:appId/WXACodeGetUnlimited' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '({
           "env_version": "trial",
           "path": "/pages/index/index",
@@ -891,8 +887,7 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-        curl --location 'https://www.oauthapp.com/api/Wechat/:appId/JSCode2Session?js_code=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        curl --location 'https://www.oauthapp.com/api/Wechat/:appId/JSCode2Session?js_code='
         ```
     
     === "C#"
@@ -901,7 +896,6 @@ tags:
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
         var request = new RestRequest("/api/Wechat/:appId/JSCode2Session?js_code=", Method.Get);
-        request.AddHeader("Authorization", "Bearer {{bearerToken}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
         ```
@@ -916,7 +910,6 @@ tags:
         Request request = new Request.Builder()
           .url("https://www.oauthapp.com/api/Wechat/:appId/JSCode2Session?js_code=")
           .method("GET", body)
-          .addHeader("Authorization", "Bearer {{bearerToken}}")
           .build();
         Response response = client.newCall(request).execute();
         ```
@@ -929,10 +922,7 @@ tags:
         var config = {
           method: 'get',
         maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/Wechat/:appId/JSCode2Session?js_code=',
-          headers: { 
-            'Authorization': 'Bearer {{bearerToken}}'
-          }
+          url: 'https://www.oauthapp.com/api/Wechat/:appId/JSCode2Session?js_code='
         };
 
         axios(config)
@@ -951,9 +941,7 @@ tags:
 
         conn = http.client.HTTPSConnection("www.oauthapp.com")
         payload = ''
-        headers = {
-          'Authorization': 'Bearer {{bearerToken}}'
-        }
+        headers = {}
         conn.request("GET", "/api/Wechat/:appId/JSCode2Session?js_code=", payload, headers)
         res = conn.getresponse()
         data = res.read()
@@ -964,8 +952,6 @@ tags:
 
         ```JavaScript linenums="1"
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer {{bearerToken}}");
-
         var requestOptions = {
           method: 'GET',
           headers: myHeaders,
@@ -1016,8 +1002,7 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-        curl --location 'https://www.oauthapp.com/api/Wechat/:appId/Decrypt?encryptedData=&iv=&sessionKey=' \
-        --header 'Authorization: Bearer {{bearerToken}}'
+        curl --location 'https://www.oauthapp.com/api/Wechat/:appId/Decrypt?encryptedData=&iv=&sessionKey='
         ```
     
     === "C#"
@@ -1254,7 +1239,6 @@ tags:
         ```curl linenums="1"
         curl --location 'https://www.oauthapp.com/api/Wechat/:appId/SubscribeMSG' \
         --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer {{bearerToken}}' \
         --data '{
           "touser": "OPENID",
           "template_id": "TEMPLATE_ID",
