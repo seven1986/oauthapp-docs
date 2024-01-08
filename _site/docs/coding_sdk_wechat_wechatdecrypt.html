@@ -1,0 +1,86 @@
+<h1 id="小程序---解密数据">小程序 - 解密数据</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;input type="text" id="_encryptedData" placeholder="_encryptedData" /&gt;
+        &lt;input type="text" id="_iv" placeholder="_iv" /&gt;
+        &lt;input type="text" id="_sessionKey" placeholder="_sessionKey" /&gt;
+        &lt;button type="button" onclick="decrypt()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>这段代码创建了一个包含三个文本输入框和一个按钮的 HTML 表单，用于接收小程序端的数据，然后执行解密操作。</p>
+
+<p>当用户在文本框中输入了待解密的数据后，点击“提交”按钮，将触发 decrypt() 函数的执行。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    function decrypt() {
+        var _encryptedData = $(‘#_encryptedData’).val();
+        var _iv = $(‘#_iv’).val();
+        var _sessionKey = $(‘#_sessionKey’).val();
+        oauthapp.wechatDecrypt(_encryptedData, _iv, _sessionKey).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    });
+}
+```
+</code></pre></div></div>
+
+<p>该函数从文本框中读取加密的数据和相应的密钥，然后调用 oauthapp.wechatDataDecrypt() 方法对数据进行解密。解密后的结果将会显示在结果区域的文本框中。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;wechatDecrypt&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;input type="text" id="_encryptedData" placeholder="_encryptedData" /&gt;
+            &lt;input type="text" id="_iv" placeholder="_iv" /&gt;
+            &lt;input type="text" id="_sessionKey" placeholder="_sessionKey" /&gt;
+            &lt;button type="button" onclick="decrypt()"&gt;提交&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;script&gt;
+            function decrypt() {
+                var _encryptedData = $('#_encryptedData').val();
+                var _iv = $('#_iv').val();
+                var _sessionKey = $('#_sessionKey').val();
+                oauthapp.wechatDecrypt(_encryptedData, _iv, _sessionKey).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

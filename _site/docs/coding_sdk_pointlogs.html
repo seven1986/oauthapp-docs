@@ -1,0 +1,85 @@
+<h1 id="积分记录">积分记录</h1>
+
+<p>获取用户积分变更历史记录，正数为充值，负数为消耗。</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;select id="type"&gt;
+        &lt;option value="0"&gt;全部&lt;/option&gt;
+        &lt;option value="1"&gt;充值&lt;/option&gt;
+        &lt;option value="2"&gt;消耗&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type="text" id="skip" value="0" /&gt;
+    &lt;input type="text" id="take" value="10" /&gt;
+    &lt;button type="button" id="actionButton"&gt;查询&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    oauthapp.pointLogs(type, skip, take)
+   </code></p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    ```HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>order</title>
+        <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    &lt;/head&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;body&gt;
+    &lt;select id="type"&gt;
+        &lt;option value="0"&gt;全部&lt;/option&gt;
+        &lt;option value="1"&gt;充值&lt;/option&gt;
+        &lt;option value="2"&gt;消耗&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type="text" id="skip" value="0" /&gt;
+    &lt;input type="text" id="take" value="10" /&gt;
+    &lt;button type="button" id="actionButton"&gt;查询&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('actionButton').onclick = function () {
+                var type = $('#type').val() || 0;
+                var skip = $('#skip').val() || 0;
+                var take = $('#take').val() || 10;
+
+                oauthapp.pointLogs(type, skip, take).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            };
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+

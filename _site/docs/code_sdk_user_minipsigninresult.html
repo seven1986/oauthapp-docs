@@ -1,0 +1,87 @@
+<h1 id="微信小程序-扫码结果查询">微信小程序 扫码结果查询</h1>
+
+<p>这段代码展示了如何通过 oauthapp.minipSignInResult 方法使用 signInKey 进行轮询登录。用户使用微信小程序完成登录后，获取用户信息。
+其中 signInKey 是 通过调用 <strong>oauthapp.minipSignInQRCode</strong> 方法获取。</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+     &lt;div&gt;
+         &lt;label&gt;signInKey&lt;/label&gt;
+         &lt;input type="text" id="signInKey" /&gt;
+         &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+     &lt;/div&gt;
+     &lt;p&gt;结果&lt;/p&gt;
+     &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<p>在 HTML 中定义相应的输入框、按钮和结果区域</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    oauthapp.ready().then(function () {
+        document.getElementById('signInButton').onclick = function () {
+            var signInKey = $('#signInKey').val();
+            oauthapp.minipSignInResult(signInKey).then(function (res) {
+            });
+        }
+    });
+   </code></p>
+
+<p>这段代码实现了在网页中使用 OAuthApp 的 minipSignInResult 方法查询小程序登录结果并处理结果。</p>
+
+<p>需要注意的是，使用 minipSignInResult 方法查询小程序登录结果需要传入 signInKey，该密钥是在调用 minipSignInQRCode 方法时返回的。</p>
+
+<h2 id="步骤四测试结果">步骤四：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;minipSignInResult&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;label&gt;signInKey&lt;/label&gt;
+            &lt;input type="text" id="signInKey" /&gt;
+            &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p&gt;结果&lt;/p&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.ready().then(function () {
+                document.getElementById('signInButton').onclick = function () {
+                    var signInKey = $('#signInKey').val();
+                    oauthapp.minipSignInResult(signInKey).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    });
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

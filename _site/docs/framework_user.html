@@ -1,0 +1,1919 @@
+<h1 id="用户">用户</h1>
+
+<h3 id="web指纹">web指纹</h3>
+
+<h4 id="登录">登录</h4>
+
+<p>oauthapp.signInWithWebIdentity</p>
+
+<p>如果账号不存在就自动注册，并返回用户信息。</p>
+
+<p>???+ note “提示”
+    该方法通过使用 FingerprintJS2 库生成当前设备的 web 指纹，并通过与 OAuthApp 后台服务器进行匹配来自动完成用户的注册或登录。
+    如果用户之前已经在该应用程序中注册过，此方法将自动登录用户并返回用户数据。该方法返回一个 promise 对象，该对象在用户登录成功时解析为用户数据。如果发生错误，则返回拒绝状态。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.signInWithWebIdentity().then(function(appUser){
+    // appUser是登录成功后的用户对象
+    console.log(appUser);
+    // 也可以通过window.oauthapp.appUser获取
+    // console.log(oauthapp.appUser);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;signInWithWebIdentity&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            oauthapp.signInWithWebIdentity().then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/signInWithWebIdentity.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/code_sdk_user_signInwithwebidentity.html">教程</a>{ .md-button }</p>
+
+<h3 id="unionid">UnionID</h3>
+
+<p>UnionID可以是任意平台的用户ID，unionID + platform 必须唯一。</p>
+
+<h4 id="登录-1">登录</h4>
+
+<p>oauthapp.unionIDSignIn</p>
+
+<p>???+ note “提示”
+    该方法用于用户已经在第三方平台（例如微信）进行了登录，并且已经获得了该平台的 unionId，此时应用程序需要将该 unionId 提交给 OAuthApp 服务器进行处理。OAuthApp 服务器会检查是否存在与该 unionId 相关联的账户，并返回生成的 access_token，应用程序通过该 access_token 访问 OAuthApp API。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.unionIDSignIn(unionId,platform).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;UnionID登录&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;UnionID登录&lt;/h3&gt;
+        &lt;p&gt;unionId：&lt;input type="text" id="unionId" /&gt;&lt;/p&gt;
+        &lt;p&gt;platform：&lt;input type="text" id="platform" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var unionid = $('#unionId').val() || oauthapp.settings.fingerIdentity;
+                var platform = $('#platform').val() || 'web';
+                oauthapp.unionIDSignIn(unionid, platform).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| unionId | 第三方平台的用户ID  | oauthapp. settings.fingerIdentity / 自定义 |
+| platform | 第三方平台标识字符串  | web、weibo、wexin、qq / 自定义 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/unionIDSignIn.html">演示</a>{ .md-button }   <a href="https://docs.oauthapp.com/code_sdk_user_unionidsignin.html">教程</a>{ .md-button }</p>
+
+<h4 id="注册">注册</h4>
+
+<p>oauthapp.unionIDSignUp</p>
+
+<p>???+ note “提示”
+    该方法将会向 OAuthApp 后台服务器发送注册请求。如果请求成功，服务器将返回一个包含 access_token 的 JSON 对象，可以用于后续的 API 请求。如果注册失败，将会返回相应的错误信息。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * data 属性：
+{
+    "unionID": "string",
+    "platform": "string",
+    "pwd": "yc6EJ}v~tTzl!J@NQ@9Rl|}JX",
+    "nickName": "string",
+    "avatar": "string",
+    "data": "string",
+    "email": "user@example.com",
+    "emailCode": "",
+    "phone": "",
+    "phoneCode": ""
+}
+*/
+oauthapp.unionIDSignUp(data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;UnionID注册&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;UnionID注册&lt;/h3&gt;
+        &lt;p&gt;unionId：&lt;input type="text" id="unionId" /&gt;&lt;/p&gt;
+        &lt;p&gt;platform：&lt;input type="text" id="platform" /&gt;&lt;/p&gt;
+        &lt;p&gt;password：&lt;input type="text" id="password" /&gt;&lt;/p&gt;
+        &lt;p&gt;nickName：&lt;input type="text" id="nickName" /&gt;&lt;/p&gt;
+        &lt;p&gt;avatar：&lt;input type="text" id="avatar" /&gt;&lt;/p&gt;
+        &lt;p&gt;data：&lt;input type="text" id="data" /&gt;&lt;/p&gt;
+        &lt;p&gt;email：&lt;input type="text" id="email" /&gt;&lt;/p&gt;
+        &lt;p&gt;emailCode：&lt;input type="text" id="emailCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;phone：&lt;input type="text" id="phone" /&gt;&lt;/p&gt;
+        &lt;p&gt;phoneCode：&lt;input type="text" id="phoneCode" /&gt;&lt;/p&gt;
+        &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+
+                var data = {
+                    "unionID":  $('#unionId').val() || oauthapp.settings.fingerIdentity,
+                    "platform": $('#platform').val() || 'web',
+                    "pwd": $('#password').val() || '123456',
+                    "nickName":$('#nickName').val() || '',
+                    "avatar": $('#avatar').val() || oauthapp.app.info.logo,
+                    "data": $('#data').val() || '',
+                    "email": $('#email').val() || '',
+                    "emailCode": $('#emailCode').val() || '',
+                    "phone": $('#phone').val() || '',
+                    "phoneCode": $('#phoneCode').val() || ''
+                };
+
+                oauthapp.unionIDSignUp(data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            })
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| unionId | 第三方平台的用户ID  | oauthapp.settings.fingerIdentity / 自定义 |
+| platform | 第三方平台标识字符串  | web、weibo、wexin、qq、dingtalk / 自定义 |
+| pwd | 密码，可空  | 默认为：123456 |
+| nickname | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+| phone | 手机号，可空  | 如果应用配置了验证手机，则必填 |
+| phoneCode | 手机验证码，可空  | 如果应用配置了验证手机，则必填 |
+| email | 邮箱，可空  | 如果应用配置了验证邮箱，则必填 |
+| emailCode | 邮箱已验证，可空  | 如果应用配置了验证邮箱，则必填 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/unionIDSignUp.html">演示</a>{ .md-button }   <a href="https://docs.oauthapp.com/code_sdk_user_inionidsignup.html">教程</a>{ .md-button }</p>
+
+<h3 id="账号密码">账号密码</h3>
+
+<h4 id="登录-2">登录</h4>
+
+<p>oauthapp.accountSignIn</p>
+
+<p>???+ note “提示”
+    使用账号密码登录。它向OAuthApp服务器发送请求，使用传递的用户名和密码进行身份验证，如果验证成功，则返回包含 access_token 和其他用户信息的响应对象，以便后续的 API 调用。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.accountSignIn(userName, password).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;accountsignin&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;label&gt;account&lt;/label&gt;
+        &lt;input type="text" id="account" /&gt;
+        &lt;label&gt;password&lt;/label&gt;
+        &lt;input type="password" id="password" /&gt;
+        &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;h1&gt;结果&lt;/h1&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            document.getElementById('signInButton').onclick = function () {
+                oauthapp.accountSignIn(
+                    $('#account').val(),
+                    $('#password').val()
+                ).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| userName | 登录账号 |  |
+| password | 登陆密码 |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/accountsignin.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/code_sdk_user_signin.html">教程</a>{ .md-button }</p>
+
+<h4 id="注册-1">注册</h4>
+
+<p>oauthapp.accountSignUp</p>
+
+<p>???+ note “提示”
+    该方法会向后台服务器发送请求，在服务器上创建一个新的用户账户，账户创建成功后，会直接返回access_token。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+* data 属性：
+{
+  "userName": "uM@J5",
+  "pwd": "6E7U3CESUFTCQF4SfDcN|{CO3Ea~3WG",
+  "nickName": "string",
+  "avatar": "string",
+  "data": "string",
+  "email": "user@example.com",
+  "emailCode": "",
+  "phone": "",
+  "phoneCode": ""
+}
+*/
+oauthapp.accountSignUp(data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;accountSignUp&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;label&gt;userName&lt;/label&gt;
+        &lt;input type="text" id="userName" /&gt;
+        &lt;label&gt;password&lt;/label&gt;
+        &lt;input type="text" id="password" /&gt;
+        &lt;label&gt;avatar&lt;/label&gt;
+        &lt;input type="text" id="avatar" /&gt;
+        &lt;label&gt;nickName&lt;/label&gt;
+        &lt;input type="text" id="nickName" /&gt;
+        &lt;label&gt;platform&lt;/label&gt;
+        &lt;input type="text" id="platform" /&gt;
+        &lt;button type="button" id="signUpButton"&gt;注册&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            document.getElementById('signUpButton').onclick = function () {
+                var userName = $('#userName').val() || oauthapp.settings.fingerIdentity;
+                var password = $('#password').val() || '123456';
+                var avatar = $('#avatar').val() || oauthapp.app.info.logo;
+                var nickName = $('#nickName').val() || userName;
+                var platform = $('#platform').val() || 'web';
+                oauthapp.accountSignUp(userName, password, avatar, nickName, platform).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| userName | 登录账号  |  |
+| pwd | 登陆密码  |  |
+| nickName | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+| phone | 手机号，可空  | 如果应用配置了验证手机，则必填 |
+| phoneCode | 手机验证码，可空  | 如果应用配置了验证手机，则必填 |
+| email | 邮箱，可空  | 如果应用配置了验证邮箱，则必填 |
+| emailCode | 邮箱已验证，可空  | 如果应用配置了验证邮箱，则必填 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/accountsignup.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/code_sdk_user_signup.html">教程</a>{ .md-button }</p>
+
+<h3 id="手机号">手机号</h3>
+
+<h4 id="注册-2">注册</h4>
+
+<p>oauthapp.phoneSignUp</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * data 参数如下：
+{
+    "phone": "",
+    "phoneCode": "",
+    "pwd": "hXeqUI3$gUKV",
+    "email": "user@example.com",
+    "emailCode": "",
+    "nickName": "string",
+    "avatar": "string",
+    "data": "string"
+}
+*/
+oauthapp.phoneSignUp(data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;手机号注册&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;手机号注册&lt;/h3&gt;
+        &lt;p&gt;phone：&lt;input type="text" id="phone" /&gt;&lt;/p&gt;
+        &lt;p&gt;phoneCode：&lt;input type="text" id="phoneCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;password：&lt;input type="text" id="password" /&gt;&lt;/p&gt;
+        &lt;p&gt;email：&lt;input type="text" id="email" /&gt;&lt;/p&gt;
+        &lt;p&gt;emailCode：&lt;input type="text" id="emailCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;nickName：&lt;input type="text" id="nickName" /&gt;&lt;/p&gt;
+        &lt;p&gt;avatar：&lt;input type="text" id="avatar" /&gt;&lt;/p&gt;
+        &lt;p&gt;data：&lt;input type="text" id="data" /&gt;&lt;/p&gt;
+        &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+
+                var data = {
+                    "phone": $('#phone').val() || '',
+                    "phoneCode": $('#phoneCode').val() || '',
+                    "pwd": $('#password').val() || '123456',
+                    "email": $('#email').val() || '',
+                    "emailCode": $('#emailCode').val() || '',
+                    "nickName": $('#nickName').val() || '',
+                    "avatar": $('#avatar').val() || oauthapp.app.info.logo,
+                    "data": $('#data').val() || ''
+                };
+
+                oauthapp.phoneSignUp(data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            })
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| phone | 手机号，必填 |  |
+| phoneCode | 手机验证码，必填 | 调用发送手机验证码方法获取 |
+| pwd | 密码，可空  | 默认为：123456 |
+| email | 邮箱，可空  | 如果应用配置了验证邮箱，则必填 |
+| emailCode | 邮箱已验证，可空  | 如果应用配置了验证邮箱，则必填 |
+| nickname | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/phoneSignUp.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="登录-3">登录</h4>
+
+<p>oauthapp.phoneSignIn</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.phoneSignIn(phone,phoneCode).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;手机号登录&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;手机号登录&lt;/h3&gt;
+        &lt;p&gt;phone：&lt;input type="text" id="phone" /&gt;&lt;/p&gt;
+        &lt;p&gt;phoneCode：&lt;input type="text" id="phoneCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var phone = $('#phone').val();
+                var phoneCode = $('#phoneCode').val();
+                oauthapp.phoneSignIn(phone, phoneCode).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| phone | 手机号，必填 |  |
+| phoneCode | 手机验证码，必填 | 调用发送手机验证码方法获取 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/phoneSignIn.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="找回密码">找回密码</h4>
+
+<p>oauthapp.resetPwd</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * 参数如下：
+{
+    "phone": "string",
+    "code": "1344",
+    "pwd": "]\\vUbfK6T|1Mp"
+}
+*/
+oauthapp.resetPwd(data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;根据手机号找回密码&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;根据手机号找回密码&lt;/h3&gt;
+        &lt;p&gt;phone：&lt;input type="text" id="phone" /&gt;&lt;/p&gt;
+        &lt;p&gt;phoneCode：&lt;input type="text" id="phoneCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;pwd：&lt;input type="text" id="pwd" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var data = {
+                    "phone": $('#phone').val(),
+                    "code": $('#phoneCode').val(),
+                    "pwd": $('#pwd').val()
+                }
+                oauthapp.resetPwd(data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| phone | 手机号，必填 |  |
+| code | 手机验证码，必填 | 调用发送手机验证码方法获取 |
+| pwd | 新的密码，必填 |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/resetPwdByPhone.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="发送验证码">发送验证码</h4>
+
+<p>oauthapp.sendSMSCode</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * data参数如下： 
+{
+   "phone": "string",
+   "type": "string"
+}
+*/
+oauthapp.sendSMSCode(data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;发送手机验证码&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;发送手机验证码&lt;/h3&gt;
+        &lt;p&gt;phone：&lt;input type="text" id="phone" /&gt;&lt;/p&gt;
+        &lt;p&gt;type：&lt;select id="type"&gt;
+                &lt;option value="signup"&gt;注册&lt;/option&gt;
+                &lt;option value="forgetpwd"&gt;找回密码&lt;/option&gt;
+            &lt;/select&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var data = {
+                    "phone": $('#phone').val(),
+                    "type": $('#type').val()
+                }
+                oauthapp.sendSMSCode(data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| phone | 手机号，必填 |  |
+| type | 用途，必填 | 可选值：signup / forgetpwd |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/sendSMSCode.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h3 id="邮箱账号">邮箱账号</h3>
+
+<h4 id="注册-3">注册</h4>
+
+<p>oauthapp.emailSignUp</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * data参数如下：
+ * {
+      "email": "user@example.com",
+      "pwd": "897V5rFabJ3&amp;!#",
+      "emailCode": "16509",
+      "phone": "49735952361",
+      "phoneCode": "50840290",
+      "nickName": "string",
+      "avatar": "string",
+      "data": "string"
+    }
+*/
+oauthapp.emailSignUp(data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;使用邮箱注册&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;使用邮箱注册&lt;/h3&gt;
+        &lt;p&gt;email：&lt;input type="text" id="email" /&gt;&lt;/p&gt;
+        &lt;p&gt;emailCode：&lt;input type="text" id="emailCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;phone：&lt;input type="text" id="phone" /&gt;&lt;/p&gt;
+        &lt;p&gt;phoneCode：&lt;input type="text" id="phoneCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;password：&lt;input type="text" id="password" /&gt;&lt;/p&gt;
+        &lt;p&gt;nickName：&lt;input type="text" id="nickName" /&gt;&lt;/p&gt;
+        &lt;p&gt;avatar：&lt;input type="text" id="avatar" /&gt;&lt;/p&gt;
+        &lt;p&gt;data：&lt;input type="text" id="data" /&gt;&lt;/p&gt;
+        &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var data = {
+                    "email": $('#email').val() || '',
+                    "emailCode": $('#emailCode').val() || '',
+                    "phone": $('#phone').val() || '',
+                    "phoneCode": $('#phoneCode').val() || '',
+                    "pwd": $('#password').val() || '123456',
+                    "nickName": $('#nickName').val() || '',
+                    "avatar": $('#avatar').val() || oauthapp.app.info.logo,
+                    "data": $('#data').val() || ''
+                };
+                oauthapp.emailSignUp(data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                }).catch(err=&gt;{
+                    $('#result').text(err.responseText);
+                });
+            })
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| email | 邮箱，必填  |  |
+| emailCode | 邮箱已验证，必填  | 调用发送邮箱验证码方法获取 |
+| pwd | 密码，可空  | 默认为：123456 |
+| nickname | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+| phone | 手机号，可空  | 如果应用配置了验证手机，则必填 |
+| phoneCode | 手机验证码，可空  | 如果应用配置了验证手机，则必填 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/emailSignUp.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="登录-4">登录</h4>
+
+<p>oauthapp.emailSignIn</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.emailSignIn(email,emailCode).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;使用邮箱登录&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;使用邮箱登录&lt;/h3&gt;
+        &lt;p&gt;email：&lt;input type="text" id="email" /&gt;&lt;/p&gt;
+        &lt;p&gt;emailCode：&lt;input type="text" id="emailCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var email = $('#email').val();
+                var emailCode = $('#emailCode').val();
+                oauthapp.emailSignIn(email, emailCode).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| email | 邮箱，必填 |  |
+| emailCode | 邮箱验证码，必填 | 调用发送邮箱验证码方法获取 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/emailSignIn.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="找回密码-1">找回密码</h4>
+
+<p>oauthapp.resetPwd</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * 参数如下：
+{
+    "email": "user@example.com",
+    "code": "1344",
+    "pwd": "]\\vUbfK6T|1Mp"
+}
+*/
+oauthapp.resetPwd(data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;根据邮箱账号找回密码&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;根据邮箱账号找回密码&lt;/h3&gt;
+        &lt;p&gt;email：&lt;input type="text" id="email" /&gt;&lt;/p&gt;
+        &lt;p&gt;emailCode：&lt;input type="text" id="emailCode" /&gt;&lt;/p&gt;
+        &lt;p&gt;pwd：&lt;input type="text" id="pwd" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var data = {
+                    "email": $('#email').val(),
+                    "code": $('#emailCode').val(),
+                    "pwd": $('#pwd').val()
+                }
+                oauthapp.resetPwd(data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| email | 邮箱账号，必填 |  |
+| code | 邮箱收到的验证码，必填 | 调用发送邮箱验证码方法获取 |
+| pwd | 新的密码，必填 |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/resetPwdByEmail.html">演示</a>{ .md-button }
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="发送验证码-1">发送验证码</h4>
+
+<p>oauthapp.sendEmailCode</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * data参数如下： 
+    {
+       "email": "string",
+       "type": "string"
+    }
+*/
+oauthapp.sendEmailCode(data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;发送邮箱证码&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;发送邮箱证码&lt;/h3&gt;
+        &lt;p&gt;email：&lt;input type="text" id="email" /&gt;&lt;/p&gt;
+        &lt;p&gt;type：&lt;select id="type"&gt;
+                &lt;option value="signup"&gt;注册&lt;/option&gt;
+                &lt;option value="forgetpwd"&gt;找回密码&lt;/option&gt;
+            &lt;/select&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var data = {
+                    "email": $('#email').val(),
+                    "type": $('#type').val()
+                }
+                oauthapp.sendEmailCode(data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| email | 邮箱，必填 |  |
+| type | 用途，必填 | 可选值：signup / forgetpwd |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/sendEmailCode.html">演示</a>{ .md-button }
+<!-- [教程](){ .md-button } --></p>
+
+<h3 id="微信小程序">微信小程序</h3>
+
+<h4 id="扫码登录">扫码登录</h4>
+
+<p>oauthapp.minipSignInQRCode</p>
+
+<p>使用微信小程序扫码登录</p>
+
+<p>???+ note “提示”
+    生成一个带有登录授权的二维码，并在HTML页面展示该二维码。
+    用户使用微信扫描该二维码后，会跳转到小程序进行授权操作。
+    授权成功后，HTML页面通过 <strong>oauthapp.minipSignInResult(signInKey)</strong> 方法查询用户信息和access_token等数据，然后进行相应的处理。
+    该方法返回2个参数，signInKey（用于查询登录状态）、qrcode（用img标签展示给用户扫码）。
+    <strong>需要先使用发布工具，在应用»应用配置»微信小程序 菜单下，配置 微信小程序ClientID、微信小程序ClientSecret。</strong></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.minipSignInQRCode(scopes,remark).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;minipSignInQRCode&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;label&gt;scopes&lt;/label&gt;
+        &lt;input type="text" id="scopes" /&gt;
+        &lt;label&gt;remark&lt;/label&gt;
+        &lt;input type="text" id="remark" /&gt;
+        &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;p&gt;
+        &lt;b&gt;signInKey：&lt;/b&gt;
+        &lt;span id="signInKey"&gt;&lt;/span&gt;
+        &lt;img id="signInQRCode" /&gt;
+    &lt;/p&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            document.getElementById('signInButton').onclick = function () {
+                var scopes = $('#scopes').val() || 'openid';
+                var remark = $('#remark').val() || navigator.userAgent;
+
+                oauthapp.minipSignInQRCode(scopes, remark).then(function (res) {
+                    $('#signInKey').text(res.signInKey);
+                    $('#signInQRCode').attr('src',res.qrcode);
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| scopes | 需要微信小程序用户授权的列表，用英文空格分隔 | openid phone |
+| remark | 自定义备注信息 |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/minipSignInQRCode.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/code_sdk_user_minipsigninqrcode.html">教程</a>{ .md-button }</p>
+
+<h4 id="扫码结果查询">扫码结果查询</h4>
+
+<p>oauthapp.minipSignInResult</p>
+
+<p>用于获取微信小程序授权登录的结果</p>
+
+<p>???+ note “提示”
+    其中signInKey为授权登录时生成的签名密钥。该方法会向服务器发送请求，查询微信小程序授权登录的结果，并返回一个包含登录状态、用户信息和访问令牌的对象。如果授权登录尚未完成，则返回一个空对象。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.minipSignInResult(signInKey).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;minipSignInResult&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;label&gt;signInKey&lt;/label&gt;
+        &lt;input type="text" id="signInKey" /&gt;
+        &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            document.getElementById('signInButton').onclick = function () {
+                var signInKey = $('#signInKey').val();
+                oauthapp.minipSignInResult(signInKey).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| signInKey | 小程序登录查询凭证 |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/minipSignInResult.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/code_sdk_user_minipsigninresult.html">教程</a>{ .md-button }</p>
+
+<h4 id="确认扫码与注册">确认扫码与注册</h4>
+
+<p><strong>以下操作需要在小程序端进行操作</strong></p>
+
+<ul>
+  <li>
+    <p>1，当小程序页面解析到了signInKey，需调用<a href="https://docs.oauthapp.com/api_user.html#_11">小程序端确认扫码</a>，获取请求用户授权的应用信息，并展示出来。</p>
+  </li>
+  <li>
+    <p>2，当用户同意授权后，继续调用<a href="https://docs.oauthapp.com/api_user.html#_12">小程序注册</a>，完成注册账号。</p>
+  </li>
+</ul>
+
+<h3 id="钉钉">钉钉</h3>
+
+<h4 id="登录-5">登录</h4>
+
+<p>oauthapp.dingtalkSignIn</p>
+
+<p>使用钉钉自动注册+登录。</p>
+
+<p>???+ note “提示”
+    该方法用于用户已经在钉钉平台进行了登录，并且已经获得了auth code，此时应用程序需要将该 code 提交给 OAuthApp 服务器进行处理。OAuthApp 服务器会检查是否存在与该 code 相关联的账户，并返回生成的 access_token，应用程序通过该 access_token 访问 OAuthApp API。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  钉钉应用需申请如下权限：
+
+ - 成员信息读权限（qyapi_get_member）  
+ - 个人手机号信息（Contact.User.mobile）
+ - 邮箱等个人信息（fieldEmail）
+ - 钉钉应用需配置IP白名单、PC/移动端的网页地址
+
+  发布工具需要，在应用&gt;&gt;应用配置&gt;&gt;顶顶应用 菜单下，配置：
+  
+  - 应用ClientID
+  - 应用ClientSecret
+  - 企业ID。
+</code></pre></div></div>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.dingtalkSignIn(code).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;dingtalkSignIn&lt;/title&gt;
+    &lt;script src="https://g.alicdn.com/dingding/dingtalk-jsapi/2.13.42/dingtalk.open.js"&gt;&lt;/script&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script type="text/javascript"&gt;
+        oauthapp.ready().then(function () {
+            document.getElementById('signInButton').onclick = function () {
+                signIn();
+            }
+        });
+
+        function signIn() {
+
+            if (dd.env.platform == "notInDingTalk") {
+                document.getElementById('result').innerHTML =
+                    `&lt;b&gt;请用钉钉打开当前网页&lt;/b&gt;` +
+                    `&lt;p&gt;PC地址：&lt;input type="text" value="dingtalk://dingtalkclient/page/link?url=${encodeURIComponent(location.href)}&amp;pc_slide=true" /&gt;&lt;/p&gt;` +
+                    `&lt;p&gt;移动端地址：&lt;input type="text" value="${location.href}" /&gt;&lt;/p&gt;`;
+                return;
+            }
+
+            var corpId = oauthapp.__appPropValue("DingTalkCorpId");
+            if (corpId == '') {
+                document.getElementById('result').innerHTML = '请先配置应用的钉钉企业ID';
+                return;
+            }
+
+            dd.runtime.permission.requestAuthCode({
+                corpId: corpId,
+                onSuccess: function (result) {
+                    oauthapp.dingtalkSignIn(result.code).then(function (userinfoRes) {
+                        document.getElementById('result').innerHTML = JSON.stringify(userinfoRes);
+                    })
+                },
+                onFail: function (err) {
+                    document.getElementById('result').innerHTML = JSON.stringify(err);
+                }
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/dingtalkSignIn.html">演示</a>{ .md-button }   <a href="https://docs.oauthapp.com/code_sdk_user_dingtalksignin.html">教程</a>{ .md-button }</p>
+
+<h3 id="access_token-登录">access_token 登录</h3>
+
+<p>oauthapp.accesstokenSignIn</p>
+
+<p>直接使用access_token登录并获取用户资料。</p>
+
+<p>???+ note “提示”
+    使用传入的 Access Token 直接在后台服务器上进行验证和登录，并返回相应的用户信息。具体功能包括：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 使用传入的 Access Token 在后台服务器上进行验证和登录。
+
+- 如果验证成功，则返回相应的用户信息。
+
+- 如果验证失败，则返回相应的错误信息
+</code></pre></div></div>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.accesstokenSignIn(_access_token, _expires_in).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;accesstokenSignIn&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;label&gt;access_token&lt;/label&gt;
+        &lt;input type="text" id="access_token" /&gt;
+        &lt;label&gt;expires_in&lt;/label&gt;
+        &lt;input type="number" id="expires_in" value="7200" /&gt;
+        &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;h1&gt;结果&lt;/h1&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            document.getElementById('signInButton').onclick = function () {
+                oauthapp.accesstokenSignIn(
+                    $('#access_token').val(),
+                   parseInt($('#expires_in').val())
+                ).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| _access_token | 用户令牌 |  |
+| _expires_in | 令牌有效时间，单位：秒 |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/accesstokenSignIn.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/code_sdk_user_accesstokensignIn.html">教程</a>{ .md-button }</p>
+
+<h3 id="oauthapp统一登录">OAuthApp统一登录</h3>
+
+<p>使用统一的UI登录，用户登录后会回传accesstoken到回调地址。 可使用<a href="https://web.oauthapp.com/4/examples/signin_authorize.html">配置工具</a>生成登录链接。</p>
+
+<p>???+ note “提示”
+    用户点击单点登录链接，跳转到OAuthApp的授权页面。
+    用户在授权页面上输入用户账号和密码，授权页面验证身份后会展示需要授权的权限列表。
+    当用户授权成功后，单点登录会将访问令牌（access token）重定向到预设的回调地址（redirect_uri）上，并将其作为参数传递给回调地址。
+    在回调地址中，可以通过解析 URL 参数来获取访问令牌，然后调用 <strong>access_token 登录</strong> 登录或进行后续操作。</p>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;统一登陆&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;a href="https://www.oauthapp.com/oauth/2?scheme=app&amp;redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&amp;scopes=openid profile role&amp;nonce=1667553723079"&gt;
+        登录
+    &lt;/a&gt;
+    &lt;h1&gt;结果&lt;/h1&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| scheme | 登录协议(必填) | 固定为 "app" |
+| appId | 应用ID(必填) |  |
+| scopes | 授权列表(必填) | 多个权限用英文空格分隔 |
+| redirect_uri | 回调地址(必填) |  |
+| redirect_uri_name | 自定义授权标题 |  |
+| nonce | 自定义字符串，32位(必填) |  |
+| expireInDays | 令牌有效期(非必填，单位：天，取值：1~99) |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/sso.html">演示</a>{ .md-button }  <a href="https://docs.oauthapp.com/code_sdk_user_sso.html">教程</a>{ .md-button }</p>
+
+<h3 id="获取用户资料">获取用户资料</h3>
+
+<p>oauthapp.profile</p>
+
+<p>用于获取当前登录用户的个人信息，包括用户 ID、昵称、头像等信息。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.profile().then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;profile&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            oauthapp.profile().then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |
+| ----------- | ----------- |
+| appID | 授权应用的ID号 |
+| id | 账户ID |
+| userName | 用户名 |
+| nickName | 用户昵称 |
+| avatar | 用户头像 |
+| role | 用户角色 |
+| unionID | UnionID |
+| platform | UnionID关联的平台 |
+| phone | 电话号码 |
+| phoneIsValid | 电话号是否验证 |
+| email | 电子邮件地址 |
+| emailIsValid | 邮件地址是否验证 |
+| data | 自定义数据 |
+| lastUpdate | 最近一次更新时间 |
+| createDate | 用户账户创建时间 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/profile.html">演示</a>{ .md-button }  <a href="https://docs.oauthapp.com/code_sdk_user_profile.html">教程</a>{ .md-button }</p>
+
+<h3 id="更新用户资料">更新用户资料</h3>
+
+<p>oauthapp.profilePut</p>
+
+<p>必须登录以后才能更新用户信息，可更新头像、昵称、自定义json数据3个字段。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.profilePut(avatar,nickName,jsonData).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;profilePut&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;div id="userProfile"&gt;&lt;/div&gt;
+        &lt;p&gt;
+            昵称
+            &lt;input type="text" id="nickName" /&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            头像
+            &lt;img id="userAvatar" width="64px" /&gt;
+            &lt;button type="button" class="btn btn-link" onclick="uploadImage()"&gt;上传头像&lt;/button&gt;
+        &lt;/p&gt;
+        &lt;div&gt;
+
+            &lt;textarea id="data" rows="10" placeholder=" 自定义数据"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;button type="button" onclick="updateProfile()"&gt;更新用户资料&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script type="text/javascript"&gt;
+        oauthapp.allReady().then(function () {
+            $('#userProfile').html(`
+            &lt;p&gt;ID： ${oauthapp.appUser.id}&lt;br /&gt;
+            账号：${oauthapp.appUser.userName}&lt;br /&gt;
+            邮箱：${oauthapp.appUser.email}, ${oauthapp.appUser.emailIsValid ? '已验证' : ''}&lt;br /&gt;
+            手机：${oauthapp.appUser.phone}, ${oauthapp.appUser.phoneIsValid ? '已验证' : ''}&lt;br /&gt;
+            来源：${oauthapp.appUser.platform}&lt;br /&gt;
+            unionID：${oauthapp.appUser.unionID}&lt;br /&gt;
+            角色：${oauthapp.appUser.role}&lt;br /&gt;
+            加入时间：${oauthapp.appUser.createDate}&lt;br /&gt;
+            最后更新：${oauthapp.appUser.lastUpdate}&lt;/p&gt;`);
+            $('#data').val(oauthapp.appUser.data);
+            $('#nickName').val(oauthapp.appUser.nickName);
+            $('#userAvatar').attr('src', oauthapp.appUser.avatar);
+        })
+
+        function uploadImage() {
+            var ele = document.createElement('input');
+            ele.type = 'file';
+            ele.onchange = function (_event) {
+                oauthapp.upload(event.target.files[0]).then(function (res) {
+                    oauthapp.appUser.avatar = JSON.parse(res).data;
+                    $('#userAvatar').attr('src', oauthapp.appUser.avatar);
+                });
+            };
+            ele.click();
+        }
+
+        function updateProfile() {
+            var nickName = document.getElementById('nickName').value;
+            var data = document.getElementById('data').value;
+            oauthapp.profilePut(oauthapp.appUser.avatar, nickName, data).then(function (res) {
+                alert(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| avatar | 头像  |  |
+| nickName | 昵称  |  |
+| jsonData | 自定义json对象  |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/profilePut.html">演示</a>{ .md-button }   <a href="https://docs.oauthapp.com/code_sdk_user_profileput.html">教程</a>{ .md-button }</p>
+
+<h3 id="开放认证">开放认证</h3>
+
+<h4 id="申请授权码">申请授权码</h4>
+
+<p>oauthapp.oauthGrantCode</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * scheme 固定为：app
+ * data 参数如下：
+ * {
+    "redirect_uri": "string",
+    "grant_type": "email",
+    "scopes": "string",
+    "userName": "string",
+    "password": "string",
+    "unionId": "string",
+    "platform": "string",
+    "expireInDays": 99
+    }
+*/
+oauthapp.oauthGrantCode(scheme,data).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;申请授权码&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;申请授权码&lt;/h3&gt;
+        &lt;p&gt;redirect_uri：&lt;input type="text" id="redirect_uri" /&gt;&lt;/p&gt;
+        &lt;p&gt;expireInDays：&lt;input type="number" min="1" max="99" value="1" id="expireInDays" /&gt;&lt;/p&gt;
+        &lt;p&gt;scopes：&lt;input type="text" id="scopes" /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;select id="grant_type" onchange="toggleIdentityDiv(this.value)"&gt;
+                &lt;option&gt;email&lt;/option&gt;
+                &lt;option&gt;phone&lt;/option&gt;
+                &lt;option&gt;unionid&lt;/option&gt;
+                &lt;option&gt;account&lt;/option&gt;
+            &lt;/select&gt;&lt;/p&gt;
+        &lt;div id="identity1"&gt;
+            &lt;p&gt;userName：&lt;input type="text" id="userName" /&gt;&lt;/p&gt;
+            &lt;p&gt;password：&lt;input type="text" id="password" /&gt;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div id="identity2" style="display: none;"&gt;
+            &lt;p&gt;unionId：&lt;input type="text" id="unionId" /&gt;&lt;/p&gt;
+            &lt;p&gt;platform：&lt;input type="text" id="platform" /&gt;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function toggleIdentityDiv(val) {
+            console.log(val)
+            if (val == 'unionid') {
+                $('#identity1').hide();
+                $('#identity2').show();
+            }
+            else {
+                $('#identity2').hide();
+                $('#identity1').show();
+            }
+        }
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var data = {
+                    "redirect_uri": $('#redirect_uri').val(),
+                    "grant_type": $('#grant_type').val(),
+                    "scopes": $('#scopes').val(),
+                    "userName": $('#userName').val(),
+                    "password": $('#password').val(),
+                    "unionId": $('#unionId').val(),
+                    "platform": $('#platform').val(),
+                    "expireInDays": $('#expireInDays').val()
+                };
+                oauthapp.oauthGrantCode('app', data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                }).catch(err =&gt; {
+                    $('#result').text(err.responseText);
+                });
+            })
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| scheme | 身份验证协议 | 固定填：app |
+| data参数如下 |  |  |
+| redirect_uri | 返回地址，必填 | 默认无限制，也可在【安全-开放认证网址白名单】配置 |
+| grant_type | 授权类型，必填 | 可选：email、phone、unionid、account |
+| scopes | 自定义授权范围，必填 | 用英文空格分隔 |
+| userName |  用户名 | 授权类型为：email/phone/account必填 |
+| password | 登录密码 | 授权类型为：email/phone/account必填 |
+| unionId | unionId | 授权类型为：unionid必填 |
+| platform | 平台 | 授权类型为：unionid必填 |
+| expireInDays | 授权有效期（天） | 默认为1，取值范围：1~99 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/oauthGrantCode.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="获取access_token">获取access_token</h4>
+
+<p>oauthapp.oauthAuthorize</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.oauthAuthorize(scheme,code).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;使用授权码获取access_token&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;使用授权码获取access_token&lt;/h3&gt;
+        &lt;p&gt;code:&lt;input type="text" id="code" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var code = $('#code').val();
+                oauthapp.oauthAuthorize('app', code).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                }).catch(err =&gt; {
+                    $('#result').text(err.responseText);
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| scheme | 身份验证协议 | 固定填：app |
+| code | 授权码 |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/oauthAuthorize.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="授权记录">授权记录</h4>
+
+<p>oauthapp.oauthConsents</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.oauthConsents().then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;获取授权记录&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;获取授权记录&lt;/h3&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            $('#actionButton').click(function () {
+                oauthapp.oauthConsents().then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                }).catch(err =&gt; {
+                    $('#result').text(err.responseText);
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/oauthConsents.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h4 id="删除授权记录">删除授权记录</h4>
+
+<p>oauthapp.oauthDeleteConsent</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.oauthDeleteConsent(id).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;删除授权记录&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;删除授权记录&lt;/h3&gt;
+        &lt;p&gt;id:&lt;input type="text" id="id" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var id = $('#id').val();
+                oauthapp.oauthDeleteConsent(id).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                }).catch(err =&gt; {
+                    $('#result').text(err.responseText);
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| id | 记录id，必填 |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/oauthDeleteConsent.html">演示</a>{ .md-button }  <br />
+<!-- [教程](){ .md-button } --></p>
+
+<h3 id="积分记录">积分记录</h3>
+
+<p>oauthapp.pointLogs</p>
+
+<p>???+ note “提示”
+    获取当前登录用户的积分变更记录。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * 积分记录
+ * @params type 分类 | 0：全部，1：充值，2：消耗
+ * @params skip 跳过条数
+ * @params take 拉取条数
+*/
+oauthapp.pointLogs(type,skip,take).then(function(res){
+  console.log(res);
+  /**
+    {
+      "code": 200,
+      "data": {
+        "total": 2,
+        "data": [
+          {
+            "id": 2,
+            "userID": 84,
+            "used": 10000,
+            "remark": "",
+            "createDate": "2023-06-16 15:35:06"
+          },
+          {
+            "id": 1,
+            "userID": 84,
+            "used": 10000,
+            "remark": "",
+            "createDate": "2023-06-16 15:23:50"
+          }
+        ]
+      },
+      "err": ""
+    }
+   * 
+  */
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;order&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;select id="type"&gt;
+        &lt;option value="0"&gt;全部&lt;/option&gt;
+        &lt;option value="1"&gt;充值&lt;/option&gt;
+        &lt;option value="2"&gt;消耗&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type="text" id="skip" value="0" /&gt;
+    &lt;input type="text" id="take" value="10" /&gt;
+
+    &lt;button type="button" id="actionButton"&gt;查询&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('actionButton').onclick = function () {
+                var type = $('#type').val() || 0;
+                var skip = $('#skip').val() || 0;
+                var take = $('#take').val() || 10;
+
+                oauthapp.pointLogs(type, skip, take).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            };
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| type | 分类 | 0：全部，1：充值，2：消耗 |
+| skip |  可选，指定要拉取的数据条数。 | 0 |
+| take |  可选，指定要跳过的数据条数。 | 10 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/pointlogs.html">演示</a>{ .md-button }    <a href="http://docs.oauthapp.com/coding_sdk_pointlogs.html">教程</a>{ .md-button }</p>

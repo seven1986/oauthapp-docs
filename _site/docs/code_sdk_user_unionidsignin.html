@@ -1,0 +1,106 @@
+<h1 id="unionid-登录">UnionID 登录</h1>
+
+<p>!!! Tip “提示”
+    在开始之前，您需要注册一个OAuthApp开发者账户，并创建一个应用程序。如果您还没有注册，请访问OAuthApp官方网站进行注册。</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+      &lt;label&gt;unionId&lt;/label&gt;
+      &lt;input type="text" id="unionId" /&gt;
+      &lt;label&gt;platform&lt;/label&gt;
+      &lt;input type="text" id="platform" /&gt;
+      &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+    &lt;/div&gt;
+   </code></p>
+
+<p>这段代码是一个登录表单，用于实现用户登录功能。表单包含两个输入框，一个是unionId输入框，另一个是platform输入框，以及一个登录按钮。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.ready().then(function () {
+      document.getElementById(‘signInButton’).onclick = function () {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var unionid = $('#unionId').val();
+    var platform = $('#platform').val();
+    if (!unionid) {
+      unionid = oauthapp.settings.fingerIdentity;
+    }
+    if (!platform) {
+      platform = 'web';
+    }
+    oauthapp.signIn(unionid, platform).then(function (res) {
+     
+    });
+
+  }
+}); 
+```
+</code></pre></div></div>
+
+<p>在该方法中，您需要传入unionId和platform参数，以告诉OAuthApp要登录哪个用户和使用哪个第三方平台。如果这些参数为空，则使用默认值。</p>
+
+<h2 id="步骤四测试结果">步骤四：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;signIn&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;label&gt;unionId&lt;/label&gt;
+            &lt;input type="text" id="unionId" /&gt;
+            &lt;label&gt;platform&lt;/label&gt;
+            &lt;input type="text" id="platform" /&gt;
+            &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p&gt;结果&lt;/p&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.ready().then(function () {
+                document.getElementById('signInButton').onclick = function () {
+                    var unionid = $('#unionId').val();
+                    var platform = $('#platform').val();
+                    if (!unionid) {
+                        unionid = oauthapp.settings.fingerIdentity;
+                    }
+                    if (!platform) {
+                        platform = 'web';
+                    }
+                    oauthapp.signIn(unionid, platform).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    });
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+
+<p>如果一切正常，OAuthApp将返回一个access_token，您可以将其用于访问OAuthApp的API。</p>

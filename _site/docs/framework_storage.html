@@ -1,0 +1,520 @@
+<h1 id="数据库">数据库</h1>
+
+<h3 id="数据表集合">数据表集合</h3>
+
+<p>oauthapp.tables</p>
+
+<p>???+ note “提示”
+    获取当前用户可访问的数据表集合。该方法不需要传入参数，会返回一个包含当前用户可访问的数据表集合的数组，每个数组元素代表1个表名。
+=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.tables().then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;tables&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            oauthapp.tables().then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            })
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/tables.html">演示</a>{ .md-button }   <a href="https://docs.oauthapp.com/coding_sdk_storage_tables.html">教程</a>{ .md-button }</p>
+
+<h3 id="创建数据表">创建数据表</h3>
+
+<p>oauthapp.tableCreate</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.tableCreate(table, uniqueData).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;创建数据表&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/ script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;创建数据表&lt;/h3&gt;
+        &lt;p&gt;table：&lt;input type="text" id="table" /&gt;&lt;/p&gt;
+        &lt;p&gt;uniqueData:&lt;input type="checkbox" id="uniqueData" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var table = $('#table').val();
+                var uniqueData = document.getElementById('uniqueData').checked;
+                oauthapp.tableCreate(table, uniqueData).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| table | 表名称 |  |
+| uniqueData | 防重复数据 | 默认为false |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/tableCreate.html">演示</a>{ .md-button }<br />
+<!-- [教程](){ .md-button } --></p>
+
+<h3 id="单表查询">单表查询</h3>
+
+<p>oauthapp.table</p>
+
+<p>???+ note “提示”
+    用于查询指定表中的数据，返回一个 Promise 对象，当 Promise 对象 resolve 时，返回一个数组，数组中的每个元素都是一个数据记录。每个数据记录是一个对象，它的属性是表中的字段名，属性值是对应的字段值。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.table(table,tag,filter,sort,take,skip).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;table&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;input type="text" id="table" placeholder="表名" /&gt;
+        &lt;input type="text" id="tag" placeholder='标签' /&gt;
+        &lt;input type="text" id="filter" placeholder='筛选条件，{"name":"123","op":"="}' /&gt;
+        &lt;input type="text" id="sort" placeholder='排序条件	{"id":true}' /&gt;
+        &lt;input type="number" value="10" id="take" placeholder='拉取条数' /&gt;
+        &lt;input type="number" value="0" id="skip" placeholder='跳过条数' /&gt;
+        &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('queryButton').onclick = function () {
+                var table = $('#table').val();
+                var tag = $('#tag').val();
+                var filter = $('#filter').val();
+                var sort = $('#sort').val();
+                var take = $('#take').val();
+                var skip = $('#skip').val();
+
+                oauthapp.table(table, tag, filter, sort, take, skip).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                })
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| table | 必需，指定要查询的表的名称。 |  |
+| tag | 可选，指定要查询的标签。 | 可空 |
+| filter | 可选，指定要筛选的条件。json对象。格式：**[{自定义属性名:自定义属性值,op:"="}...]**，**op代表过滤运算符支持**：{++&gt;、&gt;=、&lt;、&lt;=、=、!=、like、and、or++} | - 例如要查找 **id&gt;0 and id &lt; 6** 的数据：{==[{id:0,op:"&gt;"},{op:"and"},{id:6,op:"&lt;"}]==}  - 例如查找 **newsType = 1 or newsType = 2 and userId = 2** 的数据：{==[{newsType:1,op:"="},{op:"or"},{newsType:2,op:"="},{op:"and"},{userId:2,op:"="}]==} - 如果是**查找子节点** {==[{"chat.person":"zhang3",op:"="}]==} - 如果是**查找数组**：{==[{"items[2].person":"zhang3",op:"="}]==} |
+| sort | 可选，指定数据的排序方式。它应该是一个对象，对象的属性名是要排序的字段名，属性值是 true 或 false，true 表示升序排列，false 表示降序排列。 | {"id":true} |
+| take | 可选，指定要拉取的数据条数。 | 10 |
+| skip | 可选，指定要跳过的数据条数。 | 0 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/table.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/coding_sdk_storage_table.html">教程</a>{ .md-button }</p>
+
+<h3 id="提交数据">提交数据</h3>
+
+<p>oauthapp.tablePost</p>
+
+<p>数据为自定义JSON对象。</p>
+
+<p>???+ note “提示”
+    用于向指定的数据表 table 中提交一条数据记录。该方法返回一个 Promise 对象，可使用 .then() 方法来获取提交数据的结果。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+ // 示例：
+ // 假设我们有一个名为 user 的数据表，
+ // 有 name 和 age 两个字段。我们可以使用以下代码将一条数据记录提交到该表中：
+
+let table = "user";
+let data = { 
+    showIndex:0, // 排序
+    tags:"", // 自定义标签
+    //content字段可传入自定义json
+    content: {
+        "name": "Tom",
+        "age": 20
+    }
+};
+
+let jsonString = JSON.stringify(data);
+
+oauthapp.tablePost(table, jsonString).then(function(res) {
+    console.log(res);
+});
+
+// 在上述代码中，我们首先定义了要提交数据的数据表名称 table 和要提交的数据记录 data，
+// 然后将 data 转换为 JSON 字符串格式，并将其作为参数传递给 oauthapp.tablePost() 方法。
+// 当提交成功后，我们在 .then() 方法中打印了返回结果 res。
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;tablePost&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;
+        &lt;input type="text" id="tableName" placeholder="表名称" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type="text" id="tags" placeholder="标签" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type="number" id="showIndex" placeholder="排序" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;textarea rows="5" id="content" placeholder="自定义数据，必须是JSON格式"&gt;&lt;/textarea&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;button type="button" id="addButton"&gt;提交&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('addButton').onclick = function () {
+                var tableName = $('#tableName').val();
+                var tags = $('#tags').val();
+                var showIndex = $('#showIndex').val();
+                var content = $('#content').val();
+                var data = JSON.stringify({
+                    showIndex: showIndex,
+                    tags: tags,
+                    content: content
+                });
+                oauthapp.tablePost(tableName, data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                })
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| table | 表名称 |  |
+| jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}} |
+| jsonString.showIndex |排序 |  |
+| jsonString.tags | 标签 |  |
+| jsonString.content | 自定义json |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/tablePost.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/coding_sdk_storage_tablepost.html">教程</a>{ .md-button }</p>
+
+<h3 id="数据详情">数据详情</h3>
+
+<p>oauthapp.tableDetail</p>
+
+<p>用于获取指定数据表中的某一条数据记录的详细信息。</p>
+
+<p>???+ note “提示”
+    该方法返回一个 Promise 对象，它的 then() 方法接受一个参数，即获取到的数据记录的详细信息，以 JSON 格式表示。数据记录的详细信息包含该记录的所有属性和属性值。如果查询失败，则会返回一个错误信息。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+//示例：
+
+//假设我们有一个名为 "users" 的数据表，其中每个数据记录表示一个用户，拥有以下属性：
+
+//id: 用户的唯一标识符；
+//name: 用户名；
+//email: 用户邮箱；
+//age: 用户年龄。
+//如果我们要获取 id 为 1 的用户的详细信息，可以使用以下代码：
+
+oauthapp.tableDetail("users", 1).then(function(user) {
+    console.log(user);
+}).catch(function(error) {
+  console.error(error);
+});
+
+//该方法会返回一个 Promise 对象。如果查询成功，则会在控制台打印出如下内容：
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;tableDetail&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;
+        &lt;input type="text" id="table" placeholder="数据表名称" /&gt;
+        &lt;input type="number" id="dataId" placeholder="id" /&gt;
+        &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('queryButton').onclick = function () {
+                var  table = $('#table').val();
+                var  dataId = $('#dataId').val();
+                oauthapp.tableDetail(table,dataId).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                })
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 名称  | 说明 | 参数 |
+| ----------- | ----------- | ----------- |
+| table | 表名称 |  |
+| id | 数据ID |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/tableDetail.html">演示</a>{ .md-button }  <a href="https://docs.oauthapp.com/coding_sdk_storage_tabledetail.html">教程</a>{ .md-button }</p>
+
+<h3 id="删除数据">删除数据</h3>
+
+<p>oauthapp.tableDelete</p>
+
+<p>用于删除指定表格中的数据。</p>
+
+<p>???+ note “提示”
+    返回一个 Promise 对象，在 Promise 中返回删除结果。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+ oauthapp.tableDelete('table1', 123)
+.then(function(res){
+    console.log(res);
+});
+
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;tableDelete&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;
+        &lt;input type="text" id="table" placeholder="数据表名称" /&gt;
+        &lt;input type="number" id="dataId" placeholder="id" /&gt;
+        &lt;button type="button" id="deleteButton"&gt;删除&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('deleteButton').onclick = function () {
+                var  table = $('#table').val();
+                var  dataId = $('#dataId').val();
+                oauthapp.tableDelete(table,dataId).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                })
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 名称  | 说明 | 参数 |
+| ----------- | ----------- | ----------- |
+| table | 表名称 |  |
+| id | 数据ID |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/tableDelete.html">演示</a>{ .md-button }  <a href="https://docs.oauthapp.com/coding_sdk_storage_tabledelete.html">教程</a>{ .md-button }</p>
+
+<h3 id="更新数据">更新数据</h3>
+
+<p>oauthapp.tablePut</p>
+
+<p>用于更新一条数据表中指定 ID 的记录。</p>
+
+<p>???+ note “提示”
+    该方法将返回一个 Promise，其中包含更新成功或失败的信息。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.tablePut('myTable', '123', '{"name": "NewName", "age": 25}')
+.then(function(res) {
+    console.log(res);
+});
+
+// 上述代码将更新 myTable 表中 ID 为 123 的记录的 name 和 age 字段。
+// 更新的内容为 { "name": "NewName", "age": 25 }。
+// 注意，这里的 jsonString 参数必须是一个有效的 JSON 字符串。
+// 如果格式不正确，可能会导致更新失败。同时，如果要更新的记录不存在，也会导致更新失败。
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;tablePut&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;
+        &lt;input type="text" id="tableName" placeholder="表名称" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type="text" id="dataId" placeholder="数据ID" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type="text" id="tags" placeholder="标签" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type="number" id="showIndex" placeholder="排序" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;textarea rows="5" id="content" placeholder="自定义数据，必须是JSON格式"&gt;&lt;/textarea&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;button type="button" id="addButton"&gt;提交&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('addButton').onclick = function () {
+                var tableName = $('#tableName').val();
+                var dataId = $('#dataId').val();
+                var tags = $('#tags').val();
+                var showIndex = $('#showIndex').val();
+                var content = $('#content').val();
+                var data = JSON.stringify({
+                    showIndex: showIndex,
+                    tags: tags,
+                    content: content
+                });
+                oauthapp.tablePut(tableName, dataId, data).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                })
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 名称  | 说明 | 参数 |
+| ----------- | ----------- | ----------- |
+| table | 表名称 |  |
+| id | 数据ID |  |
+| jsonString | 字符串形式的json数据 | 格式： {showIndex:0,tags:"",content: {a:1,b:2}} |
+| jsonString.showIndex |排序 |  |
+| jsonString.tags | 标签 |  |
+| jsonString.content | 自定义json |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/tablePut.html">演示</a>{ .md-button } <a href="https://docs.oauthapp.com/coding_sdk_storage_tableput.html">教程</a>{ .md-button }</p>

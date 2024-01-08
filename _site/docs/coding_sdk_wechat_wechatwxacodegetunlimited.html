@@ -1,0 +1,112 @@
+<h1 id="获取小程序码无限数量">获取小程序码（无限数量）</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+            {
+                "scene":1,
+                "path": "page/index/index",
+                "env_version": "release",
+                "width": 430
+            }
+        &lt;/textarea&gt;
+        &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：
+        &lt;span id="result"&gt;&lt;/span&gt;
+        &lt;img id="result2" /&gt;
+    &lt;/div&gt;
+   </code></p>
+
+<p>这段代码包含一个多行文本框，用于输入一个JSON格式的请求数据，以及一个提交按钮，点击按钮后会触发sendMsg函数，并将请求结果显示在页面上。</p>
+
+<p>sendMsg函数会从文本框中读取JSON格式的请求数据，然后调用oauthapp.wechatWXACodeUnlimited函数发起请求。请求成功后，将返回一个Blob类型的文件对象res。</p>
+
+<p>接下来，代码通过URL.createObjectURL函数将Blob对象转换成URL地址，然后将URL地址显示在页面上的结果元素中。此外，代码还将URL地址作为img元素的src属性，从而在页面上显示二维码图片。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    function sendMsg() {
+        var postData = JSON.parse($(‘#postData’).val());
+        oauthapp.wechatWXACodeGetUnlimited(postData).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    });
+}
+```
+</code></pre></div></div>
+
+<p>这段代码是一个JavaScript函数，其名称为 sendMsg()。当点击页面上的提交按钮时，j将获取文本区域中的请求数据并将其解析为JSON对象。</p>
+
+<p>然后作为参数来调用 oauthapp.wechatWXACodeGetUnlimited() 函数。最后，将返回的小程序二维码（通过 id 为 result2 的 img 元素）显示出来。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    var url = URL.createObjectURL(res)
+    $('#result').text(url);
+    $('#result2').attr('src', url);
+   </code></p>
+
+<p>这段代码是在将一个二进制流（res）转化为可访问的URL，并将这个URL分别设置给一个文本和一个图像元素。</p>
+
+<p>具体来说，URL.createObjectURL(res) 创建一个包含二进制流数据的 URL 对象，这个 URL 对象可以作为图片或者其他资源的 URL 引用。</p>
+
+<p>$(‘#result’).text(url) 将这个 URL 对象设置为文本元素 #result 的文本内容，而 $(‘#result2’).attr(‘src’, url) 将这个 URL 对象设置为图像元素 #result2 的 src 属性值，这样就可以在页面上展示这个图像。</p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;wechatWXACodeGet&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+                {
+                    "scene":1,
+                    "path": "page/index/index",
+                    "env_version": "release",
+                    "width": 430
+                }
+            &lt;/textarea&gt;
+            &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div&gt;结果：
+            &lt;span id="result"&gt;&lt;/span&gt;
+            &lt;img id="result2" /&gt;
+        &lt;/div&gt;
+        &lt;script&gt;
+            function sendMsg() {
+                var postData = JSON.parse($('#postData').val());
+                oauthapp.wechatWXACodeGetUnlimited(postData).then(function (res) {
+                    var url = URL.createObjectURL(res)
+                    $('#result').text(url);
+                    $('#result2').attr('src', url);
+                });
+            }
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

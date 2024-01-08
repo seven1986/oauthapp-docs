@@ -1,0 +1,473 @@
+<h1 id="订单">订单</h1>
+
+<h3 id="订单列表">订单列表</h3>
+
+<p><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppOrder/:appId<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>?state=&amp;orderNo=&amp;tradeNo=&amp;userId=&amp;pctType=&amp;pctId=&amp;pctName=&amp;skip=&amp;take=</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+| state |  订单状态，默认为空，返回全部 | 可选值：TRADE_CLOSED、TRADE_FINISHED、TRADE_SUCCESS、WAIT_BUYER_PAY |
+| orderNo | 系统订单号，非必填 |
+| tradeNo | 支付平台单号 ，非必填|
+| userId | 用户ID，非必填，默认为为：0 |
+| pctType | 商品类型，非必填 |
+| pctId | 商品ID，非必填 |
+| pctName | 商品名称，非必填 |
+| take | 可选，指定要拉取的数据条数。 | 10 |
+| skip | 可选，指定要跳过的数据条数。 | 0 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppOrder/:appId?state=&amp;orderNo=&amp;tradeNo=&amp;userId=&amp;       pctType=&amp;pctId=&amp;pctName=&amp;skip=&amp;take=' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppOrder/:appId?state=&amp;orderNo=&amp;tradeNo=&amp;userId=&amp;pctType=&amp;    pctId=&amp;pctName=&amp;skip=&amp;take=", Method.Get);
+    request.AddHeader("Authorization", "Bearer ");
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppOrder/:appId?state=&amp;orderNo=&amp;tradeNo=&amp;userId=&amp;pctType=&amp;   pctId=&amp;pctName=&amp;skip=&amp;take=")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppOrder/:appId?state=&amp;orderNo=&amp;tradeNo=&amp;userId=&amp;pctType=&amp;   pctId=&amp;pctName=&amp;skip=&amp;take=',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/AppOrder/:appId?state=&amp;orderNo=&amp;tradeNo=&amp;userId=&amp;pctType=&amp;pctId=&amp;   pctName=&amp;skip=&amp;take=", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    fetch("https://www.oauthapp.com/api/AppOrder/:appId?state=&amp;orderNo=&amp;tradeNo=&amp;userId=&amp;pctType=&amp;    pctId=&amp;pctName=&amp;skip=&amp;take=", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | 订单列表集合。包括订单的ID、用户ID、订单号、订单状态、订单金额、支付类型、产品名称等信息 |
+
+```json
+{
+  "code": 200,
+  "data": {
+    "total": 1,
+    "data": [
+      {
+        "id": 1,
+        "userID": 5,
+        "orderNo": "638205225950488498",
+        "state": "WAIT_BUYER_PAY",
+        "amount": 0.01,
+        "payType": "alipay",
+        "productName": "test",
+        "productType": null,
+        "productID": null,
+        "tag": null,
+        "remark": null,
+        "tradeNo": null,
+        "orderPayTime": "0001-01-01 00:00:00",
+        "expireTime": "2024-05-24 10:56:35",
+        "createDate": "2023-05-24 10:56:35",
+        "lastUpdate": "2023-05-24 10:56:35"
+      }
+    ]
+  },
+  "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppOrder/AppOrders">在线调试</a>{ .md-button }</p>
+
+<h3 id="创建订单">创建订单</h3>
+
+<p><sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppOrder/:appId<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/Create</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | Bearer Token |  |
+| `参数说明`  |  |  |
+| amount | 商品金额，必填  | 最小值为0.01元 |
+| productType | 商品类型，必填  | **point** 或自定义，如果为**point**，支付成功后将自动充值积分，并产生充值记录。 |
+| productID | 商品ID，必填  | 自定义 |
+| productName | 商品名称，必填  |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppOrder/:appId/Create' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer ' \
+    --data '{
+      "amount": "0.01",
+      "productID": "point",
+      "productName": "1",
+      "productType": "测试商品"
+    }'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppOrder/:appId/Create", Method.Post);
+    request.AddHeader("Content-Type", "application/json");
+    request.AddHeader("Authorization", "Bearer ");
+    var body = @"{""amount"": ""0.01"", ""productID"": ""point"",""productName"": ""1"",      ""productType"": ""测试商品""}";
+    request.AddStringBody(body, DataFormat.Json);
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"amount\": \"0.01\", \"productID\": \"point\",    \"productName\": \"1\",  \"productType\":     \"测试商品\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppOrder/:appId/Create")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "amount": "0.01",
+      "productID": "point",
+      "productName": "1",
+      "productType": "测试商品"
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppOrder/:appId/Create',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'Bearer '
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "amount": "0.01",
+      "productID": "point",
+      "productName": "1",
+      "productType": "测试商品"
+    })
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '
+    }
+    conn.request("POST", "/api/AppOrder/:appId/Create", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer ");
+
+    var raw = JSON.stringify({
+      "amount": "0.01",
+      "productID": "point",
+      "productName": "1",
+      "productType": "测试商品"
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppOrder/:appId/Create", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | 订单ID、订单号 |
+
+    ```json
+    {
+      "code": 200,
+      "data": {
+        "id": 1,
+        "orderNo": "638205225950488498"
+      },
+      "err": ""
+    }
+    ```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppOrder/AppOrderCreate">在线调试</a>{ .md-button }</p>
+
+<h3 id="订单详情">订单详情</h3>
+
+<p><sup id="fnref:1:2" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppOrder/:appId<sup id="fnref:2:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/:orderId<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup></p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppOrder/:appId/:id' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppOrder/:appId/:id", Method.Get);
+    request.AddHeader("Authorization", "Bearer ");
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppOrder/:appId/:id")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppOrder/:appId/:id',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/AppOrder/:appId/:id", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppOrder/:appId/:id", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 |  |
+
+```json linenums="1"
+{
+  "code": 200,
+  "data": {
+    "id": 1,
+    "userID": 5,
+    "orderNo": "638205225950488498",
+    "state": "WAIT_BUYER_PAY",
+    "amount": 0.01,
+    "payType": "alipay",
+    "productName": "test",
+    "productType": null,
+    "productID": null,
+    "tag": null,
+    "remark": null,
+    "tradeNo": null,
+    "orderPayTime": "0001-01-01 00:00:00",
+    "expireTime": "2024-05-24 10:56:35",
+    "createDate": "2023-05-24 10:56:35",
+    "lastUpdate": "2023-05-24 10:56:35"
+  },
+  "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppOrder/AppOrder">在线调试</a>{ .md-button }</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>serverUrl：https://www.oauthapp.com <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:1:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>appId：需要替换为实际应用的 ID <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:2:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:2:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>orderId：订单ID <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>

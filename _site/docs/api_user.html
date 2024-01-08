@@ -1,0 +1,3330 @@
+<h1 id="用户">用户</h1>
+
+<h2 id="union-id">Union ID</h2>
+
+<h3 id="登录">登录</h3>
+
+<p><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/UnionIDSignIn</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| platform | 第三方平台标识字符串 | web、weibo、wexin、qq / 自定义 |
+| unionID | 第三方平台的用户ID |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn' \
+    --header 'Content-Type: application/json' \
+    --data '{"platform": "","unionID": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new RestClient("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn");
+    client.Timeout = -1;
+    var request = new RestRequest(Method.POST);
+    request.AddHeader("Content-Type", "application/json");
+    var body = @"{" + "\n" +
+    @"  ""platform"": ""web""," + "\n" +
+    @"  ""unionID"": ""123456""" + "\n" +
+    @"}";
+    request.AddParameter("application/json", body,  ParameterType.RequestBody);
+    IRestResponse response = client.Execute(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\n  \"platform\": \"web\",\n  \"unionID\":     \"123456\"\n}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    var axios = require('axios');
+    var data = JSON.stringify({
+      "platform": "web",
+      "unionID": "123456"
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "platform": "web",
+      "unionID": "123456"
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/UnionIDSignIn", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({"platform":"web","unionID":"123456"});
+
+    var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignIn", requestOptions)
+    .then(response =&gt; response.text())
+    .then(result =&gt; console.log(result))
+    .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserUnionIDSignIn">在线调试</a>{ .md-button }</p>
+
+<h3 id="注册">注册</h3>
+
+<p><sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/UnionIDSignUp</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| unionId | 第三方平台的用户ID  | oauthapp.settings.fingerIdentity / 自定义 |
+| platform | 第三方平台标识字符串  | web、weibo、wexin、qq、dingtalk / 自定义 |
+| pwd | 密码，可空  | 默认为：123456 |
+| username | 登录账号，可空，默认与unionId一致  |  |
+| nickname | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+| phone | 手机号，可空  | 如果应用配置了验证手机，则必填 |
+| phoneCode | 手机验证码，可空  | 如果应用配置了验证手机，则必填 |
+| email | 邮箱，可空  | 如果应用配置了验证邮箱，则必填 |
+| emailCode | 邮箱已验证，可空  | 如果应用配置了验证邮箱，则必填 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp' \
+    --header 'Content-Type: application/json' \
+    --data '{"platform": "","pwd": "","unionID": "","nickName": "","avatar": "","data": "","email": "","emailCode": "","phone": "","phoneCode": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp");
+    var content = new StringContent("{\"platform\": \"\",\"pwd\": \"\",\"unionID\": \"\",\"nickName\":\"\",\"avatar\": \"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"platform\": \"\",\"pwd\": \"\",\"unionID\":\"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "platform": "",
+      "pwd": "",
+      "unionID": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "platform": "",
+      "pwd": "",
+      "unionID": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/UnionIDSignUp", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "platform": "",
+      "pwd": "",
+      "unionID": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/UnionIDSignUp", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserUnionIDSignUp">在线调试</a>{ .md-button }</p>
+
+<h2 id="账号密码">账号密码</h2>
+
+<h3 id="登录-1">登录</h3>
+
+<p><sup id="fnref:1:2" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/SignIn</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| userName | 登录账号 |  |
+| password | 登陆密码 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/SignIn' \
+    --header 'Content-Type: application/json' \
+    --data '{"pwd": "","userName": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/SignIn");
+    var content = new StringContent("{\"pwd\": \"\",\"userName\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"pwd\": \"\",\"userName\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/SignIn")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "pwd": "",
+      "userName": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/SignIn',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "pwd": "",
+      "userName": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/SignIn", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "pwd": "",
+      "userName": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/SignIn", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserSignIn">在线调试</a>{ .md-button }</p>
+
+<h3 id="注册-1">注册</h3>
+
+<p><sup id="fnref:1:3" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:3" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/SignUp</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| userName | 登录账号  |  |
+| pwd | 登陆密码  |  |
+| nickName | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+| phone | 手机号，可空  | 如果应用配置了验证手机，则必填 |
+| phoneCode | 手机验证码，可空  | 如果应用配置了验证手机，则必填 |
+| email | 邮箱，可空  | 如果应用配置了验证邮箱，则必填 |
+| emailCode | 邮箱已验证，可空  | 如果应用配置了验证邮箱，则必填 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/SignUp' \
+    --header 'Content-Type: application/json' \
+    --data '{"pwd": "","userName": "","nickName": "","avatar": "","data": "","email": "","emailCode": "","phone": "","phoneCode": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/SignUp");
+    var content = new StringContent("{\"pwd\": \"\",\"userName\": \"\",\"nickName\": \"\",\"avatar\":\"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\"}", null,"application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"pwd\": \"\",\"userName\": \"\",\"nickName\":         \"\",\"avatar\": \"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\": \"\",       \"phoneCode\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/SignUp")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "pwd": "",
+      "userName": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/SignUp',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "pwd": "",
+      "userName": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/SignUp", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "pwd": "",
+      "userName": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/SignUp", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserSignUp">在线调试</a>{ .md-button }</p>
+
+<h2 id="手机号">手机号</h2>
+
+<h3 id="注册-2">注册</h3>
+
+<p><sup id="fnref:1:4" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:4" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/PhoneSignUp</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| phone | 手机号，必填 |  |
+| phoneCode | 手机验证码，必填 | 调用发送手机验证码方法获取 |
+| pwd | 密码，可空  | 默认为：123456 |
+| email | 邮箱，可空  | 如果应用配置了验证邮箱，则必填 |
+| emailCode | 邮箱已验证，可空  | 如果应用配置了验证邮箱，则必填 |
+| nickname | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ``` curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignUp' \
+    --header 'Content-Type: application/json' \
+    --data '{"phone": "","phoneCode": "","pwd": "","email": "","emailCode": "","nickName": "","avatar": "","data": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignUp");
+    var content = new StringContent("{\"phone\": \"\",\"phoneCode\": \"\",\"pwd\": \"\",\"email\": \"\",\"emailCode\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder().build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"phone\": \"\",\"phoneCode\": \"\",\"pwd\": \"\",\"email\": \"\",\"emailCode\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\"}");
+    Request request = new Request.Builder()
+    .url("https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignUp")
+    .method("POST", body)
+    .addHeader("Content-Type", "application/json")
+    .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "phone": "",
+      "phoneCode": "",
+      "pwd": "",
+      "email": "",
+      "emailCode": "",
+      "nickName": "",
+      "avatar": "",
+      "data": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignUp',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "phone": "",
+      "phoneCode": "",
+      "pwd": "",
+      "email": "",
+      "emailCode": "",
+      "nickName": "",
+      "avatar": "",
+      "data": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/PhoneSignUp", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "phone": "",
+      "phoneCode": "",
+      "pwd": "",
+      "email": "",
+      "emailCode": "",
+      "nickName": "",
+      "avatar": "",
+      "data": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignUp", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserPhoneSignUp">在线调试</a>{ .md-button }</p>
+
+<h3 id="登录-2">登录</h3>
+
+<p><sup id="fnref:1:5" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:5" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/PhoneSignIn</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| phone | 手机号 |  |
+| verifyCode | 手机验证码 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/PhoneSignIn' \
+    --header 'Content-Type: application/json' \
+    --data '{
+      "phone": "",
+      "verifyCode": ""
+    }'
+    ```
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignIn");
+    var content = new StringContent("{\"phone\": \"\",\"verifyCode\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder().build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"phone\": \"\",\"verifyCode\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignIn")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "phone": "",
+      "verifyCode": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignIn',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "phone": "",
+      "verifyCode": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/PhoneSignIn", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "phone": "",
+      "verifyCode": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/PhoneSignIn", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserPhoneSignIn">在线调试</a>{ .md-button }</p>
+
+<h3 id="发送验证码">发送验证码</h3>
+
+<p><sup id="fnref:1:6" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:6" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/SendSMSCode</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| phone | 手机号，必填 |  |
+| type | 用途，必填 | 可选值：signup / forgetpwd |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/SendSMSCode' \
+    --header 'Content-Type: application/json' \
+    --data '{"phone": "","type": ""}'
+    ```
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/SendSMSCode");
+    var content = new StringContent("{\"phone\": \"\",\"type\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"phone\": \"\",\"type\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/SendSMSCode")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "phone": "",
+      "type": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/SendSMSCode',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "phone": "",
+      "type": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/SendSMSCode", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "phone": "",
+      "type": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/SendSMSCode", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | true 或 false |
+| err | 错误信息 |  |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserSendSMSCode">在线调试</a>{ .md-button }</p>
+
+<h2 id="邮箱账号">邮箱账号</h2>
+
+<h3 id="注册-3">注册</h3>
+
+<p><sup id="fnref:1:7" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:7" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/EmailSignUp</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| email | 邮箱，必填  |  |
+| emailCode | 邮箱已验证，必填  | 调用发送邮箱验证码方法获取 |
+| pwd | 密码，可空  | 默认为：123456 |
+| nickname | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+| phone | 手机号，可空  | 如果应用配置了验证手机，则必填 |
+| phoneCode | 手机验证码，可空  | 如果应用配置了验证手机，则必填 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId[^2]/EmailSignUp' \
+    --header 'Content-Type: application/json' \
+    --data '{"email": "","pwd": "","emailCode": "","phone": "","phoneCode": "","nickName": "","avatar":"","data": ""}'
+    ```
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/EmailSignUp");
+    var content = new StringContent("{\"email\": \"\",\"pwd\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"email\": \"\",\"pwd\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/EmailSignUp")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "email": "",
+      "pwd": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": "",
+      "nickName": "",
+      "avatar": "",
+      "data": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/EmailSignUp',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "email": "",
+      "pwd": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": "",
+      "nickName": "",
+      "avatar": "",
+      "data": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/EmailSignUp", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "email": "",
+      "pwd": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": "",
+      "nickName": "",
+      "avatar": "",
+      "data": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/EmailSignUp", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserEmailSignUp">在线调试</a>{ .md-button }</p>
+
+<h3 id="登录-3">登录</h3>
+
+<p><sup id="fnref:1:8" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:8" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/EmailSignIn</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| email | 邮箱，必填 |  |
+| emailCode | 邮箱验证码，必填 | 调用发送邮箱验证码方法获取 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn' \
+    --header 'Content-Type: application/json' \
+    --data '{"email": "","verifyCode": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn");
+    var content = new StringContent("{\"email\": \"\",\"verifyCode\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"email\": \"\",\"verifyCode\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "email": "",
+      "verifyCode": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "email": "",
+      "verifyCode": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/：appId/EmailSignIn", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "email": "",
+      "verifyCode": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/：appId/EmailSignIn", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserEmailSignIn">在线调试</a>{ .md-button }</p>
+
+<h3 id="发送验证码-1">发送验证码</h3>
+
+<p><sup id="fnref:1:9" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:9" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/SendEmailCode</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| email | 邮箱，必填 |  |
+| type | 用途，必填 | 可选值：signup / forgetpwd |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode' \
+    --header 'Content-Type: application/json' \
+    --data '{"email": "","type": ""}'
+    ```
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode");
+    var content = new StringContent("{\"email\": \"\",\"type\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"email\": \"\",\"type\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "email": "",
+      "type": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "email": "",
+      "type": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/SendEmailCode", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "email": "",
+      "type": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/SendEmailCode", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | true 或 false |
+| err | 错误信息 |  |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserSendEmailCode">在线调试</a>{ .md-button }</p>
+
+<h2 id="重置密码">重置密码</h2>
+
+<p><sup id="fnref:1:10" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:10" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/ResetPwd</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| phone | 手机号 | 手机号、邮箱账号必选一种 |
+| email | 邮箱账号 | 手机号、邮箱账号必选一种 |
+| code | 验证码，必填 | 手机号或邮箱账号收到的验证码 |
+| pwd | 新的密码，必填 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd' \
+    --header 'Content-Type: application/json' \
+    --data '{"code": "","pwd": "","phone": "","email": ""}'
+    ```
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd");
+    var content = new StringContent("{\"code\": \"\",\"pwd\": \"\",\"phone\": \"\",\"email\": \"\"}",         null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"code\": \"\",\"pwd\": \"\",\"phone\": \"\",\"email\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "code": "",
+      "pwd": "",
+      "phone": "",
+      "email": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "code": "",
+      "pwd": "",
+      "phone": "",
+      "email": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/ResetPwd", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "code": "",
+      "pwd": "",
+      "phone": "",
+      "email": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/ResetPwd", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | true 或 false |
+| err | 错误信息 |  |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserResetPwd">在线调试</a>{ .md-button }</p>
+
+<h2 id="微信小程序">微信小程序</h2>
+
+<h3 id="网页端">网页端</h3>
+
+<h4 id="获取预登录signkey">获取预登录SignKey</h4>
+
+<p><sup id="fnref:1:11" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:11" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/QRCodePreSignIn</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| scheme | 身份验证协议	 | 固定填：app |
+| scopes | 需要微信小程序用户授权的列表，用英文空格分隔 | openid phone |
+| remark | 自定义备注信息 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn' \
+    --header 'Content-Type: application/json' \
+    --data '{"scopes": "","remark": "","scheme": "app"}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn");
+    var content = new StringContent("{\"scopes\": \"\",\"remark\": \"\",\"scheme\": \"app\"}", null,"application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"scopes\": \"\",\"remark\": \"\",\"scheme\":\"app\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "scopes": "",
+      "remark": "",
+      "scheme": "app"
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "scopes": "",
+      "remark": "",
+      "scheme": "app"
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/QRCodePreSignIn", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "scopes": "",
+      "remark": "",
+      "scheme": "app"
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/QRCodePreSignIn", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | signInKey |
+
+```json linenums="1"
+{
+    "code": 200,
+    "data": 19,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserQRCodePreSignIn">在线调试</a>{ .md-button }</p>
+
+<h4 id="登录结果查询">登录结果查询</h4>
+
+<p><sup id="fnref:1:12" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:12" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/QRCodeSignIn</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| signInKey | 小程序登录查询凭证 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn' \
+    --header 'Content-Type: application/json' \
+    --data '{"signInKey": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn");
+    var content = new StringContent("{\"signInKey\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"signInKey\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "signInKey": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "signInKey": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/QRCodeSignIn", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "signInKey": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignIn", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserQRCodeSignIn">在线调试</a>{ .md-button }</p>
+
+<h3 id="小程序端">小程序端</h3>
+
+<h4 id="确认扫码成功">确认扫码成功</h4>
+
+<p><sup id="fnref:1:13" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:13" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/QRCodeScan</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| signInKey | 小程序登录查询凭证 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan' \
+    --header 'Content-Type: application/json' \
+    --data '{"signInKey": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan");
+    var content = new StringContent("{\"signInKey\": \"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"signInKey\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "signInKey": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "signInKey": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/QRCodeScan", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "signInKey": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeScan", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | 具体包含appID、name、logo、website、description、tags、scopes、remark 和 scheme |
+| err | 错误信息 |  |
+
+```json linenums="1"
+{
+    "code": 200,
+    "data": {
+        "appID": 2,
+        "name": "开发文档",
+        "logo": "https://blob.oauthapp.com/4/tenant/2/API.png",
+        "website": "https://web.oauthapp.com/4/docs",
+        "description": null,
+        "tags": null,
+        "scopes": "openid profile role promission",
+        "remark": "test",
+        "scheme": "app"
+    },
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserQRCodeScan">在线调试</a>{ .md-button }</p>
+
+<h4 id="注册-4">注册</h4>
+
+<p><sup id="fnref:1:14" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:14" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/QRCodeSignUp</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| unionId | 微信小程序用户的unionId/openid  |  |
+| pwd | 密码，可空  | 默认为：123456 |
+| nickname | 昵称，可空  |  |
+| avatar | 头像，可空  |  |
+| data | 自定义数据，可空  |  |
+| phone | 手机号，可空  | 如果应用配置了验证手机，则必填 |
+| phoneCode | 手机验证码，可空  | 如果应用配置了验证手机，则必填 |
+| email | 邮箱，可空  | 如果应用配置了验证邮箱，则必填 |
+| emailCode | 邮箱已验证，可空  | 如果应用配置了验证邮箱，则必填 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp' \
+    --header 'Content-Type: application/json' \
+    --data '{"unionID": "","signInKey": "","nickName": "","avatar": "","data": "","email": "",        "emailCode": "","phone": "","phoneCode": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp");
+    var content = new StringContent("{\"unionID\": \"\",\"signInKey\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\": \"\",\"phoneCode\":\"\"}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"unionID\": \"\",\"signInKey\": \"\",\"nickName\": \"\",\"avatar\": \"\",\"data\": \"\",\"email\": \"\",\"emailCode\": \"\",\"phone\":\"\",\"phoneCode\": \"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "unionID": "",
+      "signInKey": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "unionID": "",
+      "signInKey": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/AppUsers/:appId/QRCodeSignUp", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "unionID": "",
+      "signInKey": "",
+      "nickName": "",
+      "avatar": "",
+      "data": "",
+      "email": "",
+      "emailCode": "",
+      "phone": "",
+      "phoneCode": ""
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/QRCodeSignUp", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserQRCodeSignUp">在线调试</a>{ .md-button }</p>
+
+<h2 id="开放认证">开放认证</h2>
+
+<h3 id="申请授权码">申请授权码</h3>
+
+<p><sup id="fnref:1:15" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/OAuth/:appId<sup id="fnref:2:15" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/GrantCode?scheme=</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| scheme | 身份验证协议 | 固定填：app |
+| redirect_uri | 返回地址，必填 | 默认无限制，也可在【安全-开放认证网址白名单】配置 |
+| grant_type | 授权类型，必填 | 可选：email、phone、unionid、account |
+| scopes | 自定义授权范围，必填 | 用英文空格分隔 |
+| userName |  用户名 | 授权类型为：email/phone/account必填 |
+| password | 登录密码 | 授权类型为：email/phone/account必填 |
+| unionId | unionId | 授权类型为：unionid必填 |
+| platform | 平台 | 授权类型为：unionid必填 |
+| expireInDays | 授权有效期（天） | 默认为1，取值范围：1~99 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app' \
+    --header 'Content-Type: application/json' \
+    --data '{"grant_type": "","scopes": "","redirect_uri": "","userName": "","password": "","unionId":"","platform": "","expireInDays": 1}'
+    ```
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app");
+    var content = new StringContent("{\"grant_type\": \"\",\"scopes\": \"\",\"redirect_uri\": \"\",\"userName\": \"\",\"password\": \"\",\"unionId\": \"\",\"platform\": \"\",\"expireInDays\": 1}",null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"grant_type\": \"\",\"scopes\": \"\",\"redirect_uri\": \"\",\"userName\": \"\",\"password\": \"\",\"unionId\": \"\",\"platform\": \"\",\"expireInDays\": 1}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "grant_type": "",
+      "scopes": "",
+      "redirect_uri": "",
+      "userName": "",
+      "password": "",
+      "unionId": "",
+      "platform": "",
+      "expireInDays": 1
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "grant_type": "",
+      "scopes": "",
+      "redirect_uri": "",
+      "userName": "",
+      "password": "",
+      "unionId": "",
+      "platform": "",
+      "expireInDays": 1
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    conn.request("POST", "/api/OAuth/:appId/GrantCode?scheme=app", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "grant_type": "",
+      "scopes": "",
+      "redirect_uri": "",
+      "userName": "",
+      "password": "",
+      "unionId": "",
+      "platform": "",
+      "expireInDays": 1
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/OAuth/:appId/GrantCode?scheme=app", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | code：授权码、expires_in：有效时间（秒） |
+
+```json
+{
+    "code": 200,
+    "data": {
+        "code": "e663f9e958ab40d39ad08cfe175b6800",
+        "expires_in": 120
+    },
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/OAuth/OAuthGrantCode">在线调试</a>{ .md-button }</p>
+
+<h3 id="获取access_token">获取access_token</h3>
+
+<p><sup id="fnref:1:16" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/OAuth/:appId<sup id="fnref:2:16" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/Authorize?scheme=&amp;code=</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| 请求方式 | POST |  |
+| 登陆凭证 | 不需要 |  |
+| scheme | 身份验证协议 | 固定填：app |
+| code | 授权码 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location --request POST 'https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&amp;code='
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&amp;code=");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&amp;code=")
+      .method("POST", body)
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&amp;code='
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {}
+    conn.request("POST", "/api/OAuth/:appId/Authorize?scheme=&amp;code=", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/OAuth/:appId/Authorize?scheme=&amp;code=", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[点击查看](#fn:3){ .md-button }
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/OAuth/OAuthAuthorize">在线调试</a>{ .md-button }</p>
+
+<h3 id="授权记录">授权记录</h3>
+
+<p><sup id="fnref:1:17" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/OAuth/:appId<sup id="fnref:2:17" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/Consents</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/OAuth/:appId/Consents' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Get, "https://www.oauthapp.com/api/OAuth/:appId/Consents");
+    request.Headers.Add("Authorization", "Bearer ");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/OAuth/:appId/Consents")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/OAuth/:appId/Consents',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/OAuth/:appId/Consents", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/OAuth/:appId/Consents", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 |  |
+
+``` json linenums="1"
+{
+"code": 200,
+"data": [
+    {
+        "id": 9,
+        "createDate": "2023-07-24 13:33:26",
+        "lastUpdate": "2023-07-24 13:33:26",
+        "grantType": "unionid",
+        "redirectUri": "",
+        "remark": null,
+        "scopes": "openid"
+    }
+],
+"err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/OAuth/OAuthConsents">在线调试</a>{ .md-button }</p>
+
+<h3 id="删除授权记录">删除授权记录</h3>
+
+<p><sup id="fnref:1:18" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/OAuth/:appId<sup id="fnref:2:18" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/Consents/:id</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| 请求方式 | DELETE |  |
+| 登陆凭证 | bearerToken |  |
+| id | 授权记录的ID |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location --request DELETE 'https://www.oauthapp.com/api/OAuth/:appId/Consents/:id' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Delete, "https://www.oauthapp.com/api/OAuth/:appId/Consents/:id");
+    request.Headers.Add("Authorization", "Bearer ");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/OAuth/:appId/Consents/:id")
+      .method("DELETE", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'delete',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/OAuth/:appId/Consents/:id',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("DELETE", "/api/OAuth/:appId/Consents/:id", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/OAuth/:appId/Consents/:id", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | true 或 false |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/OAuth/OAuthDeleteConsent">在线调试</a>{ .md-button }</p>
+
+<h2 id="获取用户资料">获取用户资料</h2>
+
+<p><sup id="fnref:1:19" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:19" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/Profile</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/Profile' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Get, "https://www.oauthapp.com/api/AppUsers/:appId/Profile");
+    request.Headers.Add("Authorization", "Bearer ");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/Profile")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/Profile',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/AppUsers/:appId/Profile", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/Profile", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | 具体包含appID、platform、unionID、phone、createDate、userName、phoneIsValid、data、email、emailIsValid、lastUpdate、nickName、id、avatr 和 role |
+
+```json linenums="1"
+{
+    "code": 200,
+    "data": {
+        "appID": 2,
+        "platform": "wxminip",
+        "unionID": "euadipi",
+        "phone": "1111111111",
+        "createDate": "2023-02-22 16:20:43",
+        "userName": "euadipi",
+        "phoneIsValid": true,
+        "data": null,
+        "email": "euadipi@wxminip.com",
+        "emailIsValid": false,
+        "lastUpdate": "2023-02-22 16:20:43",
+        "nickName": "wwww",
+        "id": 39,
+        "avatar": "avatar.jpg",
+        "role": "user"
+    },
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserProfile">在线调试</a>{ .md-button }</p>
+
+<h2 id="更新用户资料">更新用户资料</h2>
+
+<p><sup id="fnref:1:20" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:20" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/Profile</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| 请求方式 | PUT |  |
+| 登陆凭证 | Bearer Token |  |
+| avatar | 头像 |  |
+| nickName | 昵称 |  |
+| data | 自定义数据 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location --request PUT 'https://www.oauthapp.com/api/AppUsers/:appId/Profile' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer ' \
+    --data '{"avatar": "","data": "","nickName": ""}'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Put, "https://www.oauthapp.com/api/AppUsers/:appId/Profile");
+    request.Headers.Add("Authorization", "Bearer ");
+    var content = new StringContent("{\"avatar\": \"\",\"data\": \"\",\"nickName\": \"\"}", null,"application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\"avatar\": \"\",\"data\": \"\",\"nickName\":\"\"}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/Profile")
+      .method("PUT", body)
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "avatar": "",
+      "data": "",
+      "nickName": ""
+    });
+
+    let config = {
+      method: 'put',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/Profile',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'Bearer '
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "avatar": "",
+      "data": "",
+      "nickName": ""
+    })
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '
+    }
+    conn.request("PUT", "/api/AppUsers/:appId/Profile", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer ");
+
+    var raw = JSON.stringify({
+      "avatar": "",
+      "data": "",
+      "nickName": ""
+    });
+
+    var requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/Profile", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | true 或 false |
+
+```json linenums="1"
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserUpdateProfile">在线调试</a>{ .md-button }</p>
+
+<h2 id="积分记录">积分记录</h2>
+
+<p><sup id="fnref:1:21" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:21" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/PointLog?type=&amp;skip=&amp;take=</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+| type | 分类 | 0：全部，1：充值，2：消耗 |
+| skip |  可选，指定要拉取的数据条数。 | 0 |
+| take |  可选，指定要跳过的数据条数。 | 10 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&amp;skip=&amp;take=' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppUsers/:appId/PointLog?type=&amp;skip=&amp;take=", Method.Get);
+    request.AddHeader("Authorization", "Bearer ");
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&amp;skip=&amp;take=")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&amp;skip=&amp;take=',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/AppUsers/:appId/PointLog?type=&amp;skip=&amp;take=", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&amp;skip=&amp;take=", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 |  |
+| err | 错误信息 |  |
+
+```json linenums="1"
+{
+   "code": 200,
+   "data": {
+     "total": 2,
+     "data": [
+       {
+         "id": 2,
+         "userID": 84,
+         "used": 10000,
+         "remark": "",
+         "createDate": "2023-06-16 15:35:06"
+       },
+       {
+         "id": 1,
+         "userID": 84,
+         "used": 10000,
+         "remark": "",
+         "createDate": "2023-06-16 15:23:50"
+       }
+     ]
+   },
+   "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserPointLog">在线调试</a>{ .md-button }</p>
+
+<h2 id="充值积分">充值积分</h2>
+
+<p><sup id="fnref:1:22" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppUsers/:appId<sup id="fnref:2:22" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/RechargePoints</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+| price |  充值金额，必填 | 1 |
+| remark | 备注信息，可选 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer ' \
+    --data '{
+        "price": 0,
+        "remark": "string"
+    }'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints");
+    request.Headers.Add("Authorization", "Bearer ");
+    var content = new StringContent("{\r\n    \"price\": 0,\r\n    \"remark\": \"string\"\r\n}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\r\n    \"price\": 0,\r\n    \"remark\": \"string\"\r\n}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "price": 0,
+      "remark": "string"
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'Bearer '
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "price": 0,
+      "remark": "string"
+    })
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '
+    }
+    conn.request("POST", "/api/AppUsers/:appId/RechargePoints", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer ");
+
+    var raw = JSON.stringify({
+      "price": 0,
+      "remark": "string"
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 说明 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 |  |
+| err | 错误信息 |  |
+
+```json linenums="1"
+{
+   "code": 200,
+   "data": true,
+   "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://games.jixiucloud.cn/swagger/index.html#/AppUsers/AppUserRechargePoints">在线调试</a>{ .md-button }</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>serverUrl：https://www.oauthapp.com <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:1:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:1:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:1:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:1:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a> <a href="#fnref:1:6" class="reversefootnote" role="doc-backlink">&#8617;<sup>7</sup></a> <a href="#fnref:1:7" class="reversefootnote" role="doc-backlink">&#8617;<sup>8</sup></a> <a href="#fnref:1:8" class="reversefootnote" role="doc-backlink">&#8617;<sup>9</sup></a> <a href="#fnref:1:9" class="reversefootnote" role="doc-backlink">&#8617;<sup>10</sup></a> <a href="#fnref:1:10" class="reversefootnote" role="doc-backlink">&#8617;<sup>11</sup></a> <a href="#fnref:1:11" class="reversefootnote" role="doc-backlink">&#8617;<sup>12</sup></a> <a href="#fnref:1:12" class="reversefootnote" role="doc-backlink">&#8617;<sup>13</sup></a> <a href="#fnref:1:13" class="reversefootnote" role="doc-backlink">&#8617;<sup>14</sup></a> <a href="#fnref:1:14" class="reversefootnote" role="doc-backlink">&#8617;<sup>15</sup></a> <a href="#fnref:1:15" class="reversefootnote" role="doc-backlink">&#8617;<sup>16</sup></a> <a href="#fnref:1:16" class="reversefootnote" role="doc-backlink">&#8617;<sup>17</sup></a> <a href="#fnref:1:17" class="reversefootnote" role="doc-backlink">&#8617;<sup>18</sup></a> <a href="#fnref:1:18" class="reversefootnote" role="doc-backlink">&#8617;<sup>19</sup></a> <a href="#fnref:1:19" class="reversefootnote" role="doc-backlink">&#8617;<sup>20</sup></a> <a href="#fnref:1:20" class="reversefootnote" role="doc-backlink">&#8617;<sup>21</sup></a> <a href="#fnref:1:21" class="reversefootnote" role="doc-backlink">&#8617;<sup>22</sup></a> <a href="#fnref:1:22" class="reversefootnote" role="doc-backlink">&#8617;<sup>23</sup></a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>appId：需要替换为实际应用的 ID <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:2:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:2:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:2:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:2:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:2:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a> <a href="#fnref:2:6" class="reversefootnote" role="doc-backlink">&#8617;<sup>7</sup></a> <a href="#fnref:2:7" class="reversefootnote" role="doc-backlink">&#8617;<sup>8</sup></a> <a href="#fnref:2:8" class="reversefootnote" role="doc-backlink">&#8617;<sup>9</sup></a> <a href="#fnref:2:9" class="reversefootnote" role="doc-backlink">&#8617;<sup>10</sup></a> <a href="#fnref:2:10" class="reversefootnote" role="doc-backlink">&#8617;<sup>11</sup></a> <a href="#fnref:2:11" class="reversefootnote" role="doc-backlink">&#8617;<sup>12</sup></a> <a href="#fnref:2:12" class="reversefootnote" role="doc-backlink">&#8617;<sup>13</sup></a> <a href="#fnref:2:13" class="reversefootnote" role="doc-backlink">&#8617;<sup>14</sup></a> <a href="#fnref:2:14" class="reversefootnote" role="doc-backlink">&#8617;<sup>15</sup></a> <a href="#fnref:2:15" class="reversefootnote" role="doc-backlink">&#8617;<sup>16</sup></a> <a href="#fnref:2:16" class="reversefootnote" role="doc-backlink">&#8617;<sup>17</sup></a> <a href="#fnref:2:17" class="reversefootnote" role="doc-backlink">&#8617;<sup>18</sup></a> <a href="#fnref:2:18" class="reversefootnote" role="doc-backlink">&#8617;<sup>19</sup></a> <a href="#fnref:2:19" class="reversefootnote" role="doc-backlink">&#8617;<sup>20</sup></a> <a href="#fnref:2:20" class="reversefootnote" role="doc-backlink">&#8617;<sup>21</sup></a> <a href="#fnref:2:21" class="reversefootnote" role="doc-backlink">&#8617;<sup>22</sup></a> <a href="#fnref:2:22" class="reversefootnote" role="doc-backlink">&#8617;<sup>23</sup></a></p>
+    </li>
+  </ol>
+</div>

@@ -1,0 +1,100 @@
+<h1 id="初始化--自动注册账号">初始化 + 自动注册账号</h1>
+
+<p>!!! Tip “提示”
+    oauthapp.allReady()方法是在oauthapp SDK中注册/登录用户并确保所有必要的依赖项都已加载并准备好使用的方法。此方法还将使用web指纹（fingerprintjs2）自动注册，如果账号不存在就自动注册；如果存在就自动登录，然后将用户信息赋值到window.oauthapp.appUser对象中。这使得在应用程序中可以使用所有API而无需手动注册或登录。</p>
+
+<p>以下是使用oauthapp.allReady()方法的步骤：</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;h1&gt;应用详情&lt;/h1&gt;&lt;div id="appInfo"&gt;&lt;/div&gt;
+    &lt;h1&gt;应用配置&lt;/h1&gt;&lt;div id="appProps"&gt;&lt;/div&gt;
+    &lt;h1&gt;应用文件&lt;/h1&gt;&lt;div id="appFiles"&gt;&lt;/div&gt;
+    &lt;h1&gt;用户资料&lt;/h1&gt;&lt;div id="appUser"&gt;&lt;/div&gt;
+   </code></p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.allReady().then(function(){</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>});
+```
+</code></pre></div></div>
+
+<p>在此示例中，当调用oauthapp.allReady()方法时，它将执行以下操作：</p>
+
+<ul>
+  <li>
+    <p>检查oauthapp SDK是否已经准备好使用。如果尚未准备好，则将等待所有必要的依赖项加载完成。</p>
+  </li>
+  <li>
+    <p>检查当前用户是否已经注册/登录。如果尚未注册/登录，则将使用web指纹（fingerprintjs2）自动注册用户。</p>
+  </li>
+</ul>
+
+<p>如果用户已经注册/登录，则将用户信息赋值到window.oauthapp.appUser对象中。
+如果在注册/登录过程中遇到任何错误，则将抛出一个错误并拒绝promise。可以在应用程序中使用oauthapp.app和oauthapp.appUser对象访问应用程序和用户的信息，</p>
+
+<h2 id="步骤四测试结果">步骤四：测试结果</h2>
+
+<p>如果SDK已经准备好使用，页面则会展示应用、用户的相关信息。</p>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+      $('#appInfo').text(JSON.stringify(oauthapp.app.info));
+      $('#appProps').text(JSON.stringify(oauthapp.app.props));
+      $('#appFiles').text(JSON.stringify(oauthapp.app.blobs));
+      $('#appUser').text(JSON.stringify(oauthapp.appUser));
+   </code></p>
+
+<p>通过使用oauthapp.allReady()方法，可以轻松地注册/登录用户并准备使用所有API，而无需手动注册或登录。
+这使得开发人员可以专注于开发应用程序的功能，而不是处理注册和登录的细节。</p>
+
+<p><code class="language-plaintext highlighter-rouge">oauthapp.app</code>：包含应用程序的基本信息、配置项和文件列表等。</p>
+
+<p><code class="language-plaintext highlighter-rouge">oauthapp.appUser</code>：包含当前登录用户的信息，例如用户ID、昵称和头像等。</p>
+
+<p><code class="language-plaintext highlighter-rouge">oauthapp.settings.access_token</code>：包含当前登录用户的访问令牌。</p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;allReady&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid=""&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;h1&gt;应用详情&lt;/h1&gt;&lt;div id="appInfo"&gt;&lt;/div&gt;
+    &lt;h1&gt;应用配置&lt;/h1&gt;&lt;div id="appProps"&gt;&lt;/div&gt;
+    &lt;h1&gt;应用文件&lt;/h1&gt;&lt;div id="appFiles"&gt;&lt;/div&gt;
+    &lt;h1&gt;用户资料&lt;/h1&gt;&lt;div id="appUser"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+          $('#appInfo').text(JSON.stringify(oauthapp.app.info));
+          $('#appProps').text(JSON.stringify(oauthapp.app.props));
+          $('#appFiles').text(JSON.stringify(oauthapp.app.blobs));
+          $('#appUser').text(JSON.stringify(oauthapp.appUser));
+        });
+    &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>

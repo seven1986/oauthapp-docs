@@ -1,0 +1,91 @@
+<h1 id="手机网站支付">手机网站支付</h1>
+
+<p>需要先开通<a href="https://b.alipay.com/page/ar-center/merchant-sign/form?productCode=I1011000100000000003">手机网站支付</a>，将引导用户使用支付宝 App 或支付宝网页完成付款的支付产品。</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;label&gt;订单号&lt;/label&gt;
+    &lt;input type="text" id="orderNo" placeholder="orderNo" value="1" /&gt;
+    &lt;label&gt;订单金额&lt;/label&gt;
+    &lt;input type="text" id="amount" placeholder="amount" value="0.01" /&gt;
+    &lt;label&gt;商品名称&lt;/label&gt;
+    &lt;input type="text" id="subject" placeholder="subject" value="测试商品" /&gt;
+    &lt;label&gt;同步通知地址&lt;/label&gt;
+    &lt;input type="text" id="returnUrl" placeholder="returnUrl" /&gt;
+    &lt;button type="button" id="runButton"&gt;查询&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<p>在点击 “查询” 按钮后，会调用 oauthapp.alipayCreateOrderWapPay() 方法创建支付宝订单并返回结果。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+     oauthapp.alipayCreateOrderWapPay(postData)
+   </code></p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    ```HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>alipayCreateOrderWapPay</title>
+        <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    &lt;/head&gt;
+    &lt;body&gt;
+        <label>订单号</label>
+        <input type="text" id="orderNo" placeholder="orderNo" value="1" />
+        <label>订单金额</label>
+        <input type="text" id="amount" placeholder="amount" value="0.01" />
+        <label>商品名称</label>
+        <input type="text" id="subject" placeholder="subject" value="测试商品" />
+        <label>同步通知地址</label>
+        <input type="text" id="returnUrl" placeholder="returnUrl" />
+        <button type="button" id="runButton">查询</button>
+        &lt;p&gt;结果&lt;/p&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+        <script>
+            $('#returnUrl').val(location.protocol + "//" + location.host + location.pathname);
+            oauthapp.allReady().then(function () {</script></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            document.getElementById('runButton').onclick = function () {
+                var postData = {};
+                postData.orderNo = $('#orderNo').val();
+                postData.amount = $('#amount').val() || 0.01;
+                postData.productID = $('#productID').val();
+                postData.subject = $('#subject').val();
+                oauthapp.alipayCreateOrderWapPay(postData).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+

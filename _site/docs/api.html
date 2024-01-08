@@ -1,0 +1,181 @@
+<h1 id="应用">应用</h1>
+
+<h3 id="应用详情">应用详情</h3>
+
+<p><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/Apps/:appId<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/Info</p>
+
+<p>该接口有2分钟的缓存。</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | GET |  |
+| 登陆凭证 | 不需要 |  |
+| propCode | 配置key，可空 | 默认返回全部 |
+| blobPath | 文件目录，可空 | 获取指定文件夹下的文件列表 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/Apps/:appId/Info?propCode=&amp;blobPath=' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Get, "https://www.oauthapp.com/api/Apps/:appId/Info?propCode=&amp;blobPath=");
+    request.Headers.Add("Authorization", "Bearer ");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/Apps/:appId/Info?propCode=&amp;blobPath=")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/Apps/:appId/Info?propCode=&amp;blobPath=',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/Apps/:appId/Info?propCode=&amp;blobPath=", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/Apps/:appId/Info?propCode=&amp;blobPath=", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | |
+| data.info | 应用信息 | |
+| data.props | 应用的属性 | 在 应用配置[^3] 菜单下，启用接口权限后即可访问。 |
+
+```json linenums="1"
+{
+    "code": 200,
+    "data": {
+        "info": {
+            "id": 4,
+            "userID": 1,
+            "projectID": 5,
+            "website": "https://web.oauthapp.com/4/examples",
+            "serverPath": "examples",
+            "name": "示例汇总",
+            "logo": "https://blob.oauthapp.com/4/tenant/4/应用.png",
+            "description": null,
+            "tags": null,
+            "appKey": "e87e8958-6667-4c44-aa71-c801a2b9e6e8",
+            "share": true,
+            "createDate": "2022-01-21 22:28:57",
+            "lastUpdate": "2022-01-21 22:28:57",
+            "isDelete": false,
+            "sort": 0
+        },
+        "props": [
+            {
+                "code": "WechatMiniPSignIn",
+                "value": "true",
+                "desc": null
+            },
+            {
+                "code": "DingTalkSignIn",
+                "value": "true",
+                "desc": null
+            },
+            {
+                "code": "DingTalkCorpId",
+                "value": "",
+                "desc": null
+            }
+        ],
+        "blobs": [
+            "https://blob.oauthapp.com/4/app/4/API.png"
+        ]
+    },
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/Apps/AppInfo">在线调试</a>{ .md-button }</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>serverUrl：https://www.oauthapp.com <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>appId：需要替换为实际应用的 ID <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>

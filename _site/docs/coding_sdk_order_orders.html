@@ -1,0 +1,124 @@
+<h1 id="订单列表">订单列表</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>oauthapp.orders() 方法用于获取订单列表数据。以下是该方法的参数说明：</p>
+
+<ul>
+  <li>参数	说明	默认值</li>
+  <li>state（可选）：订单状态。可选值包括 “TRADE_CLOSED”、”TRADE_FINISHED”、”TRADE_SUCCESS” 和 “WAIT_BUYER_PAY”。</li>
+  <li>orderNo（可选）：系统订单号。</li>
+  <li>tradeNo（可选）：外部订单号。</li>
+  <li>userId（可选）：用户ID。</li>
+  <li>pctType（可选）：商品类型。</li>
+  <li>pctId（可选）：商品ID。</li>
+  <li>pctName（可选）：商品名称。</li>
+  <li>skip：要跳过的条数。</li>
+  <li>take：要获取的条数。</li>
+</ul>
+
+<p>您可以根据实际需求传入相应的参数值来获取符合条件的订单列表数据。请注意，根据订单数量和数据量的大小，适当调整 skip 和 take 的值以控制返回的数据条数。</p>
+
+<p>=== “Javascript”
+    ```Javascript
+           var state = $(‘#state’).val();
+           var orderNo = $(‘#orderNo’).val();
+           var tradeNo = $(‘#tradeNo’).val();
+           var userId = $(‘#userId’).val()||0;
+           var pctType = $(‘#pctType’).val();
+           var pctId = $(‘#pctId’).val();
+           var pctName = $(‘#pctName’).val();
+           var skip = $(‘#skip’).val() || 0;
+           var take = $(‘#take’).val() || 10;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oauthapp.orders(state, orderNo, tradeNo, userId, 
+       pctType, pctId, pctName, skip.take).then(function (res) {
+           $('#result').text(JSON.stringify(res));
+       });
+```
+</code></pre></div></div>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>根据返回的数据结构，您可以按需提取和展示订单的各个字段。订单数据的结构包括订单的ID、用户ID、订单号、订单状态、订单金额、支付类型、产品名称等信息。请根据您的需求进行数据的处理和展示。</p>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    ```HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>orders</title>
+        <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    &lt;/head&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;body&gt;
+    &lt;select id="state"&gt;
+        &lt;option&gt;&lt;/option&gt;
+        &lt;option&gt;WAIT_BUYER_PAY&lt;/option&gt;
+        &lt;option&gt;TRADE_SUCCESS&lt;/option&gt;
+        &lt;option&gt;TRADE_CLOSED&lt;/option&gt;
+        &lt;option&gt;TRADE_FINISHED&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type="text" id="orderNo" placeholder="orderNo" /&gt;
+    &lt;input type="text" id="tradeNo" placeholder="orderNo" /&gt;
+    &lt;input type="number" id="userId" placeholder="userId" /&gt;
+    &lt;input type="text" id="pctType" placeholder="pctType" /&gt;
+    &lt;input type="text" id="pctId" placeholder="pctId" /&gt;
+    &lt;input type="text" id="pctName" placeholder="pctName" /&gt;
+    &lt;input type="number" id="skip" placeholder="skip" /&gt;
+    &lt;input type="number" id="take" placeholder="take" /&gt;
+    &lt;button type="button" id="runButton"&gt;查询&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+
+            document.getElementById('runButton').onclick = function () {
+                var state = $('#state').val();
+                var orderNo = $('#orderNo').val();
+                var tradeNo = $('#tradeNo').val();
+                var userId = $('#userId').val()||0;
+                var pctType = $('#pctType').val();
+                var pctId = $('#pctId').val();
+                var pctName = $('#pctName').val();
+                var skip = $('#skip').val() || 0;
+                var take = $('#take').val() || 10;
+                oauthapp.orders(state, orderNo, tradeNo, userId, 
+                pctType, pctId, pctName, skip.take).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+

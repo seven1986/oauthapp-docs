@@ -1,0 +1,146 @@
+<h1 id="公众号---发送一次性订阅消息">公众号 - 发送一次性订阅消息</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+            {
+                "touser": "OPENID",
+                "template_id": "TEMPLATE_ID",
+                "url": "URL",
+                "miniprogram": {
+                    "appid": "xiaochengxuappid12345",
+                    "pagepath": "index?foo=bar"
+                },
+                "scene": "SCENE",
+                "title": "TITLE",
+                "data": {
+                    "content": {
+                        "value": "VALUE",
+                        "color": "COLOR"
+                    }
+                }
+            }
+        &lt;/textarea&gt;
+        &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>该代码段展示了一个包含模板消息请求数据的文本框和一个提交按钮的HTML表单，其中请求数据是一个JSON对象，包含以下字段：</p>
+
+<ul>
+  <li>
+    <p>touser：接收者的openid</p>
+  </li>
+  <li>
+    <p>template_id：所需下发的模板消息的id</p>
+  </li>
+  <li>
+    <p>url：模板跳转链接（可选）</p>
+  </li>
+  <li>
+    <p>miniprogram：跳小程序所需数据，如果需要跳小程序，则传该字段</p>
+  </li>
+  <li>
+    <p>appid：对应的小程序appid</p>
+  </li>
+  <li>
+    <p>pagepath：对应小程序内页面路径</p>
+  </li>
+  <li>
+    <p>scene：消息进入的场景值（可选）</p>
+  </li>
+  <li>
+    <p>title：模板标题</p>
+  </li>
+  <li>
+    <p>data：模板内容，格式形如 {“key1”: {“value”: any},”key2”: {“value”: any}}。</p>
+  </li>
+</ul>
+
+<p>当用户单击提交按钮时，将调用一个名为“sendMsg”的JavaScript函数，它将获取文本框中的JSON对象数据，使用OAuthApp中的wechatTemplateMessageSend方法发送模板消息，并将结果显示在结果部分的span元素中。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    function sendMsg() {
+        var postData = JSON.parse($(‘#postData’).val());
+        oauthapp.wechatSubscribeMSG(postData).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    });
+}
+```
+</code></pre></div></div>
+
+<p>该函数的作用是通过调用 oauthapp 对象的 wechatSubscribeMSG 方法，发送微信订阅消息。</p>
+
+<p>该方法会发送 HTTP 请求到微信服务器，请求发送订阅消息。在请求成功后，会将结果传递给 Promise 对象，通过 .then() 方法传递一个回调函数来处理请求结果。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;wechatSubscribeMSG&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+                {
+                    "touser": "OPENID",
+                    "template_id": "TEMPLATE_ID",
+                    "url": "URL",
+                    "miniprogram": {
+                        "appid": "xiaochengxuappid12345",
+                        "pagepath": "index?foo=bar"
+                    },
+                    "scene": "SCENE",
+                    "title": "TITLE",
+                    "data": {
+                        "content": {
+                            "value": "VALUE",
+                            "color": "COLOR"
+                        }
+                    }
+                }
+            &lt;/textarea&gt;
+            &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;script&gt;
+            function sendMsg() {
+                var postData = JSON.parse($('#postData').val());
+                oauthapp.wechatSubscribeMSG(postData).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

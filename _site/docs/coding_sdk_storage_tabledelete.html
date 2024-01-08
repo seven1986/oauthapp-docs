@@ -1,0 +1,89 @@
+<h1 id="删除数据">删除数据</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;p&gt;
+        &lt;input type="text" id="table" placeholder="数据表名称" /&gt;
+        &lt;input type="number" id="dataId" placeholder="id" /&gt;
+        &lt;button type="button" id="deleteButton"&gt;删除&lt;/button&gt;
+    &lt;/p&gt;
+   </code></p>
+
+<p>这段代码展示了一个包含文本输入框和一个按钮的HTML代码段。输入框可以输入数据表名称和数据表的ID。按钮可以用于删除指定的数据表ID。</p>
+
+<p>当点击按钮时，页面会调用一个JavaScript函数，该函数使用OAuth2身份验证客户端SDK中的方法来删除指定数据表ID。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.allReady().then(function () {
+        document.getElementById(‘deleteButton’).onclick = function () {
+            var  table = $(‘#table’).val();
+            var  dataId = $(‘#dataId’).val();
+            oauthapp.tableDelete(table,dataId).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        })
+    }
+});
+```
+</code></pre></div></div>
+
+<p>这段代码使用了OAuthApp对象的tableDelete方法。首先，它使用了oauthapp.allReady()方法，确保OAuthApp对象已经准备就绪。</p>
+
+<p>接着，它给”deleteButton”按钮添加了点击事件，当按钮被点击时，它将从”table”和”dataId”输入框中获取表名和数据行id，并将它们作为参数传递给tableDelete方法。</p>
+
+<p>然后，它等待tableDelete方法完成并返回结果。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;tableDelete&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;
+            &lt;input type="text" id="table" placeholder="数据表名称" /&gt;
+            &lt;input type="number" id="dataId" placeholder="id" /&gt;
+            &lt;button type="button" id="deleteButton"&gt;删除&lt;/button&gt;
+        &lt;/p&gt;
+        &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.allReady().then(function () {
+                document.getElementById('deleteButton').onclick = function () {
+                    var  table = $('#table').val();
+                    var  dataId = $('#dataId').val();
+                    oauthapp.tableDelete(table,dataId).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    })
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

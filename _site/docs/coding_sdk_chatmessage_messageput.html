@@ -1,0 +1,195 @@
+<h1 id="修改消息">修改消息</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;p&gt;&lt;input type="text" id="table" placeholder="table" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="dataId" placeholder="dataId" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="category" placeholder="category" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="tags" placeholder="tags" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="content" placeholder="content" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="remark" placeholder="remark" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="unionID" placeholder="unionID" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="nickName" placeholder="nickName" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="avatar" placeholder="avatar" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="platform" placeholder="platform" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" id="messageType" placeholder="TEXT/FILE/IMAGE" value="TEXT" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="number" value="1" id="showIndex" placeholder="showIndex" /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;button type="button" id="addButton"&gt;提交&lt;/button&gt;&lt;/p&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>这是一个包含多个文本输入框和一个提交按钮的 HTML 表单。输入框和按钮的描述如下：</p>
+
+<ul>
+  <li>
+    <p>table：输入要将数据存储到的表格的名称。</p>
+  </li>
+  <li>
+    <p>dataId：输入要更新或删除的数据行的 ID，对于添加数据的操作可以留空。</p>
+  </li>
+  <li>
+    <p>category：输入数据的分类。</p>
+  </li>
+  <li>
+    <p>tags：输入与数据相关的标签，可以是一个或多个。</p>
+  </li>
+  <li>
+    <p>content：输入数据的内容。</p>
+  </li>
+  <li>
+    <p>remark：输入数据的备注信息。</p>
+  </li>
+  <li>
+    <p>unionID：输入用户的联合 ID，对于未登录的用户可以留空。</p>
+  </li>
+  <li>
+    <p>nickName：输入用户的昵称。</p>
+  </li>
+  <li>
+    <p>avatar：输入用户的头像。</p>
+  </li>
+  <li>
+    <p>platform：输入用户使用的平台。</p>
+  </li>
+  <li>
+    <p>messageType：选择数据的类型，可以是 TEXT（文本）、FILE（文件）或 IMAGE（图片），默认为 TEXT。</p>
+  </li>
+  <li>
+    <p>showIndex：输入数据的显示顺序，默认为 1。</p>
+  </li>
+</ul>
+
+<p>点击提交按钮后，表单将使用这些输入数据调用 addButton 函数。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.allReady().then(function () {
+        document.getElementById(‘addButton’).onclick = function () 
+        {
+            var table = $(‘#table’).val();
+            var dataId = $(‘#dataId’).val();
+            var category = $(‘#category’).val();
+            var tags = $(‘#tags’).val();
+            var content = $(‘#content’).val();
+            var remark = $(‘#remark’).val();
+            var unionID = $(‘#unionID’).val()||oauthapp.appUser.unionID;
+            var nickName = $(‘#nickName’).val()||oauthapp.appUser.nickName;
+            var avatar = $(‘#avatar’).val()||oauthapp.appUser.avatar;
+            var platform = $(‘#platform’).val() ||oauthapp.appUser.platform;
+            var messageType = $(‘#messageType’).val();
+            var showIndex = $(‘#showIndex’).val();
+            oauthapp.messagePut(table,dataId,{
+                category,
+                tags,
+                content,
+                remark,
+                unionID,
+                nickName,
+                avatar,
+                platform,
+                messageType,
+                showIndex
+            }).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        });
+    }
+});
+```
+</code></pre></div></div>
+
+<p>首先调用 oauthapp.allReady() 方法来确保 OAuthApp 对象已经初始化完毕，然后在 Promise 的回调函数中定义一个点击事件处理函数。</p>
+
+<p>在点击事件处理函数中，通过 jQuery 的 val() 方法获取表单中用户输入的数据，并将这些数据传递给 oauthapp.messagePut() 方法。</p>
+
+<p>oauthapp.messagePut() 方法用于更新指定数据表中的一条数据记录。其中，table 参数指定要操作的数据表，dataId 参数指定要更新的数据记录的 ID。</p>
+
+<p>category、tags、content、remark、unionID、nickName、avatar、platform、messageType 和 showIndex 参数是要更新的数据字段。这些参数对应表单中的输入框。</p>
+
+<p>最后，通过 then() 方法来注册一个回调函数，该回调函数将在数据更新成功后被调用。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+     $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    ```HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>messagePut</title>
+        <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;<input type="text" id="table" placeholder="table" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="dataId" placeholder="dataId" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="category" placeholder="category" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="tags" placeholder="tags" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="content" placeholder="content" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="remark" placeholder="remark" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="unionID" placeholder="unionID" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="nickName" placeholder="nickName" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="avatar" placeholder="avatar" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="platform" placeholder="platform" />&lt;/p&gt;
+        &lt;p&gt;<input type="text" id="messageType" placeholder="TEXT/FILE/IMAGE" value="TEXT" />&lt;/p&gt;
+        &lt;p&gt;<input type="number" value="1" id="showIndex" placeholder="showIndex" />&lt;/p&gt;
+        &lt;p&gt;<button type="button" id="addButton">提交</button>&lt;/p&gt;
+        &lt;div&gt;结果：<span id="result"></span>&lt;/div&gt;
+        <script>
+            oauthapp.allReady().then(function () {
+                document.getElementById('addButton').onclick = function () 
+                {
+                    var table = $('#table').val();
+                    var dataId = $('#dataId').val();
+                    var category = $('#category').val();
+                    var tags = $('#tags').val();
+                    var content = $('#content').val();
+                    var remark = $('#remark').val();
+                    var unionID = $('#unionID').val()||oauthapp.appUser.unionID;
+                    var nickName = $('#nickName').val()||oauthapp.appUser.nickName;
+                    var avatar = $('#avatar').val()||oauthapp.appUser.avatar;
+                    var platform = $('#platform').val() ||oauthapp.appUser.platform;
+                    var messageType = $('#messageType').val();
+                    var showIndex = $('#showIndex').val();</script></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                oauthapp.messagePut(table,dataId,{
+                    category,
+                    tags,
+                    content,
+                    remark,
+                    unionID,
+                    nickName,
+                    avatar,
+                    platform,
+                    messageType,
+                    showIndex
+                }).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+

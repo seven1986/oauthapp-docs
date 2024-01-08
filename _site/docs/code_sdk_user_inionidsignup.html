@@ -1,0 +1,104 @@
+<h1 id="unionid-注册">UnionID 注册</h1>
+
+<p>!!! Tip “提示”
+    本文将介绍如何使用 OAuthApp 库实现一个简单的注册功能，并解释代码的每个部分是如何工作的。</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;label&gt;unionId&lt;/label&gt;
+        &lt;input type="text" id="unionId" /&gt;
+        &lt;label&gt;platform&lt;/label&gt;
+        &lt;input type="text" id="platform" /&gt;
+        &lt;label&gt;password&lt;/label&gt;
+        &lt;input type="text" id="password" /&gt;
+        &lt;label&gt;avatar&lt;/label&gt;
+        &lt;input type="text" id="avatar" /&gt;
+        &lt;button type="button" id="signUpButton"&gt;注册&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<p>注册表单包括四个输入框，分别为 unionId，platform，password，avatar。点击注册按钮后，结果将会以 JSON 格式显示在页面上。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    oauthapp.ready().then(function () {
+        document.getElementById('signUpButton').onclick = function () {
+            var unionid = $('#unionId').val() || oauthapp.settings.fingerIdentity;
+            var platform = $('#platform').val() || 'web';
+            var password = $('#password').val() || '123456';
+            var avatar = $('#avatar').val() || oauthapp.app.info.logo;
+            oauthapp.signUp(unionid, platform, password, avatar).then(function (res) {
+            });
+        }
+    });
+   </code></p>
+
+<p>当用户点击注册按钮时，我们通过 jQuery 获取表单输入框的值，并在需要时使用默认值进行填充。</p>
+
+<h2 id="步骤四测试结果">步骤四：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<p>将结果以 JSON 格式显示在页面上。</p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;signUp&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;label&gt;unionId&lt;/label&gt;
+            &lt;input type="text" id="unionId" /&gt;
+            &lt;label&gt;platform&lt;/label&gt;
+            &lt;input type="text" id="platform" /&gt;
+            &lt;label&gt;password&lt;/label&gt;
+            &lt;input type="text" id="password" /&gt;
+            &lt;label&gt;avatar&lt;/label&gt;
+            &lt;input type="text" id="avatar" /&gt;
+            &lt;button type="button" id="signUpButton"&gt;注册&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p&gt;结果&lt;/p&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.ready().then(function () {
+                document.getElementById('signUpButton').onclick = function () {
+                    var unionid = $('#unionId').val() || oauthapp.settings.fingerIdentity;
+                    var platform = $('#platform').val() || 'web';
+                    var password = $('#password').val() || '123456';
+                    var avatar = $('#avatar').val() || oauthapp.app.info.logo;
+                    oauthapp.signUp(unionid, platform, password, avatar).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    });
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>

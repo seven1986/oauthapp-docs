@@ -1,0 +1,83 @@
+<h1 id="消息分类">消息分类</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;p&gt;&lt;input type="text" id="table" placeholder="table" /&gt;&lt;/p&gt;
+    &lt;p&gt;
+      &lt;button type="button" onclick="queryData()"&gt;查询&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>这段代码创建了一个包含输入框和一个查询按钮的HTML表单。输入框用于输入查询的表名，查询按钮用于触发查询操作。</p>
+
+<p>当用户点击查询按钮时，将调用名为queryData的JavaScript函数来执行查询操作。查询结果将显示在页面上的结果标签中。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    function queryData(){
+      var table = $(‘#table’).val();
+        oauthapp.messageCategories(table).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      })
+}
+oauthapp.allReady().then(function () { });
+```
+</code></pre></div></div>
+
+<p>该代码段包含一个名为queryData的JavaScript函数和一个具有“表格”输入字段和“查询”按钮的HTML表单。当用户单击“查询”按钮时，将调用queryData函数，并将表格名称传递给oauthapp.messageCategories函数进行处理。结果将在页面上显示。</p>
+
+<p>此外，代码中还有一个oauthapp.allReady函数，它将在所有必要的数据和资源准备就绪时执行回调函数。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;messageCategories&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;p&gt;&lt;input type="text" id="table" placeholder="table" /&gt;&lt;/p&gt;
+      &lt;p&gt;
+        &lt;button type="button" onclick="queryData()"&gt;查询&lt;/button&gt;
+      &lt;/p&gt;
+        &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;script&gt;
+          function queryData(){
+            var table = $('#table').val();
+              oauthapp.messageCategories(table).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                })
+          }
+            oauthapp.allReady().then(function () {
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

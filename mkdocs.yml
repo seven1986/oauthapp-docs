@@ -1,5 +1,5 @@
 site_name: OAuthApp | 前端发布工具
-copyright: 版权所有 © 2023 oauthapp.com
+copyright: 版权所有 © 2024 oauthapp.com
 repo_url: https://github.com/seven1986/oauthapp-docs
 repo_name: OAuthApp 开发文档
 edit_uri: edit/main/docs/
@@ -155,7 +155,6 @@ nav:
         - 文档:
           - 'sdk.1.1.md'
           - 'sdk.1.0.md'
-
   # - 项目:
   #     - 应用开发:
   #         - 用户管理:
@@ -212,6 +211,7 @@ theme:
   language: zh
   custom_dir: overrides
   features:
+    - navigation.path
     - navigation.tabs
     - navigation.sections
     #- navigation.expand
@@ -251,7 +251,7 @@ theme:
 plugins:
   - git-revision-date-localized:
   - search:
-      lang: en
+      lang: zh
   - tags:
       tags_file: tags.md  
   - offline
@@ -259,9 +259,22 @@ plugins:
   - blog
 extra_javascript:
   - javascripts/tablesort.min.js
-  # - javascripts/mermaid.min.js
 extra:
   generator: false
   social:
     - icon: fontawesome/brands/git 
       link: https://gitee.com/seven1986/oauthapp-docs.git
+    - icon: fontawesome/brands/algolia 
+      link: javascript:void(0)
+  # consent:
+  #   title: Cookie consent
+  #   cookies:
+  #     analytics: 百度统计
+  #   description: >- 
+  #     We use cookies to recognize your repeated visits and preferences, as well
+  #     as to measure the effectiveness of our documentation and whether users
+  #     find what they're searching for. With your consent, you're helping us to
+  #     make our documentation better.
+  #   actions:
+  #     - accept
+  #     - reject

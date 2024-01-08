@@ -1,0 +1,73 @@
+<h1 id="上传文件">上传文件</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;选择文件：&lt;input id="fileUploader" type="file"&gt;&lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>这段代码实现了一个文件上传功能，通过input标签的type属性设置为file，可以实现文件上传的功能，并且将文件上传的结果显示在span标签的id为result的位置上。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.allReady().then(function () {
+          document.getElementById(‘fileUploader’).onchange = function (event) {
+            var file = event.target.files[0];
+            oauthapp.upload(file).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        })
+      }
+});
+```
+</code></pre></div></div>
+
+<p>该代码段用于将文件上传到 OAuth 应用程序。首先，调用 oauthapp.allReady() 方法确保应用程序已准备就绪，然后为文件上传器添加一个 onchange 事件处理程序，以便在文件发生变化时触发处理程序。在处理程序中，从事件对象中获取文件，然后调用 oauthapp.upload() 方法将文件上传到 OAuth 应用程序，最后，在 Promise 对象的回调函数中处理响应结果。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset="UTF-8"&gt;
+      &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+      &lt;title&gt;upload&lt;/title&gt;
+      &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+      &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;div&gt;选择文件：&lt;input id="fileUploader" type="file"&gt;&lt;/div&gt;
+      &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;script&gt;
+        oauthapp.allReady().then(function () {
+          document.getElementById('fileUploader').onchange = function (event) {
+            var file = event.target.files[0];
+            oauthapp.upload(file).then(function (res) {
+              $('#result').text(JSON.stringify(res));
+            })
+          }
+        });
+      &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;      
+   </code></p>

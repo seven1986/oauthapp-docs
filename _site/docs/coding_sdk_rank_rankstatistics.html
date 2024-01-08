@@ -1,0 +1,84 @@
+<h1 id="榜单统计">榜单统计</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;input type="text" id="table" placeholder="table" /&gt;
+        &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>这段代码是一个HTML片段，包含一个文本输入框和一个查询按钮。文本输入框的placeholder属性设置了输入框的占位符文本，提示用户输入内容的格式或用途。</p>
+
+<p>按钮的type属性设置为”button”，表示这是一个普通的按钮而非提交按钮，点击按钮不会提交表单。按钮的id属性为”queryButton”，可以通过该id来获取该按钮并添加事件监听器。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.allReady().then(function () {
+        document.getElementById(‘queryButton’).onclick = function () {
+            var table = $(‘#table’).val();
+            oauthapp.rankStatistics(table).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        })
+    }
+});
+```
+</code></pre></div></div>
+
+<p>这段代码使用了oauthapp对象中的方法，调用了rankStatistics方法。</p>
+
+<p>在点击按钮时，会将输入框中的table值传入该方法中，并在方法执行完毕后得到结果。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;rankStatistics&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;input type="text" id="table" placeholder="table" /&gt;
+            &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.allReady().then(function () {
+                document.getElementById('queryButton').onclick = function () {
+                    var table = $('#table').val();
+                    oauthapp.rankStatistics(table).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    })
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

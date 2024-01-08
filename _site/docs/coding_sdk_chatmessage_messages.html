@@ -1,0 +1,127 @@
+<h1 id="消息列表">消息列表</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;input type="text" id="table" placeholder="聊天表名称" /&gt;
+        &lt;input type="text" id="category" placeholder="聊天组" /&gt;
+        &lt;input type="text" id="search" placeholder='查询关键字' /&gt;
+        &lt;input type="text" id="tag" placeholder='消息标签' /&gt;
+        &lt;input type="number" value="10" id="take" placeholder='拉取条数' /&gt;
+        &lt;input type="number" value="0" id="skip" placeholder='跳过条数' /&gt;
+        &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>这是一个包含输入框和查询按钮的界面，用于从聊天记录表中查询聊天信息。界面包含以下输入框：</p>
+
+<ul>
+  <li>
+    <p>table 输入框：用于输入聊天记录表的名称；</p>
+  </li>
+  <li>
+    <p>category 输入框：用于输入聊天记录所属的组；</p>
+  </li>
+  <li>
+    <p>search 输入框：用于输入查询关键字，可以为空；</p>
+  </li>
+  <li>
+    <p>tag 输入框：用于输入消息标签，可以为空；</p>
+  </li>
+  <li>
+    <p>take 输入框：用于输入需要拉取的聊天信息条数，默认值为 10；</p>
+  </li>
+  <li>
+    <p>skip 输入框：用于输入需要跳过的聊天信息条数，默认值为 0。</p>
+  </li>
+</ul>
+
+<p>用户可以填写这些输入框中的信息，并点击查询按钮进行查询。查询结果会显示在页面下方，其中包括所查询到的聊天信息。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+        oauthapp.allReady().then(function () {
+            document.getElementById(‘queryButton’).onclick = function () {
+                var table = $(‘#table’).val();
+                var category = $(‘#category’).val();
+                var search = $(‘#search’).val();
+                var tag = $(‘#tag’).val();
+                var take = $(‘#take’).val();
+                var skip = $(‘#skip’).val();
+                oauthapp.messages(table, category, tag,search, take, skip).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            })
+        }
+    });
+```
+</code></pre></div></div>
+
+<p>这段代码使用了 OAuthApp 的 JavaScript SDK 实现了查询指定聊天表中的消息功能。</p>
+
+<p>代码首先调用了 oauthapp.allReady() 方法确保 OAuthApp SDK 已经加载完毕，然后设置了一个点击事件监听器，当用户点击查询按钮时，会从输入框中获取聊天表名称、聊天组、查询关键字、消息标签、拉取条数和跳过条数等查询参数，并将它们作为参数调用 oauthapp.messages() 方法来获取指定条件下的消息数据。</p>
+
+<p>查询结果将通过 Promise 对象返回，但在当前代码中并未处理查询结果，而是空白地占据了 then 方法的回调函数。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;messages&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;input type="text" id="table" placeholder="聊天表名称" /&gt;
+            &lt;input type="text" id="category" placeholder="聊天组" /&gt;
+            &lt;input type="text" id="search" placeholder='查询关键字' /&gt;
+            &lt;input type="text" id="tag" placeholder='消息标签' /&gt;
+            &lt;input type="number" value="10" id="take" placeholder='拉取条数' /&gt;
+            &lt;input type="number" value="0" id="skip" placeholder='跳过条数' /&gt;
+            &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.allReady().then(function () {
+                document.getElementById('queryButton').onclick = function () {
+                    var table = $('#table').val();
+                    var category = $('#category').val();
+                    var search = $('#search').val();
+                    var tag = $('#tag').val();
+                    var take = $('#take').val();
+                    var skip = $('#skip').val();
+                    oauthapp.messages(table, category, tag,search, take, skip).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    })
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

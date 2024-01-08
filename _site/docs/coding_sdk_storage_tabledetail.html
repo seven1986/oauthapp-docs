@@ -1,0 +1,88 @@
+<h1 id="数据详情">数据详情</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;p&gt;
+        &lt;input type="text" id="table" placeholder="数据表名称" /&gt;
+        &lt;input type="number" id="dataId" placeholder="id" /&gt;
+        &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>这段代码展示了一个简单的查询数据表中指定数据id的功能。页面上有一个文本框用于输入数据表名称，一个数字文本框用于输入数据id，以及一个查询按钮。</p>
+
+<p>当用户输入完数据表名称和数据id后，点击查询按钮，就会触发一个查询操作，并将查询结果显示在页面上方的结果区域中，这里用一个span元素的文本内容来展示查询结果。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.allReady().then(function () {
+        document.getElementById(‘queryButton’).onclick = function () {
+            var  table = $(‘#table’).val();
+            var  dataId = $(‘#dataId’).val();
+            oauthapp.tableDetail(table,dataId).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        })
+    }
+});
+```
+</code></pre></div></div>
+
+<p>这段代码使用了 OAuth 应用程序客户端 SDK 提供的方法来查询指定数据表中特定数据行的详细信息。</p>
+
+<p>首先，在 oauthapp.allReady() 成功返回后，当用户单击页面上的 “查询” 按钮时，document.getElementById(‘queryButton’).onclick 事件将触发一个函数，其中提取了 table 和 dataId 输入框的值，并调用了 oauthapp.tableDetail(table, dataId) 方法，以向服务器请求指定数据表中特定数据行的详细信息。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+     $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;tableDetail&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;
+            &lt;input type="text" id="table" placeholder="数据表名称" /&gt;
+            &lt;input type="number" id="dataId" placeholder="id" /&gt;
+            &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+        &lt;/p&gt;
+        &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.allReady().then(function () {
+                document.getElementById('queryButton').onclick = function () {
+                    var  table = $('#table').val();
+                    var  dataId = $('#dataId').val();
+                    oauthapp.tableDetail(table,dataId).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    })
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

@@ -1,0 +1,1151 @@
+<h1 id="数据库">数据库</h1>
+
+<h3 id="表集合">表集合</h3>
+
+<p><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppStorage/:appId<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/Tables</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/Tables' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Get, "https://www.oauthapp.com/api/AppStorage/:appId/       Tables");
+    request.Headers.Add("Authorization", "Bearer ");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppStorage/:appId/Tables")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    var axios = require('axios');
+
+    var config = {
+      method: 'get',
+    maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppStorage/:appId/Tables',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/AppStorage/:appId/Tables", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppStorage/:appId/Tables", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | 数据表集合的数组，每个数组元素代表1个表名 |
+
+```json
+{
+    "code": 200,
+    "data": [
+        "categories",
+        "news",
+        "departments",
+        "settings"
+    ],
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppStorage/AppStorageTables">在线调试</a>{ .md-button }</p>
+
+<h3 id="创建表">创建表</h3>
+
+<p><sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppStorage/:appid<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>/CreateTable?tableName=&amp;uniqueData=</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | Bearer Token |  |
+| tableName | 表名 |  |
+| uniqueData | 防重复数据 | true/false |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location --request POST 'https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&amp;        uniqueData=false' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&amp;uniqueData=false");
+    request.Headers.Add("Authorization", "Bearer ");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&amp;uniqueData=false")
+      .method("POST", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&amp;uniqueData=false',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("POST", "/api/AppStorage/:appId/CreateTable?tableName=&amp;uniqueData=false", payload,         headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "Javascript"
+
+    ```Javascript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppStorage/:appId/CreateTable?tableName=&amp;uniqueData=false",         requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | true 或 false |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppStorage/AppStorageCreateTable">在线调试</a>{ .md-button }</p>
+
+<h3 id="查询">查询</h3>
+
+<p><sup id="fnref:1:2" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppStorage/:appId/:table<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>?tag=&amp;filter=&amp;sort=&amp;take=10&amp;skip=0</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+| tag | 可选，指定要查询的标签。 | 可空 |
+| filter | 可选，指定要筛选的条件。json对象，属性名是要筛选的字段名，属性值是对应的值。 | {"name":"123"} |
+| filter2 | **^^（filter升级版，推荐）^^** 可选，指定要筛选的条件。json对象。格式：**[{自定义属性名:自定义属性值,op:"="}...]**，**op代表过滤运算符支持**：{++&gt;、&gt;=、&lt;、&lt;=、=、!=、like、and、or++} | - 例如要查找 **id&gt;0 and id &lt; 6** 的数据：{==[{id:0,op:"&gt;"},{op:"and"},{id:6,op:"&lt;"}]==}  - 例如查找 **newsType = 1 or newsType = 2 and userId = 2** 的数据：{==[{newsType:1,op:"="},{op:"or"},{newsType:2,op:"="},{op:"and"},{userId:2,op:"="}]==} - 如果是**查找子节点** {==[{"chat.person":"zhang3",op:"="}]==} - 如果是**查找数组**：{==[{"items[2].person":"zhang3",op:"="}]==} |
+| sort | 可选，指定数据的排序方式。json对象，属性名是要排序的字段名，属性值true 表示升序排列，false 表示降序排列。 | {"id":true} |
+| take | 可选，指定要拉取的数据条数。 | 10 |
+| skip | 可选，指定要跳过的数据条数。 | 0 |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/:table?tag=&amp;filter=&amp;sort=&amp;take=&amp;        skip=' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppStorage/:appId/:table?tag=&amp;filter=&amp;sort=&amp;take=15&amp;skip=0",    Method.Get);
+    request.AddHeader("Authorization", "Bearer ");
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppStorage/:appId/:table?tag=&amp;filter=&amp;sort=&amp;take=15&amp;skip=0")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    var axios = require('axios');
+
+    var config = {
+      method: 'get',
+    maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table?tag=&amp;filter=&amp;sort=&amp;take=15&amp;skip=0',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/AppStorage/:appId/:table?tag=&amp;filter=&amp;sort=&amp;take=15&amp;skip=0", payload,     headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppStorage/:appId/:table?tag=&amp;filter=&amp;sort=&amp;take=15&amp;skip=0",requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | 具体包含access_token、token_type 和 expires_in |
+| err | 错误信息 |  |
+
+```json
+{
+    "code": 200,
+    "data": {
+        "total": 3,
+        "data": [
+            {
+                "id": 3,
+                "showIndex": 0,
+                "tags": "",
+                "content": {
+                    "avatar": "https://blob.oauthapp.com/4/app/4/azure.png",
+                    "title": "2112",
+                    "description": "21212121",
+                    "timestamp": 1665393391395
+                },
+                "lastChange": "2022-10-10 17:16:27"
+            },
+            {
+                "id": 2,
+                "showIndex": 0,
+                "tags": "",
+                "content": {
+                    "title": "dsadsa",
+                    "description": "sadsadasds",
+                    "timestamp": 1665392525435
+                },
+                "lastChange": "2022-10-10 17:02:01"
+            },
+            {
+                "id": 1,
+                "showIndex": 0,
+                "tags": "",
+                "content": {
+                    "avatar": "https://blob.oauthapp.com/4/user/1644397917743/assets_api_default.png",
+                    "title": "dsadsa",
+                    "description": "dasdas",
+                    "timestamp": 1644397925591
+                },
+                "lastChange": "2022-10-10 17:01:53"
+            }
+        ],
+        "take": 15,
+        "skip": 0
+    },
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppStorage/AppStorages">在线调试</a>{ .md-button }</p>
+
+<h3 id="添加">添加</h3>
+
+<p><sup id="fnref:1:3" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppStorage/:appId/:table<sup id="fnref:3:1" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup></p>
+
+<p>添加的数据为自定义的JSON对象。</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | Bearer Token |  |
+| showIndex | 排序 |  |
+| tags | 自定义标签 |  |
+| content | 自定义JSON字符串，必须为JSON格式 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/:table' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer ' \
+    --data '{
+        "showIndex": 0,
+        "tags": "",
+        "content": "{\"a\": 1,\"b\": 2}"
+    }'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppStorage/:appId/:table", Method.Post);
+    request.AddHeader("Content-Type", "application/json");
+    request.AddHeader("Authorization", "Bearer ");
+    var body = @"{" + "\n" +
+    @"    ""showIndex"": 0," + "\n" +
+    @"    ""tags"": """"," + "\n" +
+    @"    ""content"": ""{\""a\"": 1,\""b\"": 2}""" + "\n" +
+    @"}";
+    request.AddStringBody(body, DataFormat.Json);
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\n    \"showIndex\": 0,\n    \"tags\": \"\",   \n    \"content\": \"    {\\\"a\\\": 1,\\\"b\\\": 2}\"\n}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppStorage/:appId/:table")
+      .method("POST", body)
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+    let data = JSON.stringify({
+      "showIndex": 0,
+      "tags": "",
+      "content": "{\"a\": 1,\"b\": 2}"
+    });
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'Bearer '
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "showIndex": 0,
+      "tags": "",
+      "content": "{\"a\": 1,\"b\": 2}"
+    })
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '
+    }
+    conn.request("POST", "/api/AppStorage/:appId/:table", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer ");
+
+    var raw = JSON.stringify({
+      "showIndex": 0,
+      "tags": "",
+      "content": "{\"a\": 1,\"b\": 2}"
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppStorage/:appId/:table", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | true 或 false |
+| err | 错误信息 |  |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppStorage/AppStoragePost">在线调试</a>{ .md-button }</p>
+
+<h3 id="详情">详情</h3>
+
+<p><sup id="fnref:1:4" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppStorage/:appId/:table<sup id="fnref:3:2" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>/:id<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | GET |  |
+| 登陆凭证 | Bearer Token |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppStorage/:appId/:table/:id", Method.Get);
+    request.AddHeader("Authorization", "Bearer ");
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id")
+      .method("GET", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    var axios = require('axios');
+
+    var config = {
+      method: 'get',
+    maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("GET", "/api/AppStorage/:appId/:table/:id", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | JSON格式的单条数据详情 |
+
+```json linenums="1"
+{
+    "code": 200,
+    "data": {
+        "id": 1,
+        "showIndex": 0,
+        "tags": null,
+        "content": "{\r\n  \"avatar\": \"https://blob.oauthapp.com/4/user/1644397917743/assets_api_default.png\",\r\n  \"title\": \"dsadsa\",\r\n  \"description\":     \"dasdas\",\r\n  \"timestamp\": 1644397925591\r\n}",
+        "lastChange": "2022-10-10 17:01:53"
+    },
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppStorage/AppStorage">在线调试</a>{ .md-button }</p>
+
+<h3 id="删除">删除</h3>
+
+<p><sup id="fnref:1:5" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppStorage/:appId/:table<sup id="fnref:3:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>/:id<sup id="fnref:4:1" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | DELETE |  |
+| 登陆凭证 | Bearer Token |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location --request DELETE 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppStorage/:appId/:table/:id", Method.Delete);
+    request.AddHeader("Authorization", "Bearer ");
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id")
+      .method("DELETE", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    var axios = require('axios');
+
+    var config = {
+      method: 'delete',
+    maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("DELETE", "/api/AppStorage/:appId/:table/:id", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | true 或 false |
+| err | 错误信息 |  |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppStorage/AppStorageDelete">在线调试</a>{ .md-button }</p>
+
+<h3 id="更新">更新</h3>
+
+<p><sup id="fnref:1:6" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppStorage/:appId/:table<sup id="fnref:3:4" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>/:id<sup id="fnref:4:2" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></p>
+
+<p>将数据库中指定数据替换为当前提交的JSON数据。</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | PUT |  |
+| 登陆凭证 | Bearer Token |  |
+| showIndex | 排序 |  |
+| tags | 自定义标签 |  |
+| content | 自定义JSON字符串，必须为JSON格式 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location --request PUT 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer ' \
+    --data '{
+        "showIndex": 0,
+        "tags": "",
+        "content": "{\"a\": 1,\"b\": 2}"
+    }'
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var options = new RestClientOptions("https://www.oauthapp.com");
+    var client = new RestClient(options);
+    var request = new RestRequest("/api/AppStorage/:appId/:table/:id", Method.Put);
+    request.AddHeader("Content-Type", "application/json");
+    request.AddHeader("Authorization", "Bearer ");
+    var body = @"{" + "\n" +
+    @"    ""showIndex"": 0," + "\n" +
+    @"    ""tags"": """"," + "\n" +
+    @"    ""content"": ""{\""a\"": 1,\""b\"": 2}""" + "\n" +
+    @"}";
+    request.AddStringBody(body, DataFormat.Json);
+    RestResponse response = await client.ExecuteAsync(request);
+    Console.WriteLine(response.Content);
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("application/json");
+    RequestBody body = RequestBody.create(mediaType, "{\n    \"showIndex\": 0,\n    \"tags\": \"\",   \n    \"content\": \"    {\\\"a\\\": 1,\\\"b\\\": 2}\"\n}");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id")
+      .method("PUT", body)
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    var axios = require('axios');
+    let data = JSON.stringify({
+      "showIndex": 0,
+      "tags": "",
+      "content": "{\"a\": 1,\"b\": 2}"
+    });
+
+    var config = {
+      method: 'put',
+    maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table/:id',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'Bearer '
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import json
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = json.dumps({
+      "showIndex": 0,
+      "tags": "",
+      "content": "{\"a\": 1,\"b\": 2}"
+    })
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '
+    }
+    conn.request("PUT", "/api/AppStorage/:appId/:table/:id", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer ");
+
+    var raw = JSON.stringify({
+      "showIndex": 0,
+      "tags": "",
+      "content": "{\"a\": 1,\"b\": 2}"
+    });
+
+    var requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppStorage/:appId/:table/:id", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | true 或 false |
+| err | 错误信息 |  |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/AppStorage/AppStoragePut">在线调试</a>{ .md-button }</p>
+
+<h3 id="清空">清空</h3>
+
+<p><sup id="fnref:1:7" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/AppStorage/:appId/:table<sup id="fnref:3:5" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>/Clear</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | DELETE |  |
+| 登陆凭证 | Bearer Token |  |
+| filter | 可选，指定要筛选的条件。json对象。格式：**[{自定义属性名:自定义属性值,op:"="}...]**，**op代表过滤运算符支持**：{++&gt;、&gt;=、&lt;、&lt;=、=、!=、like、and、or++} | - 例如要查找 **id&gt;0 and id &lt; 6** 的数据：{==[{id:0,op:"&gt;"},{op:"and"},{id:6,op:"&lt;"}]==}  - 例如查找 **newsType = 1 or newsType = 2 and userId = 2** 的数据：{==[{newsType:1,op:"="},{op:"or"},{newsType:2,op:"="},{op:"and"},{userId:2,op:"="}]==} - 如果是**查找子节点** {==[{"chat.person":"zhang3",op:"="}]==} - 如果是**查找数组**：{==[{"items[2].person":"zhang3",op:"="}]==} |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location --request DELETE 'https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C#"
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.DELETE, "https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=");
+    request.Headers.Add("Authorization", "Bearer ");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=")
+      .method("DELETE", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```TypeScript linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'DELETE',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("DELETE", "/api/AppStorage/:appId/:table/Clear?filter=", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/AppStorage/:appId/:table/Clear?filter=", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| data | 表示返回的数据 | true 或 false |
+| err | 错误信息 |  |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://games.jixiucloud.cn/swagger/index.html#/AppStorage/AppStorageClear">在线调试</a>{ .md-button }</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>serverUrl：https://www.oauthapp.com <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:1:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:1:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:1:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:1:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a> <a href="#fnref:1:6" class="reversefootnote" role="doc-backlink">&#8617;<sup>7</sup></a> <a href="#fnref:1:7" class="reversefootnote" role="doc-backlink">&#8617;<sup>8</sup></a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>appId：需要替换为实际应用的 ID <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:2:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>table：要替换为实际数据表的名称 <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:3:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:3:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:3:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:3:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:3:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>id：需要替换为实际单条数据的id <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:4:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:4:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
+  </ol>
+</div>

@@ -1,0 +1,87 @@
+<h1 id="ssl证书">SSL证书</h1>
+
+<h2 id="说明">说明</h2>
+
+<p>SSL证书可以保证您的网站的数据传输过程是安全的。</p>
+
+<h2 id="申请证书">申请证书</h2>
+
+<h3 id="步骤一申请证书">步骤一：申请证书</h3>
+
+<ul>
+  <li>
+    <p>证书域名必须由小写字母、数字、_、-符号组成，长度在4-32位之间。</p>
+  </li>
+  <li>
+    <p>输入电子邮件地址。证书到期前将发送提醒邮件到该邮箱。</p>
+  </li>
+</ul>
+
+<p><strong>提交后不能修改</strong></p>
+
+<p><img src="https://docs.oauthapp.com/code_ssltool/1.png" alt="image" /></p>
+
+<h3 id="步骤二域名dns验证">步骤二：域名DNS验证</h3>
+
+<p><img src="https://docs.oauthapp.com/code_ssltool/2.png" alt="image" /></p>
+
+<h4 id="自动验证">自动验证</h4>
+
+<p>如果您已经绑定了阿里云accessKey，则可以自动验证。需要在oauthapp发布工具 <strong>修改资料</strong> 页面，配置2个声明 <strong>alibabacloud_accesskeyid</strong> 、<strong>alibabacloud_accesskeysecret</strong>。 并确认你的accesskey已经拥有DNS接口权限。</p>
+
+<p><img src="https://docs.oauthapp.com/code_ssltool/7.png" alt="image" /></p>
+
+<p><img src="https://docs.oauthapp.com/code_ssltool/3.png" alt="image" /></p>
+
+<h4 id="手动验证">手动验证</h4>
+
+<p>您需要前往您的域名控制台，根据提示添加2条TXT解析记录。</p>
+
+<p><img src="https://docs.oauthapp.com/code_ssltool/4.png" alt="image" /></p>
+
+<blockquote>
+  <p>每次提交验证都会向证书颁发机构申请验证域名解析记录。您可以进行多次提交来刷新证书申请状态。</p>
+</blockquote>
+
+<h3 id="步骤三下载证书">步骤三：下载证书</h3>
+
+<p>当您的证书验证通过后，您可以点击下载并使用该证书。</p>
+
+<p><img src="https://docs.oauthapp.com/code_ssltool/5.png" alt="image" /></p>
+
+<p><img src="https://docs.oauthapp.com/code_ssltool/6.png" alt="image" /></p>
+
+<blockquote>
+  <p>请注意，在整个申请过程中，尽量不要刷新页面，以免导致申请失败。</p>
+</blockquote>
+
+<h3 id="注意事项">注意事项</h3>
+
+<h4 id="生效时间有延迟">生效时间有延迟</h4>
+
+<p>为防止新证书即时生效有延迟，更换证书后站点HTTPS协议不能立即生效，请至少在到期前7天，重新申请证书。同时在证书距离到期前1个月的时候，您也会收到提醒邮件。</p>
+
+<h4 id="申请速率限制">申请速率限制</h4>
+
+<ul>
+  <li>
+    <p>域名 <strong>/</strong> 50张证书 <strong>/</strong> 周</p>
+  </li>
+  <li>
+    <p>账户 <strong>/</strong> 提交300个申请 <strong>/</strong> 3小时</p>
+  </li>
+  <li>
+    <p>IP <strong>/</strong> 创建10个账户 <strong>/</strong> 3小时</p>
+  </li>
+  <li>
+    <p>帐户 <strong>/</strong> 最多300个待验证域名</p>
+  </li>
+</ul>
+
+<p><strong>重置限制</strong></p>
+
+<p>如果达到了速率限制，需等待一周，直到这些速率限制过期。</p>
+
+<h2 id="使用证书">使用证书</h2>
+
+<p>参考<a href="https://docs.oauthapp.com/code_appdomain.html">这篇文章</a>，为你的应用添加自定义域名并绑定新申请的证书。</p>

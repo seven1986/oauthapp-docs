@@ -1,0 +1,144 @@
+<h1 id="在线部署">在线部署</h1>
+
+<h2 id="说明">说明</h2>
+
+<p>本文档提供了服务器的创建、支付和使用的详细步骤和说明，以帮助您顺利部署和管理您的服务器。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>镜像版本</th>
+      <th>更新说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>oauthapp.238.23.1</td>
+      <td>数据导入导出、证书工具</td>
+    </tr>
+    <tr>
+      <td>oauthapp.238.7.2</td>
+      <td>.net core 6.0 升级 7.0</td>
+    </tr>
+    <tr>
+      <td>oauthapp.234.26.4</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="创建服务器">创建服务器</h2>
+
+<h3 id="步骤-1-选择配置">步骤 1: 选择配置</h3>
+
+<p>进入服务器创建页面。</p>
+
+<ul>
+  <li>
+    <p>设置一个二级域名，作为服务器的访问地址。</p>
+  </li>
+  <li>
+    <p>选择服务器的部署区域，可选的区域有：上海、北京和广东。</p>
+  </li>
+  <li>
+    <p>根据您的需求选择适当的云服务器配置，可选的配置有：基础版、高级版和企业版。</p>
+  </li>
+  <li>
+    <p>选择计费方式，可选的方式包括：按小时、按天、按月和按年计费。</p>
+  </li>
+  <li>
+    <p>根据所选计费方式选择购买时长：</p>
+
+    <ul>
+      <li>
+        <p>小时计费可选择1至23小时，</p>
+      </li>
+      <li>
+        <p>天计费可选择1至30天，</p>
+      </li>
+      <li>
+        <p>月计费可选择1至11个月</p>
+      </li>
+      <li>
+        <p>年计费可选择1至2年。</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://docs.oauthapp.com/code_saas/1.png" alt="1" />{ loading=lazy }</p>
+
+<h3 id="步骤-2-在线支付">步骤 2: 在线支付</h3>
+
+<p>在服务器创建页面，填写完服务器配置和购买时长后，点击”创建订单”按钮。
+在主机列表中会新增一条记录，找到对应的记录，在右侧点击”立即支付”按钮。
+使用支付宝扫码支付完成支付流程。支付成功后，服务器将在5至10分钟内完成云端部署。</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/2.png" alt="2" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/3.png" alt="3" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/4.png" alt="4" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/5.png" alt="5" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/6.png" alt="6" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/7.png" alt="7" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/8.png" alt="8" />{ loading=lazy }</p>
+
+<h3 id="步骤-3-使用">步骤 3: 使用</h3>
+
+<p>在oauthapp发布工具导航栏中，切换到您的私有云服务器。
+您可以使用服务器提供的功能和服务，进行开发、部署和管理您的应用程序。</p>
+
+<p><strong>切换到您的服务器后，请立即注册账号，首个账号为默认管理员</strong></p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/9.png" alt="9" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/10.png" alt="10" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/11.png" alt="11" />{ loading=lazy }</p>
+
+<h2 id="自定义域名">自定义域名</h2>
+
+<p>???+ note “提示”
+    <strong>部署成功后，默认您还需要用<a href="https://docs.oauthapp.com/code_ssltool/">证书申请工具</a>，申请1张{你的域名}.oauthapp.com的证书进行绑定替换，否则创建的应用站点将不支持https协议</strong>。</p>
+
+<p>如果是自定义域名，则按照下面的步骤进行操作：</p>
+
+<p>1，进入自定义域名页面，添加解析记录</p>
+
+<p>2，上传域名证书（必须是支持通配符类型的SSL证书。<strong>否则创建的应用站点将不支持https协议</strong>）</p>
+
+<p>3，打开系统配置面板，更新下面的内容：</p>
+
+<ul>
+  <li>服务器域名：改为自定义域名</li>
+  <li>配置 阿里云 AccessKey ID和密钥（AccessKey必须设置权限：<strong>AliyunDNSFullAccess、AliyunDirectMailFullAccess、AliyunDysmsFullAccess</strong>）</li>
+</ul>
+
+<h2 id="远程桌面链接">远程桌面链接</h2>
+
+<p>您可以使用远程桌面客户端软件连接到服务器，以便进行服务器的管理和操作。请确保您已安装合适的远程桌面客户端软件，并按照提供商的指南进行设置和连接。</p>
+
+<p>???+ note “提示”
+    <strong>安全起见，请勿随意修改程序数据库或代码，以防止造成不可预知的错误或数据丢失。</strong>
+    在进行任何更改之前，请确保您理解相关操作的影响，并备份重要数据和配置文件。</p>
+
+<p><img src="https://docs.oauthapp.com/code_togglesaas/11.png" alt="image" />{ loading=lazy }</p>
+
+<p><img src="https://docs.oauthapp.com/code_togglesaas/12.png" alt="image" />{ loading=lazy }</p>
+
+<p><strong>使用远程桌面链接工具，依次输入：IP地址，登录账号、登录密码，进入远程服务器</strong></p>
+
+<p><img src="https://docs.oauthapp.com/code_saas/13.png" alt="image" />{ loading=lazy }</p>
+
+<h2 id="续费服务器回收">续费、服务器回收</h2>
+
+<p>服务器的使用有效期为所购买的时长。
+超过使用有效期后，服务器将被自动回收，数据记录不会保存。</p>
+
+<p><strong>请确保在使用有效期内续费服务器或及时备份重要数据，以免数据丢失和服务中断。</strong>
+通过按照上述步骤进行服务器的创建、支付和使用，您将能够轻松部署和管理您的云服务器。</p>

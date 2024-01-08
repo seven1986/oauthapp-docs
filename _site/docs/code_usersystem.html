@@ -1,0 +1,891 @@
+<h1 id="用户系统">用户系统</h1>
+
+<h2 id="说明">说明</h2>
+
+<p>本文档旨在为开发人员提供关于用户系统的开发说明。</p>
+
+<h2 id="oauthapp统一登录">OAuthApp统一登录</h2>
+
+<p>OAuthApp提供了统一登录功能，开发人员只需要通过简单的配置就可以把登录、注册等功能集成到自己的应用系统中。</p>
+
+<p>=== “OAuthApp统一登录”
+    <img src="https://docs.oauthapp.com/code_usersystem/0.png" alt="" />{ loading=lazy }</p>
+
+<p>=== “截图”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>![](https://docs.oauthapp.com/code_usersystem/1.png){ width="300",loading=lazy }
+![](https://docs.oauthapp.com/code_usersystem/2.png){ width="300",loading=lazy }
+![](https://docs.oauthapp.com/code_usersystem/4.png){ width="300",loading=lazy }
+![](https://docs.oauthapp.com/code_usersystem/3.png){ width="300",loading=lazy }
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;统一登陆&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;a href="https://www.oauthapp.com/oauth/2?scheme=app&amp;redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&amp;scopes=openid profile role&amp;nonce=1667553723079"&gt;
+        登录
+    &lt;/a&gt;
+    &lt;h1&gt;结果&lt;/h1&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+[演示](https://web.oauthapp.com/4/examples/apidemo/sso.html){ .md-button }
+[教程](https://docs.oauthapp.com/code_sdk_user_sso.html){ .md-button }
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| scheme | 登录协议(必填) | 固定为 "app" |
+| appId | 应用ID(必填) |  |
+| scopes | 授权列表(必填) | 多个权限用英文空格分隔 |
+| redirect_uri | 回调地址(必填) |  |
+| redirect_uri_name | 自定义授权标题 |  |
+| nonce | 自定义字符串，32位(必填) |  |
+| expireInDays | 令牌有效期(非必填，单位：天，取值：1~99) |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/signin_authorize.html">登录链接生成工具</a>{ .md-button }</p>
+
+<h3 id="手机号登录">手机号登录</h3>
+
+<p>1，配置 阿里云AccessKey<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+
+<p>2，开通 <a href="https://www.aliyun.com/product/sms">阿里云短信服务</a>，创建 短信签名[^3]和 短信模板<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">2</a></sup></p>
+
+<p>3，打开 应用配置<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++注册、找回密码++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />短信签名 （填写阿里云短信 签名名称）</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />注册账号 - 短信模板（填写阿里云短信 模板CODE）</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />找回密码 - 短信模板（填写阿里云短信 模板CODE）</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />勾选 “注册账号 - 需验证手机号”、“接口权限”</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>如短信息没有具体说明，注册账号和找回密码的短信模板可以用同一个模板CODE</p>
+</blockquote>
+
+<h3 id="微信小程序扫码登录">微信小程序扫码登录</h3>
+
+<p>1，打开 应用配置<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++OAuthApp统一登录++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />勾选”启用微信小程序登录”、”接口权限”</li>
+</ul>
+
+<p><strong>默认使用OAuthApp的小程序做授权登录；如需使用自有小程序，可参考下面步骤</strong></p>
+
+<p>1，打开 应用配置<sup id="fnref:2:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++微信小程序++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />微信小程序ClientID（填写微信小程序的AppID）</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />微信小程序ClientSecret（填写微信小程序的AppSecret）</p>
+  </li>
+</ul>
+
+<p>2，小程序端参考代码</p>
+
+<p>=== “交互流程”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>![](https://docs.oauthapp.com/code_usersystem/5.png){ loading=lazy }
+</code></pre></div></div>
+
+<p>=== “pages/index/index.js”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+import {
+  QRCodeScan,
+  QRCodeSignUp,
+  JSCode2Session
+} from '../services/api'
+
+Page({
+
+  data: {
+    onloading: false,
+    appID: 0,
+    appInfo: {},
+    signinKey: '',
+    userInfo: {},
+    canSignin: false
+  },
+
+  /** 
+   * 从options解析参数
+   */
+  __DecodeParamsFromOptions(_options) {
+    this.setData({
+      appId: _options.appId,
+      signinKey: _options.signinKey
+    })
+    this.getData()
+  },
+
+  /**
+   * 从scene解析参数
+   */
+  __DecodeParamsFromScene(_scene) {
+    try {
+      var result = {};
+      decodeURIComponent(_scene).split('&amp;').forEach(function (item) {
+        var kv = item.split('=');
+        result[kv[0]] = kv[1];
+      });
+
+      this.setData({
+        appId: result.appId,
+        signinKey: result.signinKey
+      });
+      this.getData();
+    } catch (err) {
+      wx.showToast({
+        icon: 'none',
+        title: '参数格式错误'
+      });
+    }
+  },
+
+  onLoad(options) {
+    if (options.appId &amp;&amp; options.signinKey) {
+      this.__DecodeParamsFromOptions(options);
+    } else if (options.scene) {
+      this.__DecodeParamsFromScene(options.scene);
+    } else {
+      wx.showToast({
+        icon: 'none',
+        title: '非扫码打开'
+      });
+    }
+  },
+
+  getData() {
+    wx.showLoading();
+    QRCodeScan(this.data.appId, this.data.signinKey).then(res =&gt; {
+      wx.hideLoading();
+      if (res.data.data.scopes) {
+        res.data.data.scopes = res.data.data.scopes.split(' ');
+      }
+
+      this.setData({
+        appInfo: res.data.data,
+        canSignin: true
+      })
+    }).catch(err=&gt;{
+      wx.hideLoading();
+    });
+
+  },
+
+  getUserProfile(e) {
+
+    if (this.data.onloading) {
+      return;
+    }
+
+    let that = this;
+
+    this.setData({
+      onloading: true
+    });
+
+    wx.getUserProfile({
+      desc: '展示用户信息',
+      complete: (proflieRes) =&gt; {
+    
+        this.setData({
+          onloading: false
+        });
+
+        if (!proflieRes.userInfo) {
+          wx.showModal({
+            showCancel: false,
+            title: '提示',
+            content: proflieRes.errMsg
+          })
+
+          return;
+        }
+
+        this.setData({
+          'userInfo.avatar': proflieRes.userInfo.avatarUrl,
+          'userInfo.nickName': proflieRes.userInfo.nickName,
+        })
+
+        that.minipSignIn();
+      }
+    })
+  },
+
+  minipSignIn() {
+    let that = this;
+
+    this.setData({
+      onloading: true
+    });
+
+    wx.login({
+      success(loginRes) {
+    
+        if (loginRes.code) {
+          //console.log(loginRes.code)
+          JSCode2Session(that.data.appId, loginRes.code).then(res =&gt; {
+            var resJson = JSON.parse(res.data.data)
+            that.setData({
+              'userInfo.unionID': resJson.unionid || resJson.openid
+            });
+            that.oauthappSignup();
+          });
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      },
+      complete: res =&gt; {
+        this.setData({
+          onloading: false
+        });
+      }
+    })
+  },
+
+  oauthappSignup() {
+
+    this.setData({
+      onloading: true
+    });
+
+    var requestData = {
+      appID: this.data.appId,
+      signInKey: this.data.signinKey,
+      unionID: this.data.userInfo.unionID,
+      avatar: this.data.userInfo.avatar,
+      platform: "wxminip",
+      nickName: this.data.userInfo.nickName,
+      userName: "",
+      phone: "",
+      phoneIsValid: true,
+      email: "",
+      emailIsValid: true
+    }
+
+    QRCodeSignUp(this.data.appId, requestData).then(res =&gt; {
+    
+      //console.log(res);
+
+      this.setData({
+        onloading: false
+      });
+
+      wx.showModal({
+        showCancel: false,
+        content: '授权成功',
+        success: res =&gt; {
+          this.setData({
+            canSignin: false
+          })
+          wx.exitMiniProgram();
+        }
+      })
+
+    }).catch(err =&gt; {
+      this.setData({
+        onloading: false
+      });
+    })
+  }
+})
+```
+</code></pre></div></div>
+
+<p>=== “pages/index/index.wxml”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```html linenums="1"
+&lt;view class="container" wx:if=""&gt;
+  &lt;view&gt;
+    &lt;image class="app-logo" src="" mode="cover"&gt;&lt;/image&gt;
+  &lt;/view&gt;
+
+  &lt;view class="app-name"&gt;
+    &lt;text&gt;&lt;/text&gt;
+  &lt;/view&gt;
+
+  &lt;view class="app-website"&gt;
+    &lt;text&gt;来自 - &lt;/text&gt;
+  &lt;/view&gt;
+
+  &lt;view&gt;
+    &lt;view class="txt-sm"&gt;
+       请求访问您的
+    &lt;/view&gt;
+    &lt;view wx:key="key" wx:for="" class="scopeitem"&gt;
+      
+    &lt;/view&gt;
+  &lt;/view&gt;
+
+
+  &lt;view class="signupBtn" wx:if=""&gt;
+    &lt;button size="mini" type="primary" loading="" bindtap="getUserProfile"&gt;确认授权&lt;/  button&gt;
+  &lt;/view&gt;
+
+  &lt;view class="tip"&gt;
+   授权成功后，小程序将自动关闭
+  &lt;/view&gt;
+&lt;/view&gt;
+```
+</code></pre></div></div>
+
+<p>=== “pages/services/api.js”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+const app = getApp();
+
+const QRCodeScan = function (_appId, _signinKey) {
+
+  var promise = new Promise((resolve, reject) =&gt; {
+    wx.request({
+      url: `${app.globalData.appServer}/AppUsers/${_appId}/QRCodeScan`,
+      method: 'POST',
+      data: {
+        signInKey: parseInt(_signinKey),
+      },
+
+      complete: res =&gt; {
+        if (res.errMsg == 'request:ok') {
+          if (res.data.code != 200) {
+            wx.showToast({
+              title: res.data.err,
+              icon: 'none',
+              mask: true
+            });
+          } else {
+            resolve(res);
+          }
+        } else {
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none',
+            mask: true
+          });
+        }
+      }
+    });
+  })
+
+  return promise;
+}
+
+const JSCode2Session = function (_appId, _authCode) {
+  var promise = new Promise((resolve, reject) =&gt; {
+    wx.request({
+      url: `${app.globalData.appServer}/Wechat/${_appId}/JSCode2Session?js_code=${_authCode}`,
+      complete: res =&gt; {
+        if (res.errMsg == 'request:ok') {
+          if (res.data.code != 200) {
+            wx.showToast({
+              title: res.data.err,
+              icon: 'none',
+              mask: true
+            });
+          } else {
+
+            var __result = JSON.parse(res.data.data);
+            if (__result.errmsg) {
+              wx.showToast({
+                title: __result.errmsg,
+                icon: 'none',
+                mask: true
+              });
+            } else {
+              resolve(res);
+            }
+
+          }
+        } else {
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none',
+            mask: true
+          });
+        }
+      }
+    });
+  })
+
+  return promise;
+}
+
+const QRCodeSignUp = function (_appId, _data) {
+  var promise = new Promise((resolve, reject) =&gt; {
+    wx.request({
+      url: `${app.globalData.appServer}/AppUsers/${_appId}/QRCodeSignUp`,
+      method: 'POST',
+      data: _data,
+      complete: res =&gt; {
+        if (res.errMsg == 'request:ok') {
+          if (res.data.code != 200) {
+            wx.showToast({
+              title: res.data.err,
+              icon: 'none',
+              mask: true
+            });
+          } else {
+            resolve(res);
+          }
+        } else {
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none',
+            mask: true
+          });
+        }
+      }
+    });
+  });
+
+  return promise;
+}
+
+export {
+  QRCodeScan,
+  QRCodeSignUp,
+  JSCode2Session,
+}
+```
+</code></pre></div></div>
+
+<h3 id="钉钉登录">钉钉登录</h3>
+
+<p>1，打开 应用配置<sup id="fnref:2:3" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++钉钉++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />企业ID（<a href="https://open-dev.dingtalk.com/">钉钉开发者首页</a>的CropId），并勾选<strong>接口权限</strong></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />应用ClientID（钉钉应用<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">4</a></sup> AppKey）</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />应用ClientSecret（钉钉应用<sup id="fnref:5:1" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">4</a></sup> AppSecret）</li>
+</ul>
+
+<p>2，打开 应用配置<sup id="fnref:2:4" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++OAuthApp统一登录++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />勾选 ”启用钉钉登录”、”接口权限”</li>
+</ul>
+
+<h3 id="webid登录">WebID登录</h3>
+
+<p>1，打开 应用配置<sup id="fnref:2:5" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++OAuthApp统一登录++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />勾选 ”启用Web ID登录”、”接口权限”</li>
+</ul>
+
+<h3 id="禁止注册">禁止注册</h3>
+
+<p>在某些情况下，可能需要禁止用户进行注册。</p>
+
+<p>1，打开 应用配置<sup id="fnref:2:6" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++OAuthApp统一登录++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />勾选 ”禁止注册账号”、”接口权限”</li>
+</ul>
+
+<h3 id="只允许第三方账号登录">只允许第三方账号登录</h3>
+
+<p>在某些场景下，可能只允许使用第三方平台的账号进行登录，而不提供账号密码登录，邮箱或手机号登录功能。</p>
+
+<p>1，打开 应用配置<sup id="fnref:2:7" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++OAuthApp统一登录++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />勾选 ”禁用系统账号登录”、”接口权限”</li>
+</ul>
+
+<h2 id="发送欢迎邮件">发送欢迎邮件</h2>
+
+<p>在用户注册成功后，系统自动发送欢迎邮件给用户。</p>
+
+<p>1，开通 <a href="https://www.aliyun.com/product/directmail">阿里云邮件推送服务</a>，并<a href="https://help.aliyun.com/document_detail/29426.html">配置发信域名</a>，<a href="https://help.aliyun.com/document_detail/29427.html">设置发信地址</a>。</p>
+
+<p>2，打开 应用配置<sup id="fnref:2:8" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> -  - {++注册、找回密码++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />配置 阿里云AccessKey<sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />邮箱的发信账号(阿里云创建的发信地址)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />勾选 “注册账号 - 发送欢迎邮件”</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />填写 “注册账号 - 欢迎邮件模板”</li>
+</ul>
+
+<h2 id="自定义开发">自定义开发</h2>
+
+<p>如需要加灵活的自定义开发，可参考下面的API文档</p>
+
+<h2 id="注册账号">注册账号</h2>
+
+<h3 id="用户名">用户名</h3>
+<p>使用账号和密码进行登录。
+开发人员需传入用户的账号和密码，服务器验证成功后，返回用户access_token给前端。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="http://docs.oauthapp.com/framework_user.html#_7">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_6">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="手机号">手机号</h3>
+
+<p>用户可以使用手机号码进行登录。
+开发人员需传入用户的手机号码和验证码，服务器验证成功后，返回用户access_token给前端。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_9">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_8">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="邮箱账号">邮箱账号</h3>
+
+<p>用户可以使用账邮箱账号进行登录。
+开发人员需传入用户的邮箱账号和密码，服务器验证成功后，返回用户access_token给前端。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_14">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_12">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="第三方unionid">第三方UnionID</h3>
+
+<p>用户可以通过第三方平台（如微信、H5网页、QQ、微博、Facebook、GMail、Github等其他第三方平台）的账号进行登录。
+开发人员需传入用户在第三方平台的认证信息，服务器验证成功后，返回用户access_token给前端。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_4">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_3">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="登录">登录</h2>
+
+<h3 id="用户名-1">用户名</h3>
+
+<p>使用账号密码登录</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_6">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_5">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="手机号-1">手机号</h3>
+
+<p>使用手机号、手机验证码登录</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_10">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_9">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="邮箱账号-1">邮箱账号</h3>
+
+<p>使用邮箱账号、邮箱验证码登录</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_15">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_13">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="第三方unionid-1">第三方UnionID</h3>
+
+<p>使用第三方UnionID登录</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_3">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_2">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="找回密码">找回密码</h2>
+
+<p>提供用户找回忘记密码的功能。</p>
+
+<p>1，开发人员需传入用户提交的手机号或邮箱接收验证码，</p>
+
+<p>2，输入新的密码和接收到的验证码，验证通过后，则密码重置成功。</p>
+
+<h3 id="通过手机找回密码">通过手机找回密码</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_11">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_15">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="通过邮箱找回密码">通过邮箱找回密码</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_16">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_15">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="开放你的用户数据">开放你的用户数据</h2>
+
+<p>如需对外开放用户数据，可参考如下两种方式：</p>
+
+<h3 id="使用oauthapp统一登录">使用OAuthApp统一登录</h3>
+
+<p>外部应用将页面重定向到OAuthApp统一登录，当用户登录成功并确认授权后，系统会将用户的access_token返回到外部应用。</p>
+
+<p>1，打开 应用配置<sup id="fnref:2:9" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">3</a></sup> - {++安全++}，配置如下节点</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />开放认证网址白名单（允许接收access_token的网址）</li>
+</ul>
+
+<p><strong>默认或留空，代表不限制</strong> <a href="https://docs.oauthapp.com//doc_appsetting_safe.html">配置说明</a></p>
+
+<h3 id="使用开放认证接口">使用开放认证接口</h3>
+
+<p>开放认证为外部应用提供了 申请授权码、获取access_token、查询授权记录、删除授权记录相关服务。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>开发参考</th>
+      <th>链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文档</td>
+      <td><a href="https://docs.oauthapp.com/framework_user.html#_26">查看</a></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><a href="https://docs.oauthapp.com/api_user.html#_22">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="用户数据管理">用户数据管理</h2>
+
+<p>使用OAuthApp发布工具，可进行用户数据导入、导出等如下操作。</p>
+
+<h3 id="管理用户信息">管理用户信息</h3>
+
+<p>可以添加新用户，编辑用户信息，分配角色，并设置相应的权限级别。</p>
+
+<h3 id="访问令牌">访问令牌</h3>
+
+<p><a href="https://docs.oauthapp.com/code_useraccesskey.html">用户访问令牌</a>是一种授权机制，与用户登录接口返回的access_token功能一样，但免去了用户登录的步骤，通过访问令牌可直接调用API。您还可以指定令牌访问资源的权限、有效期，管理令牌的禁用/启用状态。</p>
+
+<h3 id="导入导出">导入导出</h3>
+
+<p>通过导入功能将现有用户数据快速导入到系统中，或将用户数据导出为文件进行备份或其他用途。</p>
+
+<h3 id="数据备份与迁移">数据备份与迁移</h3>
+
+<p>应用数据库备份机制：</p>
+
+<ul>
+  <li>
+    <p>备份频率：每12小时备份1次</p>
+  </li>
+  <li>
+    <p>备份保留：保留最新的30个备份</p>
+  </li>
+</ul>
+
+<p>整库迁移：在不同应用之间迁移整个数据库的方法</p>
+
+<p>如果您希望将应用A的数据迁移到应用B，您只需下载应用A的数据库备份文件，并将其上传到应用B即可实现数据迁移。</p>
+
+<p>用户迁移：将特定用户的数据从一个应用迁移到另一个应用的过程。可参考以下步骤：</p>
+
+<ul>
+  <li>
+    <p>导出并下载应用A中特定用户的数据。</p>
+  </li>
+  <li>
+    <p>在应用B的用户管理页面中，上传应用A导出的用户数据文件。</p>
+  </li>
+</ul>
+
+<p>或者，您也可以将自有数据库按照导入格式进行整理，并在应用B中导入这些数据。</p>
+
+<p>请注意，用户迁移可能需要谨慎处理，确保数据的一致性和准确性。</p>
+
+<p>!!! quote “根据设计原则：用户账号、邮箱、手机号、UnionID+Platform 必须唯一。”</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+
+      <p>阿里云AccessKey：是通过API方式使用阿里云服务的一个身份令牌，正确配置后才能使用相关服务。<a href="https://docs.oauthapp.com/doc_appsetting_aliyun.html">查看文档</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+
+      <p>短信模板规范：短信服务的模板需要审核通过后才可以使用。<a href="https://help.aliyun.com/document_detail/463161.html">查看文档</a> <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+
+      <p>应用配置：使用OAuthApp发布工具，依次打开 应用详情、应用配置 面板。
+[^3]:
+短信签名规范：短信服务的签名都需要经过审核，审核通过后才可以使用该签名。<a href="https://help.aliyun.com/document_detail/108076.html">查看文档</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:2:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:2:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:2:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:2:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:2:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a> <a href="#fnref:2:6" class="reversefootnote" role="doc-backlink">&#8617;<sup>7</sup></a> <a href="#fnref:2:7" class="reversefootnote" role="doc-backlink">&#8617;<sup>8</sup></a> <a href="#fnref:2:8" class="reversefootnote" role="doc-backlink">&#8617;<sup>9</sup></a> <a href="#fnref:2:9" class="reversefootnote" role="doc-backlink">&#8617;<sup>10</sup></a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+
+      <p>钉钉应用：企业内部应用，具体配置可<a href="https://docs.oauthapp.com/doc_appsetting_dingtalk.html">查看文档</a> <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:5:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+  </ol>
+</div>

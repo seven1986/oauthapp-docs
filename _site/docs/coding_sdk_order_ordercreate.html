@@ -1,0 +1,114 @@
+<h1 id="创建订单">创建订单</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>在成功创建订单后，您将获得订单的ID和支付二维码链接，用于支付宝扫码支付。</p>
+
+<p>参数</p>
+
+<ul>
+  <li>
+    <p>amount（必填）：商品金额，最小值为0.01元。</p>
+  </li>
+  <li>
+    <p>productType（必填）：point 或自定义，如果为point，支付成功后将自动充值积分，并产生充值记录。</p>
+  </li>
+  <li>
+    <p>productID（必填）：自定义。</p>
+  </li>
+  <li>
+    <p>productName（必填）：商品名称。</p>
+  </li>
+</ul>
+
+<p>在上述示例中，通过调用 oauthapp.orderCreate() 方法并传入相应的参数，即可创建订单。成功创建订单后，将返回包含订单ID和支付二维码链接的数据结构。您可以根据需要对返回的数据进行处理和展示。</p>
+
+<blockquote>
+  <p>请注意，amount 参数表示订单的商品金额，最小值为0.01元，而 productName 参数则表示订单中商品的名称。根据实际需求，您可以自行设置这些参数的值。</p>
+</blockquote>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    oauthapp.allReady().then(function () {
+        oauthapp.orderCreate({amount:0.01,productType:"point",productID:"1",productName:"测试商品"}).then(function (res) {
+            $('#result').text(JSON.stringify(res));
+        });
+    });
+   </code></p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    ```HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>orderCreate</title>
+        <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    &lt;/head&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;body&gt;
+    &lt;label&gt;订单金额&lt;/label&gt;
+    &lt;input type="text" id="amount" value="0.01" /&gt;
+
+    &lt;label&gt;商品类型&lt;/label&gt;
+    &lt;input type="text" id="productType" value="point" /&gt;
+
+    &lt;label&gt;商品ID&lt;/label&gt;
+    &lt;input type="text" id="productID" value="1" /&gt;
+
+    &lt;label&gt;商品名称&lt;/label&gt;
+    &lt;input type="text" id="productName" value="测试商品" /&gt;
+
+    &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+        
+            document.getElementById('actionButton').onclick = function () {
+            
+                var postData = {};
+                postData.amount = $('#amount').val() || 0.01;
+                postData.productType = $('#productType').val();
+                postData.productID = $('#productID').val();
+                postData.productName = $('#productName').val();
+
+                oauthapp.orderCreate(postData).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+

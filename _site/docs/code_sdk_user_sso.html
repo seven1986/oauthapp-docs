@@ -1,0 +1,72 @@
+<h1 id="oauthapp统一登录">OAuthApp统一登录</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;h1&gt;结果&lt;/h1&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;a href="https://www.oauthapp.com/oauth/2?scheme=app&amp;redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&amp;scopes=openid profile role&amp;nonce=1667553723079"&gt;
+        登录
+    &lt;/a&gt;
+   </code></p>
+
+<p>直接点击 a 标签，将跳转到oauthapp 单点登录。跳转参数说明：</p>
+
+<ul>
+  <li>scheme：登录协议(必填)	固定为 “app”</li>
+  <li>appId：应用ID(必填)</li>
+  <li>scopes：授权列表(必填)	多个权限用英文空格分隔</li>
+  <li>redirect_uri：回调地址(必填)</li>
+  <li>redirect_uri_name：自定义授权标题</li>
+  <li>nonce：自定义字符串，32位(必填)</li>
+  <li>expireInDays：令牌有效期(非必填，单位：天，取值：1~99)</li>
+</ul>
+
+<h2 id="步骤四测试结果">步骤四：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    document.getElementById('result').innerHTML = location.search;
+   </code></p>
+
+<p>登陆成功后，将access_token展示到页面</p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;统一登陆&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;a
+            href="https://www.oauthapp.com/oauth/2?scheme=app&amp;redirect_uri=https://web.oauthapp.com/4/examples/apidemo/sso.html&amp;scopes=openid profile role&amp;nonce=1667553723079"&gt;
+            登录
+        &lt;/a&gt;
+        &lt;h1&gt;结果&lt;/h1&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+        &lt;script&gt;
+            document.getElementById('result').innerHTML = location.search;
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>

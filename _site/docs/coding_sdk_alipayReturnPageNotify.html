@@ -1,0 +1,117 @@
+<h1 id="支付同步通知">支付同步通知</h1>
+
+<p>用户在支付宝完成支付后，回携带订单相关参数回跳指定的地址，可参考如下示例，同步支付宝回传的订单号、付款时间2个字段。</p>
+
+<p><strong>您可以继续调用oauthapp.alipayOrder同步支付宝订单信息，或等待支付宝异步通知自动同步订单数据</strong></p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;textarea rows="10" id="postData"&gt;
+        {
+            "charset": "UTF-8",
+            "out_trade_no": "1687167960218",
+            "method": "alipay.trade.page.pay.return",
+            "total_amount": "0.01",
+            "sign": "UCXw1EQGluYUXrJF+891QFeM0VdZslt+ejxz88MiBHKlFg1nH1hgsWam3hmAyaKvWF4GIfsB       +GwZRBvOpEoyO8bjefLZswOJ9hLSyxQe4ZON8PaJe4R6k1WEZ6nEkU3qIqxZj5ubN13kUvEOeJMkOA1oNvjszLgs13Uso3AmZ1GFC+1nTt      +hOemwrPH0D2OsYkuBKqooQtgKIJyXfGuAFBDm3KW6xx716tbwnXgU840N89LkkX97YjX0yinHy9yh0BnNkIQpj/dKFTWIifq0prH7WR/    2kBIVuXnAUsE7UX7/  y9vuyEdThnkcT3cR5Fn6Gg3Iiin5wg1BUHo3A2jFZg==",
+            "trade_no": "2023061922001406381432294248",
+            "auth_app_id": "2021003192659285",
+            "version": "1.0",
+            "app_id": "2021003192659285",
+            "sign_type": "RSA2",
+            "seller_id": "2088502858687065",
+            "timestamp": "2023-06-19 17:47:02"
+        }
+    &lt;/textarea&gt;
+    &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    oauthapp.alipayReturnPageNotify(data)
+   </code></p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').html(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    ```HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>alipayReturnPageNotify</title>
+        <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    &lt;/head&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;body&gt;
+    &lt;textarea rows="10" id="postData"&gt;
+        {
+            "charset": "UTF-8",
+            "out_trade_no": "1687167960218",
+            "method": "alipay.trade.page.pay.return",
+            "total_amount": "0.01",
+            "sign": "UCXw1EQGluYUXrJF+891QFeM0VdZslt+ejxz88MiBHKlFg1nH1hgsWam3hmAyaKvWF4GIfsB       +GwZRBvOpEoyO8bjefLZswOJ9hLSyxQe4ZON8PaJe4R6k1WEZ6nEkU3qIqxZj5ubN13kUvEOeJMkOA1oNvjszLgs13Uso3AmZ1GFC+1nTt      +hOemwrPH0D2OsYkuBKqooQtgKIJyXfGuAFBDm3KW6xx716tbwnXgU840N89LkkX97YjX0yinHy9yh0BnNkIQpj/dKFTWIifq0prH7WR/    2kBIVuXnAUsE7UX7/  y9vuyEdThnkcT3cR5Fn6Gg3Iiin5wg1BUHo3A2jFZg==",
+            "trade_no": "2023061922001406381432294248",
+            "auth_app_id": "2021003192659285",
+            "version": "1.0",
+            "app_id": "2021003192659285",
+            "sign_type": "RSA2",
+            "seller_id": "2088502858687065",
+            "timestamp": "2023-06-19 17:47:02"
+        }
+    &lt;/textarea&gt;
+    &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+
+        oauthapp.allReady().then(function () {
+
+            document.getElementById('actionButton').onclick = function () {
+
+                var data = JSON.parse(document.getElementById('postData').value);
+
+                oauthapp.alipayReturnPageNotify(data).then((res) =&gt; {
+
+                    console.log(res);
+
+                    $('#result').html(JSON.stringify(res));
+
+                    // 查询支付宝订单详情，下发支付成功消息
+                    // oauthapp.alipayOrder(data.out_trade_no).then((res2) =&gt; {
+                    //     console.log(res2);
+                    //     $('#result').html(JSON.stringify(res2));
+                    //     //替换 url
+                    //     history.replaceState(null, null, '?completed=true');
+                    // })
+                })
+            };
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+

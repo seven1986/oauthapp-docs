@@ -1,0 +1,83 @@
+<h1 id="发起退款">发起退款</h1>
+
+<p>当交易发生之后一段时间内，由于买家或者卖家的原因需要退款时，卖家可以通过退款接口将支付款退还给买家，支付宝将在收到退款请求并且验证成功之后，按照退款规则将支付款按原路退到买家帐号上。</p>
+
+<p>交易超过约定时间（签约时设置的可退款时间）的订单无法进行退款。</p>
+
+<p>支付宝退款支持单笔交易分多次退款，多次退款需要提交原支付订单的订单号和设置不同的退款请求号。</p>
+
+<p>一笔退款失败后重新提交，要保证重试时退款请求号不能变更，防止该笔交易重复退款。</p>
+
+<p>同一笔交易累计提交的退款金额不能超过原始交易总金额。</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;label&gt;订单ID&lt;/label&gt;
+    &lt;input type="number" id="amount" value="0.01" /&gt;
+    &lt;input type="text" id="orderNo" value="638227710323944845" /&gt;
+    &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    oauthapp.alipayOrderRefund(amount,orderNo)
+   </code></p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    ```HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>alipayOrderRefund</title>
+        <!-- data-appid 属性替换为你的 OAuthApp 应用的 ID -->
+        <script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"></script>
+    &lt;/head&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;body&gt;
+    &lt;label&gt;订单ID&lt;/label&gt;
+    &lt;input type="number" id="amount" value="0.01" /&gt;
+    &lt;input type="text" id="orderNo" value="638227710323944845" /&gt;
+    &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('actionButton').onclick = function () {
+                var amount = $('#amount').val();
+                var orderNo = $('#orderNo').val();
+                oauthapp.alipayOrderRefund(amount,orderNo).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            };
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+

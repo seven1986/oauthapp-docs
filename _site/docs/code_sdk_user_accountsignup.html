@@ -1,0 +1,118 @@
+<h1 id="账号-注册">账号 注册</h1>
+
+<p>!!! Tip “提示”
+    本代码演示了如何使用 OAuthApp 的 JavaScript SDK 进行用户注册，包括输入用户名、密码、头像、昵称和平台信息，然后调用 accountSignUp() 方法向 OAuthApp 服务器发送注册请求。</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;label&gt;userName&lt;/label&gt;
+        &lt;input type="text" id="userName" /&gt;
+        &lt;label&gt;password&lt;/label&gt;
+        &lt;input type="text" id="password" /&gt;
+        &lt;label&gt;avatar&lt;/label&gt;
+        &lt;input type="text" id="avatar" /&gt;
+        &lt;label&gt;nickName&lt;/label&gt;
+        &lt;input type="text" id="nickName" /&gt;
+        &lt;label&gt;platform&lt;/label&gt;
+        &lt;input type="text" id="platform" /&gt;
+        &lt;button type="button" id="signUpButton"&gt;注册&lt;/button&gt;
+    &lt;/div&gt;
+   </code></p>
+
+<p>这段代码展示了一个简单的用户注册表单，包括输入用户名、密码、头像、昵称和平台信息的输入框，以及一个注册按钮。用户可以输入个人信息，然后点击按钮进行注册</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.ready().then(function () {
+            document.getElementById(‘signUpButton’).onclick = function () {
+                var userName = $(‘#userName’).val() || oauthapp.settings.fingerIdentity;
+                var password = $(‘#password’).val() || ‘123456’;
+                var avatar = $(‘#avatar’).val() || oauthapp.app.info.logo;
+                var nickName = $(‘#nickName’).val() || userName;
+                var platform = $(‘#platform’).val() || ‘web’;
+                oauthapp.accountSignUp(userName, password, avatar, nickName, platform).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            });
+        }
+    });
+```
+</code></pre></div></div>
+
+<p>在 accountSignUp() 方法中，我们需要传递五个参数：</p>
+
+<ul>
+  <li>userName：用户的用户名，可以为空，默认值为 SDK 配置中的 fingerIdentity。</li>
+  <li>password：用户的密码，可以为空，默认值为 “123456”。</li>
+  <li>avatar：用户的头像 URL，可以为空，默认值为应用的 logo URL。</li>
+  <li>nickName：用户的昵称，可以为空，默认值为 userName。</li>
+  <li>platform：用户的平台信息，可以为空，默认值为 “web”。</li>
+</ul>
+
+<h2 id="步骤四测试结果">步骤四：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+     $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<p>当注册请求成功返回时，我们可以在回调函数中将返回值显示在 HTML 页面上，</p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;accountSignUp&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;label&gt;userName&lt;/label&gt;
+            &lt;input type="text" id="userName" /&gt;
+            &lt;label&gt;password&lt;/label&gt;
+            &lt;input type="text" id="password" /&gt;
+            &lt;label&gt;avatar&lt;/label&gt;
+            &lt;input type="text" id="avatar" /&gt;
+            &lt;label&gt;nickName&lt;/label&gt;
+            &lt;input type="text" id="nickName" /&gt;
+            &lt;label&gt;platform&lt;/label&gt;
+            &lt;input type="text" id="platform" /&gt;
+            &lt;button type="button" id="signUpButton"&gt;注册&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p&gt;结果&lt;/p&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.ready().then(function () {
+                document.getElementById('signUpButton').onclick = function () {
+                    var userName = $('#userName').val() || oauthapp.settings.fingerIdentity;
+                    var password = $('#password').val() || '123456';
+                    var avatar = $('#avatar').val() || oauthapp.app.info.logo;
+                    var nickName = $('#nickName').val() || userName;
+                    var platform = $('#platform').val() || 'web';
+                    oauthapp.accountSignUp(userName, password, avatar, nickName, platform).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    });
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>

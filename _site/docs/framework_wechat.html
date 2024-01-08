@@ -1,0 +1,692 @@
+<h1 id="微信">微信</h1>
+
+<h2 id="小程序">小程序</h2>
+
+<p>!!! quote “在开始前，请确认已成功配置 微信小程序。”</p>
+
+<h3 id="发送订阅消息">发送订阅消息</h3>
+
+<p>oauthapp.wechatSubscribeSend</p>
+
+<p>用于在微信小程序中向用户发送根据特定模板的消息。</p>
+
+<p>???+ note “提示”
+    该方法返回的是一个 Promise 对象，可以使用 .then() 和 .catch() 方法来处理异步操作的结果和错误。<a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatSubscribeSend({
+    // 接收者的openid。
+  "touser": "OPENID",  
+  // 所需下发的模板消息的id。
+  "template_id": "TEMPLATE_ID", 
+  // 小程序卡片所跳转的页面。
+  "page": "index", 
+  // 跳转小程序的类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版。
+  "miniprogram_state":"developer", 
+  "lang":"zh_CN", 
+  // 模板数据
+  "data": {
+      "number01": {
+          "value": "339208499"
+      },
+      "date01": {
+          "value": "2015年01月05日"
+      },
+      "site01": {
+          "value": "TIT创意园"
+      } ,
+      "site02": {
+          "value": "广州市新港中路397号"
+      }
+  }
+}).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatSubscribeSend&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+            {
+                "touser": "OPENID",
+                "template_id": "TEMPLATE_ID",
+                "page": "index",
+                "miniprogram_state": "developer",
+                "lang": "zh_CN",
+                "data": {
+                    "number01": {
+                        "value": "339208499"
+                    },
+                    "date01": {
+                        "value": "2015年01月05日"
+                    },
+                    "site01": {
+                        "value": "TIT创意园"
+                    },
+                    "site02": {
+                        "value": "广州市新港中路397号"
+                    }
+                }
+            }
+        &lt;/textarea&gt;
+        &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function sendMsg() {
+            var postData = JSON.parse($('#postData').val());
+            oauthapp.wechatSubscribeSend(postData).then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatSubscribeSend.html">演示</a>{ .md-button }  <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatsubscribesend.html">教程</a>{ .md-button }</p>
+
+<h3 id="生成网页跳转地址">生成网页跳转地址</h3>
+
+<p>oauthapp.wechatUrlLinkGenerate</p>
+
+<p>用于生成微信小程序网页跳转地址，适用于短信、邮件、网页、微信内等拉起小程序的业务场景。</p>
+
+<p>???+ note “提示”
+    该方法返回一个包含生成的跳转地址的 Promise 对象。在调用该方法后，你可以通过 .then() 方法获取跳转地址。<a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/url-link/urllink.generate.html">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatUrlLinkGenerate({
+    // 小程序中的页面路径，必填。
+    "path": "/pages/publishHomework/publishHomework",
+    // 小程序的查询字符串参数，必填。
+    "query": "",
+    // 二维码有效时间类型，必填。
+    "expire_type": 1,
+    // 二维码有效时间，单位为秒，必填。
+    "expire_interval": 3600,
+    // 跳转小程序的类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版。
+    "env_version": "release"
+}).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatUrlLinkGenerate&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+            {
+                "path": "/pages/publishHomework/publishHomework",
+                "query": "",
+                "expire_type": 1,
+                "expire_interval": 1,
+                "env_version": "release"
+            }
+        &lt;/textarea&gt;
+        &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function sendMsg() {
+            var postData = JSON.parse($('#postData').val());
+            oauthapp.wechatUrlLinkGenerate(postData).then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatUrlLinkGenerate.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechaturllinkgenerate.html">教程</a>{ .md-button }</p>
+
+<h3 id="生成scheme码">生成scheme码</h3>
+
+<p>oauthapp.wechatGenerateScheme</p>
+
+<p>用于短信、邮件、外部网页、微信内等拉起小程序的业务场景。</p>
+
+<p>???+ note “提示”
+    该方法返回一个包含生成的跳转地址的 Promise 对象。在调用该方法后，你可以通过 .then() 方法获取跳转地址。<a href="https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/qrcode-link/url-scheme/generateScheme.html">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatGenerateScheme({
+    "jump_wxa":
+    {
+        // 小程序中的页面路径，必填。
+        "path": "/pages/hot/hot",
+        // 小程序的查询字符串参数。
+        "query": "",
+        // 跳转小程序的类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版。
+        "env_version": "release"
+    },
+    // 默认值false。生成的 scheme 码类型，到期失效：true，30天有效：false。
+    "is_expire":false
+}).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatgenerateScheme&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+            {
+            "jump_wxa":
+            {
+                "path": "/pages/hot/hot",
+                "query": "",
+                "env_version": "release"
+            },
+            "is_expire":false
+            }
+        &lt;/textarea&gt;
+        &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function sendMsg() {
+            var postData = JSON.parse($('#postData').val());
+            oauthapp.wechatGenerateScheme(postData).then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatgenerateScheme.html">演示</a>{ .md-button } <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatgeneratescheme.html">教程</a>{ .md-button }</p>
+
+<h3 id="获取小程序码">获取小程序码</h3>
+
+<p>oauthapp.wechatWXACodeGet</p>
+
+<p>用于获取微信小程序码，即适用于需要的码数量较少的业务场景，通过该接口生成的小程序码，永久有效，有数量限制。</p>
+
+<p>???+ note “提示”
+    该方法返回一个 Promise 对象，调用该方法后，如果执行成功，Promise 对象的返回值将是一个 Blob 对象，Blob 对象可以通过 URL.createObjectURL(res) 方法转换成一个 URL 地址，然后可以使用该地址来加载图片。如果执行失败，Promise 对象的返回值将是一个错误对象，需要通过 catch 方法来捕捉错误并进行处理。<a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.get.html">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatWXACodeGet({
+    // 字符串，必填项，小程序页面路径，例如：page/index/index；
+    "path": "page/index/index",
+    // 字符串，必填项，小程序版本号，可选值为 develop、trial 和 release，默认为 release；
+    "env_version": "release",
+    // 数字，非必填项，小程序码的宽度，单位 px，取值范围为 280 - 1280，默认为 430。
+    "width": 430
+}).then(function(res){
+    console.log(URL.createObjectURL(res));
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatWXACodeGet&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+            {
+                "path": "page/index/index",
+                "env_version": "release",
+                "width": 430
+            }
+        &lt;/textarea&gt;
+        &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：
+        &lt;span id="result"&gt;&lt;/span&gt;
+        &lt;img id="result2" /&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+        function sendMsg() {
+            var postData = JSON.parse($('#postData').val());
+            oauthapp.wechatWXACodeGet(postData).then(function (res) {
+                var url = URL.createObjectURL(res)
+                $('#result').text(url);
+                $('#result2').attr('src', url);
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatWXACodeGet.html">演示</a>{ .md-button } <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatwxacodeget.html">教程</a>{ .md-button }</p>
+
+<h3 id="获取小程序码无限数量">获取小程序码（无限数量）</h3>
+
+<p>oauthapp.wechatWXACodeGetUnlimited</p>
+
+<p>用于获取无限制数量的微信小程序码，通过该接口生成的小程序码，永久有效。</p>
+
+<p>???+ note “提示”
+    该方法会返回一个 Promise 对象，你可以通过 then() 方法获取小程序码内容的 Blob URL。<a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatWXACodeGetUnlimited({
+    // 必填场景值，字符串类型，最大32个字符。
+    "scene":"1",
+    // 必填小程序中页面的路径。
+    "path": "page/index/index",
+    // 必填，小程序版本号，可选值为 develop、trial 和 release，默认为 release；
+    "env_version": "release",
+    // 二维码的宽度，单位 px。默认值为 430。
+    "width": 430
+}).then(function(res){
+    console.log(URL.createObjectURL(res));
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatWXACodeGet&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+            {
+                "scene":1,
+                "path": "page/index/index",
+                "env_version": "release",
+                "width": 430
+            }
+        &lt;/textarea&gt;
+        &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：
+        &lt;span id="result"&gt;&lt;/span&gt;
+        &lt;img id="result2" /&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+        function sendMsg() {
+            var postData = JSON.parse($('#postData').val());
+            oauthapp.wechatWXACodeGetUnlimited(postData).then(function (res) {
+                var url = URL.createObjectURL(res)
+                $('#result').text(url);
+                $('#result2').attr('src', url);
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatWXACodeGetUnlimited.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatwxacodegetunlimited.html">教程</a>{ .md-button }</p>
+
+<h3 id="登录凭证校验">登录凭证校验</h3>
+
+<p>oauthapp.wechatJSCode2Session</p>
+
+<p>可以校验用户登录凭证（code）是否正确，并返回用户的唯一标识（openid）和会话密钥（session_key）。</p>
+
+<p>???+ note “提示”
+    在微信小程序中，只要有了openid和session_key，就可以获取该用户的所有数据。具体来说，当小程序需要登录时，前端会将用户登录凭证（code）为参数调用oauthapp.wechatJSCode2Session()方法。oauthapp会使用该凭证去请求微信提供的接口，微信会校验该凭证是否正确，并返回用户的openid和session_key。<a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html#%E8%AF%B7%E6%B1%82%E5%9C%B0%E5%9D%80">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatJSCode2Session(js_code).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatJSCode2Session&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;input type="text" id="code" placeholder="code" /&gt;
+        &lt;button type="button" onclick="code2session()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function code2session() {
+            var js_code = JSON.parse($('#code').val());
+            oauthapp.wechatJSCode2Session(js_code).then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatJSCode2Session.html">演示</a>{ .md-button } <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatjscode2session.html">教程</a>{ .md-button }</p>
+
+<h3 id="解密数据">解密数据</h3>
+
+<p>oauthapp.wechatDecrypt</p>
+
+<p>当开发者在微信小程序中使用了开放数据，如用户信息等，用户数据会经过加密传输到开发者后台。开发者需要对这些数据进行解密才能读取其中的内容。oauthapp.wechatDecrypt 提供了一种简便的方式来进行解密。</p>
+
+<p>???+ note “提示”
+    具体来说，oauthapp.wechatDecrypt 方法接收三个参数：加密的数据、加密使用的向量以及 session_key。其中，加密使用的向量和 session_key 都可以在 oauthapp.wechatJSCode2Session 方法中获得。oauthapp.wechatDecrypt 方法返回一个解密后的字符串。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatDecrypt(_encryptedData, _iv, _sessionKey).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatDecrypt&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;input type="text" id="_encryptedData" placeholder="_encryptedData" /&gt;
+        &lt;input type="text" id="_iv" placeholder="_iv" /&gt;
+        &lt;input type="text" id="_sessionKey" placeholder="_sessionKey" /&gt;
+        &lt;button type="button" onclick="decrypt()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function decrypt() {
+            var _encryptedData = $('#_encryptedData').val();
+            var _iv = $('#_iv').val();
+            var _sessionKey = $('#_sessionKey').val();
+            oauthapp.wechatDecrypt(_encryptedData, _iv, _sessionKey).then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatDecrypt.html">演示</a>{ .md-button }    <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatdecrypt.html">教程</a>{ .md-button }</p>
+
+<h2 id="公众号h5">公众号H5</h2>
+
+<p>!!! Tip “”
+    需要先使用oauthapp发布工具，应用» 应用配置 » 微信公众平台 菜单下，配置 微信公众号ClientID、微信公众号ClientSecret。</p>
+
+<h3 id="获取用户unionid">获取用户UnionID</h3>
+
+<p>oauthapp.wechatUserInfo</p>
+
+<p>用于获取微信公众号用户UnionID的方法。</p>
+
+<p>???+ note “提示”
+    该方法需要传入用户的openid，返回该用户在当前微信公众号中的UnionID。获取UnionID需要用户将当前微信公众号绑定到开放平台账号下，并且该用户已经关注公众号。该方法返回一个Promise对象，可以通过then()方法注册回调函数来获取请求结果。<a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_basic_information_UnionID.html#UinonId">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatUserInfo(_openid).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatUserInfo&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;input type="text" id="_openid" placeholder="_openid" /&gt;
+        &lt;button type="button" onclick="getUserInfo()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function getUserInfo() {
+            var _openid = $('#_openid').val();
+            oauthapp.wechatUserInfo(_openid).then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatUserInfo.html">演示</a>{ .md-button }   <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatuserinfo.html">教程</a>{ .md-button }</p>
+
+<h3 id="发送一次性订阅消息">发送一次性订阅消息</h3>
+
+<p>oauthapp.wechatSubscribeMSG</p>
+
+<p>用于发送微信公众号的一次性订阅消息。</p>
+
+<p>???+ note “提示”
+    一次性订阅消息是指，在用户没有关注公众号的前提下，用户通过扫描公众号的带参数二维码或者公众号提供的链接来订阅某一个特定的消息，而这个订阅只会发送一次。一次性订阅消息的内容必须先在微信公众平台上审核通过，才能进行发送。发送一次性订阅消息时，用户必须先同意授权，授权完成后才能发送消息。<a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/One-time_subscription_info.html">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatSubscribeMSG({
+    // 必填，接收者openid
+    "touser": "OPENID",
+    // 必填，模板ID
+    "template_id": "TEMPLATE_ID",
+    // 选填，点击模板消息后跳转的链接
+    "url": "URL",
+    // 选填，跳转小程序的数据，包括appid和路径
+    "miniprogram": {
+        "appid": "xiaochengxuappid12345",
+        "pagepath": "index?foo=bar"
+    },
+    //  必填，订阅场景值
+    "scene": "SCENE",
+    // 选填，消息标题
+    "title": "TITLE",
+    // 必填，模板消息数据
+    "data": {
+        "content": {
+            "value": "VALUE",
+            "color": "COLOR"
+        }
+    }
+}).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatSubscribeMSG&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;textarea rows="10" placeholder="请求数据" id="postData"&gt;
+            {
+                "touser": "OPENID",
+                "template_id": "TEMPLATE_ID",
+                "url": "URL",
+                "miniprogram": {
+                    "appid": "xiaochengxuappid12345",
+                    "pagepath": "index?foo=bar"
+                },
+                "scene": "SCENE",
+                "title": "TITLE",
+                "data": {
+                    "content": {
+                        "value": "VALUE",
+                        "color": "COLOR"
+                    }
+                }
+            }
+        &lt;/textarea&gt;
+        &lt;button type="button" onclick="sendMsg()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function sendMsg() {
+            var postData = JSON.parse($('#postData').val());
+            oauthapp.wechatSubscribeMSG(postData).then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatSubscribeMSG.html">演示</a>{ .md-button }   <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatsubscribemsg.html">教程</a>{ .md-button }</p>
+
+<h3 id="js-sdk-config">JS SDK Config</h3>
+
+<p>oauthapp.wechatJSConfig</p>
+
+<p>用于生成微信公众号 JS SDK 的配置参数。</p>
+
+<p>???+ note “提示”
+    该方法的参数 _url 是当前页面的 URL 地址，用于微信 JS SDK 鉴权。该方法返回一个 Promise 对象，成功时返回一个包含微信 JS SDK 配置参数的对象，失败时返回一个包含错误信息的对象。通过调用该方法生成的 JS SDK 配置参数，可以在公众号的网页中使用 JS SDK 功能，如获取用户基本信息、分享、支付等。<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#63">官方文档</a></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.wechatJSConfig(_url).then(function(res){
+    console.log(res);
+});
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;wechatJSConfig&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;input type="text" id="_openid" placeholder="_openid" /&gt;
+        &lt;button type="button" onclick="getJsConfig()"&gt;提交&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function getJsConfig() {
+            var _url = $('#_url').val() || location.href;
+            oauthapp.wechatJSConfig(_url).then(function (res) {
+                $('#result').text(JSON.stringify(res));
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/wechatJSConfig.html">演示</a>{ .md-button }   <a href="https://docs.oauthapp.com/coding_sdk_wechat_wechatjsconfig.html">教程</a>{ .md-button }</p>

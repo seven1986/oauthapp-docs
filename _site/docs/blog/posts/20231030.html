@@ -1,0 +1,67 @@
+<h1 id="20231030-更新说明">2023.10.30 更新说明</h1>
+
+<p><strong>数据表查询、数据表清空</strong>，新增比较运算符功能，参数为JSON数组，格式如下：</p>
+
+<p>```JavaScript linenums=”1”
+[{ 数据表字段名 :匹配过滤的值,op:运算符 }…]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+| 运算符 | 说明 |  |
+| --- | --- | --- |
+| &gt; | 大于 |  |
+| &gt;= | 大于等于 |  |
+| &lt; | 小于 |  |
+| &lt;= | 小于等于 |  |
+| = | 等于 |  |
+| != | 不等于 |  |
+| like | 包含 |  |
+| and | 并且 | 用于多条件连接查询 |
+| or | 或者 | 用于多条件连接查询 |
+
+&lt;!-- more --&gt;
+
+查找 id&gt;0 and id &lt; 6 的数据
+
+```JavaScript linenums="1"
+[
+  {id:0,op:"&gt;"},
+  {op:"and"},
+  {id:6,op:"&lt;"}
+] 
+</code></pre></div></div>
+
+<p>查找 newsType = 1 or newsType = 2 and userId = 2 的数据
+```JavaScript linenums=”1”
+[
+  {newsType:1,op:”=”},
+  {op:”or”},
+  {newsType:2,op:”=”},
+  {op:”and”},
+  {userId:2,op:”=”}
+]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+查找子节点 
+```JavaScript linenums="1"
+[
+  {"chat.person":"zhang3",op:"="}
+] 
+</code></pre></div></div>
+
+<p>查找数组
+<code class="language-plaintext highlighter-rouge">JavaScript linenums="1"
+[
+  {"items[2].person":"zhang3",op:"="}
+]
+</code></p>
+
+<h3 id="查看文档">查看文档</h3>
+
+<p>脚本库需要 &gt;= oauthapp.js.1.9.9.min.js</p>
+
+<p>文档地址：https://docs.oauthapp.com/framework_storage.html#_4</p>
+
+<h3 id="查看api">查看API</h3>
+
+<p>增加过滤参数：{++filter2++}</p>
+
+<p>API接口：https://docs.oauthapp.com/api_storage.html#_4</p>
+

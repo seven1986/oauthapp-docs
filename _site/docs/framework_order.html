@@ -1,0 +1,318 @@
+<h1 id="订单">订单</h1>
+
+<h3 id="订单列表">订单列表</h3>
+
+<p>oauthapp.orders</p>
+
+<p>???+ note “提示”
+    获取订单列表数据。返回的数据结构包括订单的ID、用户ID、订单号、订单状态、订单金额、支付类型、产品名称等信息。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * 订单列表
+ * @params state 订单状态 | 可选值：TRADE_CLOSED、TRADE_FINISHED、TRADE_SUCCESS、WAIT_BUYER_PAY
+ * @params orderNo 系统订单号
+ * @params tradeNo 外部订单号
+ * @params userId 用户ID
+ * @params pctType 商品类型
+ * @params pctId 商品ID
+ * @params pctName 商品名称
+ * @params skip 跳过条数
+ * @params take 拉取条数
+*/
+oauthapp.orders(state,orderNo,tradeNo,userId,pctType,pctId,pctName,skip.take).then(function(res){
+  console.log(res);
+  /*
+  * 返回数据结构
+  {
+    "code": 200,
+    "data": {
+      "total": 1,
+      "data": [
+        {
+          "id": 1,
+          "userID": 5,
+          "orderNo": "638205225950488498",
+          "state": "WAIT_BUYER_PAY",
+          "amount": 0.01,
+          "payType": "alipay",
+          "productName": "test",
+          "productType": null,
+          "productID": null,
+          "tag": null,
+          "remark": null,
+          "tradeNo": null,
+          "orderPayTime": "0001-01-01 00:00:00",
+          "expireTime": "2024-05-24 10:56:35",
+          "createDate": "2023-05-24 10:56:35",
+          "lastUpdate": "2023-05-24 10:56:35"
+        }
+      ]
+    },
+    "err": ""
+  }
+  */
+})
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;orders&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;select id="state"&gt;
+        &lt;option&gt;&lt;/option&gt;
+        &lt;option&gt;WAIT_BUYER_PAY&lt;/option&gt;
+        &lt;option&gt;TRADE_SUCCESS&lt;/option&gt;
+        &lt;option&gt;TRADE_CLOSED&lt;/option&gt;
+        &lt;option&gt;TRADE_FINISHED&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type="text" id="orderNo" placeholder="orderNo" /&gt;
+    &lt;input type="text" id="tradeNo" placeholder="orderNo" /&gt;
+    &lt;input type="number" id="userId" placeholder="userId" /&gt;
+    &lt;input type="text" id="pctType" placeholder="pctType" /&gt;
+    &lt;input type="text" id="pctId" placeholder="pctId" /&gt;
+    &lt;input type="text" id="pctName" placeholder="pctName" /&gt;
+    &lt;input type="number" id="skip" placeholder="skip" /&gt;
+    &lt;input type="number" id="take" placeholder="take" /&gt;
+    &lt;button type="button" id="runButton"&gt;查询&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+        
+            document.getElementById('runButton').onclick = function () {
+                var state = $('#state').val();
+                var orderNo = $('#orderNo').val();
+                var tradeNo = $('#tradeNo').val();
+                var userId = $('#userId').val()||0;
+                var pctType = $('#pctType').val();
+                var pctId = $('#pctId').val();
+                var pctName = $('#pctName').val();
+                var skip = $('#skip').val() || 0;
+                var take = $('#take').val() || 10;
+                oauthapp.orders(state, orderNo, tradeNo, userId, 
+                pctType, pctId, pctName, skip.take).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| state |  订单状态，默认为空，返回全部 | 可选值：TRADE_CLOSED、TRADE_FINISHED、TRADE_SUCCESS、WAIT_BUYER_PAY |
+| orderNo | 系统订单号，非必填 |
+| tradeNo | 支付平台单号 ，非必填|
+| userId | 用户ID，非必填，默认为为：0 |
+| pctType | 商品类型，非必填 |
+| pctId | 商品ID，非必填 |
+| pctName | 商品名称，非必填 |
+| skip |  可选，指定要拉取的数据条数。 | 0 |
+| take |  可选，指定要跳过的数据条数。 | 10 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/orders.html">演示</a>{ .md-button }   <a href="http://docs.oauthapp.com/coding_sdk_order_orders/">教程</a>{ .md-button }</p>
+
+<h3 id="创建订单">创建订单</h3>
+
+<p>oauthapp.orderCreate</p>
+
+<p>???+ note “提示”
+    在创建订单成功后，您将获得订单ID和订单号。<strong>可用于后续调用支付宝下单支付功能。</strong></p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * 创建订单
+ * @params amount 订单金额
+ * @params productType 商品类型
+ * @params productID 商品ID
+ * @params productName 商品名称
+*/
+oauthapp.orderCreate({amount:0.01,productType:"point",productID:"1",productName:"测试商品"}).then(function(res){
+  console.log(res);
+  // 返回数据参考
+  /*
+  {
+  "code": 200,
+  "data": {
+    "id": 1,
+    "orderNo": "638205225950488498"
+  },
+  "err": ""
+  }
+  */
+})
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;orderCreate&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;label&gt;订单金额&lt;/label&gt;
+    &lt;input type="text" id="amount" value="0.01" /&gt;
+
+    &lt;label&gt;商品类型&lt;/label&gt;
+    &lt;input type="text" id="productType" value="point" /&gt;
+
+    &lt;label&gt;商品ID&lt;/label&gt;
+    &lt;input type="text" id="productID" value="1" /&gt;
+
+    &lt;label&gt;商品名称&lt;/label&gt;
+    &lt;input type="text" id="productName" value="测试商品" /&gt;
+
+    &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+        
+            document.getElementById('actionButton').onclick = function () {
+            
+                var postData = {};
+                postData.amount = $('#amount').val() || 0.01;
+                postData.productType = $('#productType').val();
+                postData.productID = $('#productID').val();
+                postData.productName = $('#productName').val();
+
+                oauthapp.orderCreate(postData).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| amount | 商品金额，必填  | 最小值为0.01元 |
+| productType | 商品类型，必填  | **point** 或自定义，如果为**point**，支付成功后将自动充值积分，并产生充值记录。 |
+| productID | 商品ID，必填  | 自定义 |
+| productName | 商品名称，必填  |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/orderCreate.html">演示</a>{ .md-button }  <a href="http://docs.oauthapp.com/coding_sdk_order_ordercreate/">教程</a>{ .md-button }</p>
+
+<h3 id="订单详情">订单详情</h3>
+
+<p>oauthapp.order</p>
+
+<p>???+ note “提示”
+    订单详情接口用于获取特定订单的详细信息。</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+/**
+ * 订单详情
+ * @params orderId 订单ID
+*/
+oauthapp.order(orderId).then(function(res){
+  console.log(res);
+  /*
+    {
+      "code": 200,
+      "data": {
+        "id": 1,
+        "userID": 5,
+        "orderNo": "638205225950488498",
+        "state": "WAIT_BUYER_PAY",
+        "amount": 0.01,
+        "payType": "alipay",
+        "productName": "test",
+        "productType": null,
+        "productID": null,
+        "tag": null,
+        "remark": null,
+        "tradeNo": null,
+        "orderPayTime": "0001-01-01 00:00:00",
+        "expireTime": "2024-05-24 10:56:35",
+        "createDate": "2023-05-24 10:56:35",
+        "lastUpdate": "2023-05-24 10:56:35"
+      },
+      "err": ""
+    }
+ */
+})
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;order&lt;/title&gt;
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;label&gt;订单ID&lt;/label&gt;
+    &lt;input type="text" id="orderId" value="1" /&gt;
+    &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+    &lt;p&gt;结果&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.allReady().then(function () {
+            document.getElementById('actionButton').onclick = function () {
+                var orderId = $('#orderId').val();
+                oauthapp.order(orderId).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            };
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| orderId | 订单ID，数值类型  | 1 |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/order.html">演示</a>{ .md-button }    <a href="http://docs.oauthapp.com/coding_sdk_order_order/">教程</a>{ .md-button }</p>

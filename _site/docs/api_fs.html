@@ -1,0 +1,316 @@
+<h1 id="存储">存储</h1>
+
+<h3 id="上传文件">上传文件</h3>
+
+<p><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/TenantBlobs/app/:appId<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>?path=</p>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | POST |  |
+| 登陆凭证 | Bearer Token |  
+| path | 上传路径，默认为根目录 |  
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location 'https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=&amp;service=' \
+    --header 'Content-Type: multipart/form-data' \
+    --header 'Authorization: Bearer ' \
+    --form 'file=""'
+    ```
+
+=== "C# "
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/TenantBlobs/app/        :appId?path=&amp;service=");
+    request.Headers.Add("Authorization", "Bearer ");
+    var content = new MultipartFormDataContent();
+    content.Add(new StringContent(""), "file");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("multipart/form-data");
+    RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+      .addFormDataPart("file","")
+      .build();
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=&amp;service=")
+      .method("POST", body)
+      .addHeader("Content-Type", "multipart/form-data")
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```Nodejs linenums="1"
+    const axios = require('axios');
+    const FormData = require('form-data');
+    let data = new FormData();
+    data.append('file', '');
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=&amp;service=',
+      headers: { 
+        'Content-Type': 'multipart/form-data', 
+        'Authorization': 'Bearer ', 
+        ...data.getHeaders()
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+    import mimetypes
+    from codecs import encode
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    dataList = []
+    boundary = 'wL36Yn8afVp8Ag7AmP8qZ0SA4n1v9T'
+    dataList.append(encode('--' + boundary))
+    dataList.append(encode('Content-Disposition: form-data; name=file;'))
+
+    dataList.append(encode('Content-Type: {}'.format('text/plain')))
+    dataList.append(encode(''))
+
+    dataList.append(encode(""))
+    dataList.append(encode('--'+boundary+'--'))
+    dataList.append(encode(''))
+    body = b'\r\n'.join(dataList)
+    payload = body
+    headers = {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ',
+      'Content-type': 'multipart/form-data; boundary={}'.format(boundary)
+    }
+    conn.request("POST", "/api/TenantBlobs/app/:appId?path=&amp;service=", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "multipart/form-data");
+    myHeaders.append("Authorization", "Bearer ");
+
+    var formdata = new FormData();
+    formdata.append("file", "");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=&amp;service=", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | 上传成功后的文件地址 |
+
+```json linenums="1"
+{
+    "code": 200,
+    "data": "https://2.fs.oauthapp.com/知识.png",
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/TenantBlobs/TenantBlobUpload">在线调试</a>{ .md-button }</p>
+
+<h3 id="删除文件">删除文件</h3>
+
+<p><sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>/api/TenantBlobs/app/:appId<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>?path=</p>
+
+<p>???+ note “提示”
+    系统保留文件夹及文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- /database
+
+- /appversion
+
+- /releasetemp
+
+- /__chatmessages
+
+- /__ranks
+
+- /web.config
+
+- /__loghistory.txt
+</code></pre></div></div>
+
+<p>=== “请求参数”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| 请求方式 | DELETE |  |
+| 登陆凭证 | Bearer Token |  |
+| path | 文件或文件夹的路径 |  |
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== "cURL"
+
+    ```curl linenums="1"
+    curl --location --request DELETE 'https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=' \
+    --header 'Authorization: Bearer '
+    ```
+
+=== "C# "
+
+    ```CSharp linenums="1"
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Delete, "https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=");
+    request.Headers.Add("Authorization", "Bearer ");
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    Console.WriteLine(await response.Content.ReadAsStringAsync());
+    ```
+
+=== "Java"
+
+    ```Java linenums="1"
+    OkHttpClient client = new OkHttpClient().newBuilder()
+      .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create(mediaType, "");
+    Request request = new Request.Builder()
+      .url("https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=")
+      .method("DELETE", body)
+      .addHeader("Authorization", "Bearer ")
+      .build();
+    Response response = client.newCall(request).execute();
+    ```
+
+=== "NodeJs"
+
+    ```Nodejs linenums="1"
+    const axios = require('axios');
+
+    let config = {
+      method: 'delete',
+      maxBodyLength: Infinity,
+      url: 'https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=',
+      headers: { 
+        'Authorization': 'Bearer '
+      }
+    };
+
+    axios.request(config)
+    .then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) =&gt; {
+      console.log(error);
+    });
+    ```
+
+=== "Python"
+
+    ```Python linenums="1"
+    import http.client
+
+    conn = http.client.HTTPSConnection("www.oauthapp.com")
+    payload = ''
+    headers = {
+      'Authorization': 'Bearer '
+    }
+    conn.request("DELETE", "/api/TenantBlobs/app/:appId?path=", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+    ```
+
+=== "JavaScript"
+
+    ```JavaScript linenums="1"
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer ");
+
+    var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://www.oauthapp.com/api/TenantBlobs/app/:appId?path=", requestOptions)
+      .then(response =&gt; response.text())
+      .then(result =&gt; console.log(result))
+      .catch(error =&gt; console.log('error', error));
+    ```
+</code></pre></div></div>
+
+<p>=== “返回数据”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 描述 |  |  |
+| --- | --- | --- |
+| code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+| err | 错误信息 |  |
+| data | 表示返回的数据 | true 或 false |
+
+```json
+{
+    "code": 200,
+    "data": true,
+    "err": ""
+}
+```
+</code></pre></div></div>
+
+<p><a href="https://www.oauthapp.com/swagger/index.html#/TenantBlobs/TenantBlobDelete">在线调试</a>{ .md-button }</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>serverUrl：https://www.oauthapp.com <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>appId：需要替换为实际应用的 ID <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:2:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+  </ol>
+</div>

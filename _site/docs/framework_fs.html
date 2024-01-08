@@ -1,0 +1,116 @@
+<h1 id="存储">存储</h1>
+
+<h3 id="上传文件">上传文件</h3>
+
+<p>oauthapp.upload</p>
+
+<p>???+ note “提示”
+    用于将文件上传到OAuthApp服务器上，并返回上传后的文件路径</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.upload(file,path).then(function(res){
+    console.log(res);
+})
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;upload&lt;/title&gt;
+  &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+  &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;选择文件：&lt;input id="fileUploader" type="file"&gt;&lt;/div&gt;
+  &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;script&gt;
+    oauthapp.allReady().then(function () {
+      document.getElementById('fileUploader').onchange = function (event) {
+        var file = event.target.files[0];
+        oauthapp.upload(file).then(function (res) {
+          $('#result').text(JSON.stringify(res));
+        })
+      }
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;      
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| file | 上传表单文件的file  |  |
+| path | 上传路径，可空  |  |
+| service | 存储服务  | 默认为空，或填写：**azure** （需先配置azure blob密钥） |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/upload.html">演示</a>{ .md-button } <a href="https://docs.oauthapp.com/coding_sdk_fs_upload.html">教程</a>{ .md-button }</p>
+
+<h3 id="删除文件">删除文件</h3>
+
+<p>oauthapp.fsDelete</p>
+
+<p>=== “方法”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```JavaScript linenums="1"
+oauthapp.fsDelete(file,path).then(function(res){
+    console.log(res);
+})
+```
+</code></pre></div></div>
+
+<p>=== “示例”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```HTML linenums="1"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;删除文件&lt;/title&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/   script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h3&gt;删除文件&lt;/h3&gt;
+        &lt;p&gt;path：&lt;input type="text" id="path" /&gt;&lt;/p&gt;
+        &lt;p&gt;
+            &lt;button type="button" id="actionButton"&gt;提交&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        oauthapp.ready().then(function () {
+            $('#actionButton').click(function () {
+                var path = $('#path').val();
+                oauthapp.fsDelete(path).then(function (res) {
+                    $('#result').text(JSON.stringify(res));
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+</code></pre></div></div>
+
+<p>=== “参数说明”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| 参数  | 说明 |  |
+| ----------- | ----------- | ----------- |
+| path | 文件或文件夹的路径，必填  |  |
+</code></pre></div></div>
+
+<p><a href="https://web.oauthapp.com/4/examples/apidemo/fsDelete.html">演示</a>{ .md-button } 
+<!-- [教程](https://docs.oauthapp.com/coding_sdk_fs_upload/){ .md-button } --></p>

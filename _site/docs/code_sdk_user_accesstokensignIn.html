@@ -1,0 +1,89 @@
+<h1 id="access_token-登录">access_token 登录</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;label&gt;access_token&lt;/label&gt;
+        &lt;input type="text" id="access_token" /&gt;
+        &lt;label&gt;expires_in&lt;/label&gt;
+        &lt;input type="number" id="expires_in" value="7200" /&gt;
+        &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;h1&gt;结果&lt;/h1&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<p>代码片段显示了一个包含两个输入框和一个登录按钮的HTML表单。其中输入框用于输入访问令牌(access_token)和过期时间(expires_in)，登录按钮用于提交表单。在点击登录按钮后，应该会发起一个请求来验证输入的访问令牌。验证成功后，相关结果将显示在页面上方的”H1”标签下的”结果”标签内的div元素中。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    oauthapp.ready().then(function () {
+        document.getElementById('signInButton').onclick = function () {
+            oauthapp.accesstokenSignIn(
+                $('#access_token').val(),
+               parseInt($('#expires_in').val())
+            ).then(function (res) {
+            });
+        }
+    });
+   </code></p>
+
+<p>当用户点击登录按钮时，会调用accesstokenSignIn方法，该方法将使用传递的参数进行身份验证。如果验证成功，则返回相应的用户信息。</p>
+
+<h2 id="步骤四测试结果">步骤四：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;accesstokenSignIn&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;label&gt;access_token&lt;/label&gt;
+            &lt;input type="text" id="access_token" /&gt;
+            &lt;label&gt;expires_in&lt;/label&gt;
+            &lt;input type="number" id="expires_in" value="7200" /&gt;
+            &lt;button type="button" id="signInButton"&gt;登录&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;h1&gt;结果&lt;/h1&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.ready().then(function () {
+                document.getElementById('signInButton').onclick = function () {
+                    oauthapp.accesstokenSignIn(
+                        $('#access_token').val(),
+                       parseInt($('#expires_in').val())
+                    ).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    });
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>

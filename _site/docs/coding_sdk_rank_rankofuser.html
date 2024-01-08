@@ -1,0 +1,90 @@
+<h1 id="用户排名--我的排名">用户排名 / 我的排名</h1>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “完整代码 - HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;div&gt;
+        &lt;input type="text" id="table" placeholder="table" /&gt;
+        &lt;input type="text" id="platform" placeholder="platform" /&gt;
+        &lt;input type="text" id="unionid" placeholder="unionid" /&gt;
+        &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+   </code></p>
+
+<p>这段代码包含一个表单和一个展示结果的区域。表单中有三个输入框用于填写table、platform和unionid，以及一个按钮用于查询相关信息。</p>
+
+<p>点击查询按钮后，会调用oauthapp.rankOfUser()函数，传入表单中的参数进行查询，并将查询结果展示在结果区域中。</p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    ```Javascript
+    oauthapp.allReady().then(function () {
+        document.getElementById(‘queryButton’).onclick = function () {
+            var table = $(‘#table’).val();
+            var platform = $(‘#platform’).val();
+            var unionid = $(‘#unionid’).val();
+            oauthapp.rankOfUser(table, platform, unionid).then(function (res) {</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        })
+    }
+});
+```
+</code></pre></div></div>
+
+<p>这段代码使用了OAuth应用程序的JavaScript SDK，先检查应用程序是否准备好，然后在查询按钮被点击时，获取输入的表名（table）、平台（platform）和UnionID（unionid），并调用 rankOfUser 方法来查询指定用户在指定表格中的排名信息。</p>
+
+<h2 id="步骤三测试结果">步骤三：测试结果</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    $('#result').text(JSON.stringify(res));
+   </code></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;rankOfMe&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;input type="text" id="table" placeholder="table" /&gt;
+            &lt;input type="text" id="platform" placeholder="platform" /&gt;
+            &lt;input type="text" id="unionid" placeholder="unionid" /&gt;
+            &lt;button type="button" id="queryButton"&gt;查询&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div&gt;结果：&lt;span id="result"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.allReady().then(function () {
+                document.getElementById('queryButton').onclick = function () {
+                    var table = $('#table').val();
+                    var platform = $('#platform').val();
+                    var unionid = $('#unionid').val();
+                    oauthapp.rankOfUser(table, platform, unionid).then(function (res) {
+                        $('#result').text(JSON.stringify(res));
+                    })
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
+

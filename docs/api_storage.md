@@ -1004,7 +1004,7 @@ tags:
     | --- | --- | --- |
     | 请求方式 | DELETE |  |
     | 登陆凭证 | Bearer Token |  |
-    | filter | 可选，指定要筛选的条件。json对象，属性名是要筛选的字段名，属性值是对应的值。 | {"name":"123"} |
+    | filter | 可选，指定要筛选的条件。json对象。格式：**[{自定义属性名:自定义属性值,op:"="}...]**，**op代表过滤运算符支持**：{++>、>=、<、<=、=、!=、like、and、or++} | - 例如要查找 **id>0 and id < 6** 的数据：{==[{id:0,op:">"},{op:"and"},{id:6,op:"<"}]==}  - 例如查找 **newsType = 1 or newsType = 2 and userId = 2** 的数据：{==[{newsType:1,op:"="},{op:"or"},{newsType:2,op:"="},{op:"and"},{userId:2,op:"="}]==} - 如果是**查找子节点** {==[{"chat.person":"zhang3",op:"="}]==} - 如果是**查找数组**：{==[{"items[2].person":"zhang3",op:"="}]==} |
 
 === "示例"
 

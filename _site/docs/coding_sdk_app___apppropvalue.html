@@ -1,0 +1,87 @@
+<h1 id="获取应用配置">获取应用配置</h1>
+
+<p>!!! Tip “提示”
+    OAuthApp提供了一个名为__appPropValue()的方法，用于获取OAuthApp应用中特定属性的值。通过调用此方法，您可以轻松地获取OAuthApp应用中的各种属性，例如应用名称、应用图标、应用描述等等。属性代码可以在OAuthApp应用管理页面中找到。这个方法通常与其他OAuthApp SDK方法一起使用，以便根据应用配置来自定义OAuth登录体验，例如更改OAuth登录按钮的文本或样式等。</p>
+
+<p>下面是使用__appPropValue()方法的示例代码：</p>
+
+<h2 id="步骤一引入-oauthapp-库">步骤一：引入 OAuthApp 库</h2>
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+    &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid="2"&gt;&lt;/script&gt;
+   </code></p>
+
+<p>在 HTML 文件的头部，我们首先需要引入 OAuthApp 库。其中 data-appid 属性需要替换为你的 OAuthApp 应用的 ID。</p>
+
+<h2 id="步骤二页面结构">步骤二：页面结构</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;label for="propCode"&gt;属性代码:&lt;/label&gt;
+    &lt;input type="text" id="propCode" /&gt;
+    &lt;p&gt;结果:&lt;/p&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+   </code></p>
+
+<h2 id="步骤三调用方法">步骤三：调用方法</h2>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+     oauthapp.allReady().then(function () {
+            var propCode = document.getElementById("propCode").value;
+            var propValue = oauthapp.__appPropValue(propCode);
+    });
+   </code></p>
+
+<p>在脚本部分，我们在oauthapp.allReady()方法中使用__appPropValue()方法获取属性值。</p>
+
+<h2 id="步骤四测试结果">步骤四：测试结果</h2>
+
+<p>将结果显示在页面上。</p>
+
+<p>=== “Javascript”
+    <code class="language-plaintext highlighter-rouge">Javascript
+    if (propValue != '') {
+         document.getElementById("result").innerHTML = propValue;
+     }
+     else{
+         document.getElementById("result").innerHTML = '属性不存在，获取没有设置接口权限。';
+     }
+   </code></p>
+
+<p><strong>需要注意的是，获取应用属性值之前需要确保已经设置了接口权限。如果属性不存在或者获取没有设置接口权限，__appPropValue()方法将返回空字符串。</strong></p>
+
+<h2 id="完整代码示例">完整代码示例</h2>
+
+<p>=== “HTML”
+    <code class="language-plaintext highlighter-rouge">HTML
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;__appPropValue&lt;/title&gt;
+        &lt;!-- data-appid 属性替换为你的 OAuthApp 应用的 ID --&gt;
+        &lt;script id="appcore" src="https://www.oauthapp.com/lib/sdk/oauthapp.1.9.8.js" data-appid=""&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;label for="propCode"&gt;属性代码:&lt;/label&gt;
+        &lt;input type="text" id="propCode" /&gt;
+        &lt;p&gt;结果:&lt;/p&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+        &lt;script&gt;
+            oauthapp.allReady().then(function () {
+                var propCode = document.getElementById("propCode").value;
+                var propValue = oauthapp.__appPropValue(propCode);
+                if (propValue != '') {
+                    document.getElementById("result").innerHTML = propValue;
+                }
+                else{
+                    document.getElementById("result").innerHTML = '属性不存在，获取没有设置接口权限。';
+                }
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+   </code></p>
