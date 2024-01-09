@@ -264,8 +264,6 @@ extra:
   social:
     - icon: fontawesome/brands/git 
       link: https://gitee.com/seven1986/oauthapp-docs.git
-    - icon: fontawesome/brands/algolia 
-      link: javascript:void(0)
   # consent:
   #   title: Cookie consent
   #   cookies:
