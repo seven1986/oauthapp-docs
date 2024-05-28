@@ -5,6 +5,8 @@ tags:
 
 # 用户
 
+!!! warning "该文档已废弃"
+
 ## Union ID
 
 ### 登录
@@ -2995,9 +2997,9 @@ tags:
 [在线调试](https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserUpdateProfile){ .md-button }
 
 
-## 货币交易记录
+## 积分记录
 
-{{serverUrl}}[^1]/api/AppUsers/:appId[^2]/CurrencyTransactions?type=&skip=&take=
+{{serverUrl}}[^1]/api/AppUsers/:appId[^2]/PointLog?type=&skip=&take=
 
 === "请求参数"
 
@@ -3005,10 +3007,7 @@ tags:
     | ----------- | ----------- | ----------- |
     | 请求方式 | GET |  |
     | 登陆凭证 | Bearer Token |  |
-    | transType | 交易类型 | 为空代表全部，可选值：1：recharge，2：consume，3：transfer |
-    | curCode | 货币代码 | 为空代表全部，可选值为用于自定义的货币代码 |
-    | startTime | 开始时间 | 2024-5-28 |
-    | endTime | 结束时间 | 2024-5-29 |
+    | type | 分类 | 0：全部，1：充值，2：消耗 |
     | skip |  可选，指定要拉取的数据条数。 | 0 |
     | take |  可选，指定要跳过的数据条数。 | 10 |
 
@@ -3017,7 +3016,7 @@ tags:
     === "cURL"
 
         ```curl linenums="1"
-        curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/CurrencyTransactions?type=&skip=&take=' \
+        curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&skip=&take=' \
         --header 'Authorization: Bearer {{access_token}}'
         ```
     
@@ -3026,7 +3025,7 @@ tags:
         ```CSharp linenums="1"
         var options = new RestClientOptions("https://www.oauthapp.com");
         var client = new RestClient(options);
-        var request = new RestRequest("/api/AppUsers/:appId/CurrencyTransactions?type=&skip=&take=", Method.Get);
+        var request = new RestRequest("/api/AppUsers/:appId/PointLog?type=&skip=&take=", Method.Get);
         request.AddHeader("Authorization", "Bearer {{access_token}}");
         RestResponse response = await client.ExecuteAsync(request);
         Console.WriteLine(response.Content);
@@ -3040,7 +3039,7 @@ tags:
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create(mediaType, "");
         Request request = new Request.Builder()
-          .url("https://www.oauthapp.com/api/AppUsers/:appId/CurrencyTransactions?type=&skip=&take=")
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&skip=&take=")
           .method("GET", body)
           .addHeader("Authorization", "Bearer {{access_token}}")
           .build();
@@ -3055,7 +3054,7 @@ tags:
         let config = {
           method: 'get',
           maxBodyLength: Infinity,
-          url: 'https://www.oauthapp.com/api/AppUsers/:appId/CurrencyTransactions?type=&skip=&take=',
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&skip=&take=',
           headers: { 
             'Authorization': 'Bearer {{access_token}}'
           }
@@ -3080,7 +3079,7 @@ tags:
         headers = {
           'Authorization': 'Bearer {{access_token}}'
         }
-        conn.request("GET", "/api/AppUsers/:appId/CurrencyTransactions?type=&skip=&take=", payload, headers)
+        conn.request("GET", "/api/AppUsers/:appId/PointLog?type=&skip=&take=", payload, headers)
         res = conn.getresponse()
         data = res.read()
         print(data.decode("utf-8"))
@@ -3098,7 +3097,7 @@ tags:
           redirect: 'follow'
         };
 
-        fetch("https://www.oauthapp.com/api/AppUsers/:appId/CurrencyTransactions?type=&skip=&take=", requestOptions)
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/PointLog?type=&skip=&take=", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -3138,7 +3137,158 @@ tags:
     }
     ```
 
-[在线调试](https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserCurrencyTransactions){ .md-button }
+[在线调试](https://www.oauthapp.com/swagger/index.html#/AppUsers/AppUserPointLog){ .md-button }
+
+
+
+## 充值积分
+
+{{serverUrl}}[^1]/api/AppUsers/:appId[^2]/RechargePoints
+
+=== "请求参数"
+
+    | 参数  | 说明 |  |
+    | ----------- | ----------- | ----------- |
+    | 请求方式 | GET |  |
+    | 登陆凭证 | Bearer Token |  |
+    | price |  充值金额，必填 | 1 |
+    | remark | 备注信息，可选 |  |
+
+=== "示例"
+
+    === "cURL"
+
+        ```curl linenums="1"
+        curl --location 'https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Bearer {{access_token}}' \
+        --data '{
+            "price": 0,
+            "remark": "string"
+        }'
+        ```
+    
+    === "C#"
+
+        ```CSharp linenums="1"
+        var client = new HttpClient();
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints");
+        request.Headers.Add("Authorization", "Bearer {{access_token}}");
+        var content = new StringContent("{\r\n    \"price\": 0,\r\n    \"remark\": \"string\"\r\n}", null, "application/json");
+        request.Content = content;
+        var response = await client.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
+        ```
+
+    === "Java"
+
+        ```Java linenums="1"
+        OkHttpClient client = new OkHttpClient().newBuilder()
+          .build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, "{\r\n    \"price\": 0,\r\n    \"remark\": \"string\"\r\n}");
+        Request request = new Request.Builder()
+          .url("https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints")
+          .method("POST", body)
+          .addHeader("Content-Type", "application/json")
+          .addHeader("Authorization", "Bearer {{access_token}}")
+          .build();
+        Response response = client.newCall(request).execute();
+        ```
+
+    === "NodeJs"
+
+        ```TypeScript linenums="1"
+        const axios = require('axios');
+        let data = JSON.stringify({
+          "price": 0,
+          "remark": "string"
+        });
+
+        let config = {
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: 'https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints',
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': 'Bearer {{access_token}}'
+          },
+          data : data
+        };
+
+        axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        ```
+
+    === "Python"
+
+        ```Python linenums="1"
+        import http.client
+        import json
+
+        conn = http.client.HTTPSConnection("www.oauthapp.com")
+        payload = json.dumps({
+          "price": 0,
+          "remark": "string"
+        })
+        headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer {{access_token}}'
+        }
+        conn.request("POST", "/api/AppUsers/:appId/RechargePoints", payload, headers)
+        res = conn.getresponse()
+        data = res.read()
+        print(data.decode("utf-8"))
+        ```
+
+    === "JavaScript"
+
+        ```JavaScript linenums="1"
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer {{access_token}}");
+
+        var raw = JSON.stringify({
+          "price": 0,
+          "remark": "string"
+        });
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+
+        fetch("https://www.oauthapp.com/api/AppUsers/:appId/RechargePoints", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        ```
+
+=== "返回数据"
+
+    | 说明 |  |  |
+    | --- | --- | --- |
+    | code | 表示返回结果的状态码 | 200 表示成功，非 200 表示失败 |
+    | data | 表示返回的数据 |  |
+    | err | 错误信息 |  |
+
+    ```json linenums="1"
+    {
+       "code": 200,
+       "data": true,
+       "err": ""
+    }
+    ```
+
+[在线调试](https://games.jixiucloud.cn/swagger/index.html#/AppUsers/AppUserRechargePoints){ .md-button }
 
 
 [^1]:serverUrl：https://www.oauthapp.com

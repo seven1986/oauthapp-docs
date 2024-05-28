@@ -67,7 +67,7 @@ oauthapp.fsDelete
 === "方法"
 
     ```JavaScript linenums="1"
-    oauthapp.fsDelete(file,path).then(function(res){
+    oauthapp.fsDelete(path).then(function(res){
         console.log(res);
     })
     ```
